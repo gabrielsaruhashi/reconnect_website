@@ -30,14 +30,15 @@ class LoginForm extends Component {
     authWithFacebook() {
         const auth = firebase.auth()
         const facebookProvider = new firebase.auth.FacebookAuthProvider()
-
-        console.log("authed with facebook")
+        
+        // sign in with facebook
         auth.signInWithPopup(facebookProvider)
         .then((user, error) => {
           if (error) {
               
             this.toaster.show({ intent: Intent.DANGER, message: "Unable to sign in with Facebook" })
           } else {
+              console.log(user)
             this.props.setCurrentUser(user)
             this.setState({ redirect: true })
           }
@@ -106,11 +107,6 @@ class LoginForm extends Component {
             </div>
         )
     }
-
-    login() {
-        //const auth = firebase.auth();
-        //auth.signInWithEmailAndPassword(email, password)
-    }
 }
 
 function validate(values) {
@@ -139,10 +135,5 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators( {setCurrentUser: setCurrentUser}, dispatch); // selectBook is a function
     
 }
-  /*
-export default reduxForm({
-    form: 'LoginForm',
-    fields: ['email', 'password', 'content'],
-    validate
-  }, null, { createPost })(LoginForm); */
+
   export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

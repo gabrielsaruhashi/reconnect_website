@@ -8,10 +8,12 @@ import LoginForm from './containers/login_form'
 import reducers from './reducers';
 import firebase from 'firebase';
 import { BrowserRouter, Route } from 'react-router-dom';
+import reduxThunk from 'redux-thunk';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 
 // Initialize Firebase
+
 var config = {
   apiKey: "AIzaSyBikhUuxvdby-jvrW45ozvAMHbjN7W8_EQ",
   authDomain: "project-reconnect.firebaseapp.com",
@@ -20,7 +22,7 @@ var config = {
   storageBucket: "",
   messagingSenderId: "412974593069"
 };
-firebase.initializeApp(config);
+firebase.initializeApp(config); 
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

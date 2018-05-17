@@ -1,41 +1,35 @@
 import React, {Component} from 'react'
 import firebase from 'firebase'
-import _ from 'lodash'
+import _ from 'lodash';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { fetchMessages, sendMessage } from '../actions/index'
 
 class ChatRoom extends Component {
     constructor(props, context) {
         super(props, context)
         this.state = {
-            message: "",
-            messages: [
-                {id: 0, text: 'hey'}, 
-                {id: 1, text: 'hello'}               
-            ]
+            message: ""
         }
     }
+    
     componentDidMount() {
-        const rootRef = firebase.database().ref('messages/');
-        
-        rootRef.on('value', snapshot => {
-            const messages = _.values(snapshot.val())
-            console.log(messages)
-
-            if (messages != null) {
-                this.setState({messages})
-            }
-         
-        })
+        // fetch messages from Firebase
+        this.props.fetchMessages();
     }
 
     renderMessages() {
-        return this.state.messages.map((message) => { 
-            return (
-                <li  
-                    key={message.id} 
-                    className="list-group-item">{message.text}
-                </li>
-                )
-        });        
+        if (this.props.messages != null) {
+            return this.props.messages.map((message) => { 
+                return (
+                    <li  
+                        key={message.id} 
+                        className="list-group-item">{message.text}
+                    </li>
+                    )
+            });      
+        }
+          
     }
     render() {
         return (
@@ -57,17 +51,24 @@ class ChatRoom extends Component {
     }
 
     sendMessage(event) {
-        //console.log(this.state.message)
-        var message = {id: this.state.messages.length, text: this.state.message};
-        //var messages = [... this.state.messages, message ]
-        //this.setState({messages})
-
-        firebase.database().ref('messages/' + message.id).set(message);
+        const message = {id: this.props.messages.length + 1, text: this.state.message};
+        this.props.sendMessage(message);
+        //firebase.database().ref('messages/' + message.id).set(message);
     }
     // define event handler to handle events - first step
 	onInputChange(message) {
         this.setState({message});
 	}
 }
+function mapStateToProps(state) {
+	return {
+        active_user: state.active_user,
+        messages: state.messages
+	};
+}
 
-export default ChatRoom
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators( {fetchMessages: fetchMessages, sendMessage: sendMessage}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom);

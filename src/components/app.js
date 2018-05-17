@@ -4,6 +4,9 @@ import ChatRoom from './chatroom'
 import GoogleMap from './google_map'
 import Header from './header'
 export default class App extends Component {
+  componentWillMount () {
+    
+  }
   render() {
     return (
       <div>
