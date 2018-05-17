@@ -10,8 +10,6 @@ export default class App extends Component {
         <Header />
         <ChatRoom />
       </div>
-        
-        
     );
   }
 }
