@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
 import App from './components/app';
-import LoginForm from './components/login_form'
+import LoginForm from './containers/login_form'
 import reducers from './reducers';
 import firebase from 'firebase';
 import { BrowserRouter, Route } from 'react-router-dom';
