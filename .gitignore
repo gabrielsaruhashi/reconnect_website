@@ -6,3 +6,7 @@ npm-debug.log
 # IntelliJ
 *.iml
 /.idea
+
+yarn-error.log
+yarn.lock
+package-lock.json

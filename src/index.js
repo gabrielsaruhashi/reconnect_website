@@ -4,8 +4,10 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 
 import App from './components/app';
+import LoginForm from './components/login_form'
 import reducers from './reducers';
 import firebase from 'firebase';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 const createStoreWithMiddleware = applyMiddleware()(createStore);
 
@@ -23,6 +25,11 @@ firebase.initializeApp(config);
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
 
-    <App />
+    <BrowserRouter>
+      <div>
+        <Route exact path="/" component={App}/>
+        <Route exact path="/login" component={LoginForm}/>
+      </div>
+    </BrowserRouter>
   </Provider>
   , document.querySelector('.container'));
