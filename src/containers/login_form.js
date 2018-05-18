@@ -22,7 +22,8 @@ class LoginForm extends Component {
         this.authWithFacebook = this.authWithFacebook.bind(this)
         this.authWithEmailPassword = this.authWithEmailPassword.bind(this)
         this.state = {
-            redirect: false
+            redirect: false,
+            new_user: false
           }
       
     }
@@ -38,8 +39,10 @@ class LoginForm extends Component {
               
             this.toaster.show({ intent: Intent.DANGER, message: "Unable to sign in with Facebook" })
           } else {
-              console.log(user)
             this.props.setCurrentUser(user)
+            if (user.additionalUserInfo.isNewUser) {
+                this.setState({new_user:true});
+            }
             this.setState({ redirect: true })
           }
         })
@@ -50,38 +53,55 @@ class LoginForm extends Component {
 
         const email = this.emailInput.value
         const password = this.passwordInput.value
-
-        app.auth().fetchProvidersForEmail(email)
+        firebase.auth().fetchSignInMethodsForEmail(email)
         .then((providers) => {
             if (providers.length === 0) {
             // create user
-            return app.auth().createUserWithEmailAndPassword(email, password)
+            return firebase.auth().createUserWithEmailAndPassword(email, password)
             } else if (providers.indexOf("password") === -1) {
             // they used facebook
             this.loginForm.reset()
             this.toaster.show({ intent: Intent.WARNING, message: "Try alternative login." })
             } else {
             // sign user in
-            return app.auth().signInWithEmailAndPassword(email, password)
+            return firebase.auth().signInWithEmailAndPassword(email, password)
             }
         })
         .then((user) => {
-            if (user && user.email) {
+            if (user) {
+                // if new user create entry in firebase
+                if (user.additionalUserInfo.isNewUser) {
+                    const uid = user.user.uid;
+                    const newUser = {  
+                        "uid": uid,
+                        "name": user.user.displayName,
+                        "email": user.user.email
+                    }
+                    // create entry in firebase
+                    firebase.database().ref('users/' + uid).set(newUser);
+                    this.setState({new_user: true});
+        
+                }
                 this.loginForm.reset()
                 this.props.setCurrentUser(user)
-                console.log(this.props.active_user)
+
                 // create user
                 this.setState({redirect: true})
             }
         })
         .catch((error) => {
-            console.log("error")
-            this.toaster.show({ intent: Intent.DANGER, message: error.message })
+            console.log(error)
+            //this.toaster.show({ intent: Intent.DANGER, message: error })
         })
     }
     render() {
         if (this.state.redirect === true) {
-            return <Redirect to={'/'} />
+            if (this.state.new_user) {
+                return <Redirect to={'/edit'} />
+            }
+            else {
+                return <Redirect to={'/'} />
+            }
         }
       
         return (
@@ -132,7 +152,6 @@ function mapStateToProps(state) {
 
 // dispatch to all
 function mapDispatchToProps(dispatch) {
-	
     return bindActionCreators( {setCurrentUser: setCurrentUser}, dispatch); // selectBook is a function
     
 }

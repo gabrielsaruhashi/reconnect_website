@@ -7,6 +7,7 @@ import Checkbox from '../components/checkbox';
 import { Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 
+const BUCKET = "project-reconnect.appspot.com/"
 const items = [
     "Sports",
     "Culture",
@@ -16,6 +17,9 @@ const items = [
 class EditProfile extends Component {
     constructor() {
         super();
+        this.state = {
+            redirect: false
+        }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -36,27 +40,27 @@ class EditProfile extends Component {
         event.preventDefault();
 
         const usr = firebase.auth().currentUser;
-        const name = usr.displayName
+        const uid = usr.uid;
 
         var interests = [];
         for (const checkbox of this.selectedCheckboxes) {
             interests.push(checkbox)
         }
-      
-
+        
+        const storage = firebase.storage();
+        // get uploaded profile picture and upload it to 
         const file = event.target.image.files[0];
-        const path = usr.uid + '/profilePicture/' + file.name
-        var storageRef = firebase.storage().ref(path);
-        // store
-        var task = storageRef.put(file);
-    
-        var picRef = firebase.storage().ref().child(path);
-        const user = {
-            name: {
-                "email": usr.email,
-                "prof_picture": picRef
-            }        
+        const path = uid + '/profilePicture/' + file.name
+        var task = storage.ref(path).put(file);        
+
+        const newInfo = {
+            "interests": interests
         }
+        
+        // update user entry
+        firebase.database().ref('users/' + uid).update(newInfo)
+        this.setState({redirect: true})
+        
     }
 
     createCheckbox = label => (
@@ -72,6 +76,9 @@ class EditProfile extends Component {
     ) 
 
     render() {
+        if (this.state.redirect === true) {
+            return <Redirect to={'/edit_about_me'} />
+        }
         return(
 
             <div>

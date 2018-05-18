@@ -5,7 +5,8 @@ import { createStore, applyMiddleware } from 'redux';
 
 import App from './components/app';
 import LoginForm from './containers/login_form'
-import EditProfile from './containers/edit_profile'
+import EditProfile from './containers/edit_profile';
+import EditAboutMe from './containers/edit_about_me'
 
 import reducers from './reducers';
 import firebase from 'firebase';
@@ -33,7 +34,9 @@ ReactDOM.render(
       <div>
         <Route exact path="/" component={App}/>
         <Route exact path="/login" component={LoginForm}/>
+        <Route exact path="/edit_about_me" component={EditAboutMe}/>
         <Route exact path="/edit" component={EditProfile}/>
+        
       </div>
     </BrowserRouter>
   </Provider>
