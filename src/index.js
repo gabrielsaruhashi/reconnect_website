@@ -5,6 +5,8 @@ import { createStore, applyMiddleware } from 'redux';
 
 import App from './components/app';
 import LoginForm from './containers/login_form'
+import EditProfile from './containers/edit_profile'
+
 import reducers from './reducers';
 import firebase from 'firebase';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -19,7 +21,7 @@ var config = {
   authDomain: "project-reconnect.firebaseapp.com",
   databaseURL: "https://project-reconnect.firebaseio.com",
   projectId: "project-reconnect",
-  storageBucket: "",
+  storageBucket: "project-reconnect.appspot.com",
   messagingSenderId: "412974593069"
 };
 firebase.initializeApp(config); 
@@ -31,6 +33,7 @@ ReactDOM.render(
       <div>
         <Route exact path="/" component={App}/>
         <Route exact path="/login" component={LoginForm}/>
+        <Route exact path="/edit" component={EditProfile}/>
       </div>
     </BrowserRouter>
   </Provider>

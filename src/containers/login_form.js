@@ -67,10 +67,11 @@ class LoginForm extends Component {
         })
         .then((user) => {
             if (user && user.email) {
-            this.loginForm.reset()
-            this.props.setCurrentUser(user)
-            console.log(this.props.active_user)
-            this.setState({redirect: true})
+                this.loginForm.reset()
+                this.props.setCurrentUser(user)
+                console.log(this.props.active_user)
+                // create user
+                this.setState({redirect: true})
             }
         })
         .catch((error) => {
