@@ -1,27 +1,48 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Jumbotron, Button, Form, FormGroup, Checkbox, ProgressBar } from 'react-bootstrap';  
-import Header from '../components/header'
-import firebase from 'firebase'
+import { Jumbotron, Button, Form, FormGroup, ProgressBar } from 'react-bootstrap';  
+import Header from '../components/header';
+import Checkbox from '../components/checkbox';
+import { Redirect } from 'react-router-dom';
+import firebase from 'firebase';
+
+const items = [
+    "Sports",
+    "Culture",
+    "Nightlife"
+];
 
 class EditProfile extends Component {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-      }
+    }
+
+    
+    componentWillMount = () => {
+        this.selectedCheckboxes = new Set();
+    }
+    
+    toggleCheckbox = label => {
+        if (this.selectedCheckboxes.has(label)) {
+            this.selectedCheckboxes.delete(label);
+        } else {
+            this.selectedCheckboxes.add(label);
+        }
+    }
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(event.target.image.files[0])
+
         const usr = firebase.auth().currentUser;
         const name = usr.displayName
 
         var interests = [];
-        for (var i = 0; i < this.refs.interests.props.children.length; i++) {
-            const checkbox = this.refs.interests.props.children[i];
-             
+        for (const checkbox of this.selectedCheckboxes) {
+            interests.push(checkbox)
         }
+      
 
         const file = event.target.image.files[0];
         const path = usr.uid + '/profilePicture/' + file.name
@@ -29,17 +50,26 @@ class EditProfile extends Component {
         // store
         var task = storageRef.put(file);
     
-        var picRef = firebase.storage().ref().child(path).fullPath;
+        var picRef = firebase.storage().ref().child(path);
         const user = {
             name: {
                 "email": usr.email,
                 "prof_picture": picRef
             }        
         }
-        //firebase.database().ref('users/' + "gabe").put(user)
+    }
 
+    createCheckbox = label => (
+        <Checkbox
+                label={label}
+                handleCheckboxChange={this.toggleCheckbox}
+                key={label}
+            />
+      )
     
-      }
+    createCheckboxes = () => (
+        items.map(this.createCheckbox)
+    ) 
 
     render() {
         return(
@@ -64,10 +94,8 @@ class EditProfile extends Component {
                         <input name="image" type="file" accept="image/*" capture></input>
 
                         <h2>Interests</h2>
-                        <FormGroup ref="interests">
-                            <Checkbox name="sports">Sports</Checkbox> <Checkbox name="cs">Computer Science</Checkbox>{' '}
-                            <Checkbox name="culture">Culture</Checkbox>
-                        </FormGroup>
+                        {this.createCheckboxes()}
+
                         <button className="btn btn-seconday">Next</button>
                     </form>
                     

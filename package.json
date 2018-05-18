@@ -31,6 +31,7 @@
     "babel-preset-stage-1": "^6.1.18",
     "firebase": "^5.0.2",
     "lodash": "^3.10.1",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.3.2",
