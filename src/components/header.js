@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { setCurrentUser } from '../actions/index'
 class Header extends Component {
-
+  /*
   render() {
     console.log(this.props.authenticated)
     return (
@@ -50,6 +50,31 @@ class Header extends Component {
          
     </Navbar>
     );
+  } */
+
+  render() {
+    return(
+      <nav>
+        <div className='app-brand'>
+          
+          <span className='red'>Project</span>
+          <span>ReConnect</span>
+         
+            
+        </div>
+        <ul className='links'>
+          <li>
+            <Link to="/">My Reconnections</Link>
+          </li>
+          <li>
+            <Link to="/">Opportunities</Link>
+          </li>
+          <li>
+            <Link to="/">Explore</Link>
+          </li>
+        </ul>
+      </nav>
+    )
   }
 }
 function mapStateToProps(state) {

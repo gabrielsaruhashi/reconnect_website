@@ -1,0 +1,82 @@
+@import url("http://fonts.googleapis.com/css?family=Lato:400,700");
+@import url("http://fonts.googleapis.com/css?family=Lato:400,700");
+@import url("http://fonts.googleapis.com/css?family=Lato:400,700");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  /* without this, any padding or border are added to height and width*/
+  box-sizing: inherit;
+  /* all elements get border-box from body */ }
+
+html {
+  /* now, 1rem = 10px; rem is root font size */
+  /* font-size: 10px; but we should use percentage 10/16*/
+  font-size: 62.5%; }
+
+body {
+  font-family: "Lato", sans-serif; }
+
+a {
+  text-decoration: none;
+  color: inherit; }
+
+span {
+  text-decoration: none;
+  color: inherit; }
+
+/* parent element, inheritance */
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  box-sizing: border-box; }
+
+nav {
+  background: #fff;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  white-space: nowrap;
+  overflow: hidden; }
+
+.app-brand {
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 1.2em;
+  color: #fff;
+  background: #222;
+  padding: 22px 39px;
+  vertical-align: top;
+  letter-spacing: 0.2em; }
+  .app-brand .red {
+    padding-right: 0.7em;
+    color: #f2a908; }
+
+ul.links {
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: top;
+  color: #fff;
+  margin: 24px 150px 0;
+  font-weight: 800;
+  font-size: 1.05em; }
+  ul.links li {
+    display: inline-block; }
+    ul.links li a {
+      color: #000;
+      font-weight: 500;
+      padding: 0 40px;
+      margin: 0 10px;
+      letter-spacing: 0.18em; }
+      ul.links li a:hover, ul.links li a:active {
+        text-decoration: none;
+        padding: 0 38px 19px;
+        border-bottom: 4px solid red;
+        font-family: "Lato", sans-serif;
+        font-weight: 700; }

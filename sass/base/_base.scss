@@ -1,0 +1,31 @@
+@import '../abstracts/variables';
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    /* without this, any padding or border are added to height and width*/
+
+    box-sizing: inherit; 
+    /* all elements get border-box from body */
+}
+
+html {
+    /* now, 1rem = 10px; rem is root font size */
+    /* font-size: 10px; but we should use percentage 10/16*/
+    // this defines what 1 rem is
+    font-size: 62.5%;
+}
+
+body {
+    font-family: $font;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+span {
+    text-decoration: none;
+    color:inherit;
+}
