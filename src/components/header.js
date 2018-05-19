@@ -14,7 +14,7 @@ class Header extends Component {
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">React-Bootstrap</Link>
+            <Image src="../public/logo.png"/>
           </Navbar.Brand>
         </Navbar.Header>
         {
@@ -36,7 +36,7 @@ class Header extends Component {
                   {this.props.active_user.name}
                 </NavItem>
                 <NavItem eventKey={2}>
-                  <Image src="/thumbnail.png" circle />
+                  
 
                 </NavItem>
               </Nav>
