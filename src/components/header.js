@@ -4,10 +4,12 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Image} from 'react-bootstr
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import firebase from 'firebase'
+import firebase from 'firebase';
+import { setCurrentUser } from '../actions/index'
 class Header extends Component {
 
   render() {
+    console.log(this.props.authenticated)
     return (
       <Navbar>
         <Navbar.Header>
@@ -16,7 +18,7 @@ class Header extends Component {
           </Navbar.Brand>
         </Navbar.Header>
         {
-          this.props.active_user? (
+          this.props.authenticated && this.props.active_user? (
             <div>
               <Nav>
                 <NavItem eventKey={1} href="#">Link</NavItem>
@@ -31,7 +33,7 @@ class Header extends Component {
               </Nav>
               <Nav pullRight>
                 <NavItem eventKey={1} href="#">
-                  {this.props.active_user.user.displayName}
+                  {this.props.active_user.name}
                 </NavItem>
                 <NavItem eventKey={2}>
                   <Image src="/thumbnail.png" circle />
@@ -52,9 +54,10 @@ class Header extends Component {
 }
 function mapStateToProps(state) {
 	return {
-		active_user: state.active_user
+    active_user: state.active_user,
+    authenticated: state.authenticated
 	};
 }
 
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);

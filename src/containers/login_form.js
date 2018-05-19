@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { Alert } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setCurrentUser } from '../actions/index'
+import { setCurrentUser, authenticate } from '../actions/index'
 
 const loginStyles = {
     width: "90%",
@@ -24,8 +24,7 @@ class LoginForm extends Component {
         this.state = {
             redirect: false,
             new_user: false
-          }
-      
+        }
     }
 
     authWithFacebook() {
@@ -44,6 +43,7 @@ class LoginForm extends Component {
                 this.setState({new_user:true});
             }
             this.setState({ redirect: true })
+            
           }
         })
     }
@@ -69,23 +69,26 @@ class LoginForm extends Component {
         })
         .then((user) => {
             if (user) {
+                const uid = user.user.uid;
                 // if new user create entry in firebase
                 if (user.additionalUserInfo.isNewUser) {
-                    const uid = user.user.uid;
+                    
+                    // compile info of new user
                     const newUser = {  
                         "uid": uid,
-                        "name": user.user.displayName,
                         "email": user.user.email
                     }
+
                     // create entry in firebase
                     firebase.database().ref('users/' + uid).set(newUser);
+
                     this.setState({new_user: true});
         
                 }
+                // reset form
                 this.loginForm.reset()
-                this.props.setCurrentUser(user)
 
-                // create user
+                // redirect to next route
                 this.setState({redirect: true})
             }
         })
@@ -146,14 +149,15 @@ function validate(values) {
 // props to login_form
 function mapStateToProps(state) {
     return {
-		active_user: state.active_user
+        active_user: state.active_user,
+        authenticated: state.authenticated
 	};
 }
 
-// dispatch to all
+/*
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators( {setCurrentUser: setCurrentUser}, dispatch); // selectBook is a function
+    return bindActionCreators( {setCurrentUser: setCurrentUser, authenticate: authenticate}, dispatch); // selectBook is a function
     
-}
+} */
 
-  export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps)(LoginForm);
