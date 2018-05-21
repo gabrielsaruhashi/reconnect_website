@@ -4,7 +4,8 @@ import { Redirect } from 'react-router-dom'
 import { Alert } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setCurrentUser, authenticate } from '../actions/index'
+import { setCurrentUser, authenticate } from '../actions/index';
+import Header from '../components/header';
 
 const loginStyles = {
     width: "90%",
@@ -108,26 +109,29 @@ class LoginForm extends Component {
         }
         
         return (
-            <div style={loginStyles}>
-                <button style={{width: "100%"}} className="pt-button pt-intent-primary" onClick={() => { this.authWithFacebook() }}>Log In with Facebook</button>
-                <hr style={{marginTop: "10px", marginBottom: "10px"}}/>
-                
-                <form onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form }}>
-                    <div style ={{marginBottom:"10px"}}>
-                        <h5>Note</h5>
-                        If you don't have an account already, this form will create your account.
-                    </div>
+            <div>
+                <Header />
+                <div style={loginStyles}>
+                    <button style={{width: "100%"}} className="pt-button pt-intent-primary" onClick={() => { this.authWithFacebook() }}>Log In with Facebook</button>
+                    <hr style={{marginTop: "10px", marginBottom: "10px"}}/>
+                    
+                    <form onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form }}>
+                        <div style ={{marginBottom:"10px"}}>
+                            <h5>Note</h5>
+                            If you don't have an account already, this form will create your account.
+                        </div>
 
-                    <label className="pt-label">
-                        Email
-                        <input style={{width: "100%"}} className="pt-input" name="email" type="email" ref={(input) => { this.emailInput = input }} placeholder="Email"></input>
-                    </label>
-                    <label className="pt-label">
-                        Password
-                        <input style={{width: "100%"}} className="pt-input" name="password" type="password" ref={(input) => { this.passwordInput = input }} placeholder="Password"></input>
-                    </label>
-                    <input style={{width: "100%"}} type="submit" className="pt-button pt-intent-primary" value="Log In"></input>
-                </form>
+                        <label className="pt-label">
+                            Email
+                            <input style={{width: "100%"}} className="pt-input" name="email" type="email" ref={(input) => { this.emailInput = input }} placeholder="Email"></input>
+                        </label>
+                        <label className="pt-label">
+                            Password
+                            <input style={{width: "100%"}} className="pt-input" name="password" type="password" ref={(input) => { this.passwordInput = input }} placeholder="Password"></input>
+                        </label>
+                        <input style={{width: "100%"}} type="submit" className="pt-button pt-intent-primary" value="Log In"></input>
+                    </form>
+                </div>
             </div>
         )
     }

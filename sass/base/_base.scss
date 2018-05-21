@@ -19,7 +19,7 @@ html {
 
 body {
     font-family: $font;
-    background: #f2f2f2;
+    background-color: #efefef;
 }
 
 a {
@@ -30,3 +30,8 @@ span {
     text-decoration: none;
     color:inherit;
 }
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+  

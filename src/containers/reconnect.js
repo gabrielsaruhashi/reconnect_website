@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import firebase from 'firebase';
 import Suggestion from '../components/suggestion';
-import { fetchSuggestions } from '../actions/index'
+import { fetchSuggestions } from '../actions/index';
+import Header from '../components/header'
 
 class ReConnect extends Component {
     componentDidMount() {
@@ -23,11 +24,23 @@ class ReConnect extends Component {
     render() {
         return (
             <div>
-            
-            <h3>ReConnections</h3>
-            <ul>
-                {this.renderSuggestions()}
-            </ul>
+                <Header/>
+                <div className="reconnect-wrapper">
+
+                    <div className="sidebar">
+                        <div>
+                            <img className="profPic" src="https://image.freepik.com/free-photo/cute-cat-picture_1122-449.jpg"/>
+                            <h2>Gabriel Saruhashi</h2>
+                        </div>
+                        
+                    </div>
+                    <div className="main_content">
+                        <h3>ReConnections</h3>
+                        <ul>
+                            {this.renderSuggestions()}
+                        </ul>
+                    </div>
+                </div>
             </div>
         ); 
     };

@@ -10,6 +10,7 @@ nav {
     z-index: 10;
     white-space: nowrap;
     overflow: hidden;
+    position: fixed;
 }
 
 
@@ -17,7 +18,7 @@ nav {
     display: inline-block;
     text-transform: uppercase;
     font-weight: 600;
-    font-size: 1.2em;
+    font-size: 1.5em;
     color: $color-white;
     background: #222;
     padding: 22px 39px;
@@ -39,7 +40,7 @@ ul.links {
     color: $color-white;
     margin: 24px 150px 0;
     font-weight: 800;
-    font-size: 1.05em;
+    font-size: 1.5em;
   
   
   & li {

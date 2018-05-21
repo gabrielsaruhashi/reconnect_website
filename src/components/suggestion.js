@@ -3,6 +3,7 @@ import { Grid, Row, Image, Col, Panel } from 'react-bootstrap'
 const Suggestion = ({suggestion}) => {
     console.log
     return (
+        
 		<Grid>
             <Col xs={6} md={4}>
                 <Image style={{height: "10h", width:"10vh"}} src={suggestion.prof_pic} rounded/>
