@@ -14,12 +14,12 @@ $grey:#cccccc;
 }
 
 .form_wrapper {
-	background: $grey;
+	background: white;
 	width: 400px;
 	max-width: 100%;
 	box-sizing: border-box;
 	padding: 25px;
-	margin: 8% auto 0;
+	margin: 10em auto 0;
 	position: relative;
 	z-index: 1;
 	border-top: 5px solid $color-primary-light;
@@ -135,16 +135,7 @@ $grey:#cccccc;
 			background: darken($color-primary-light,7%);
 		}
 	}    
-    &[type="checkbox"], &[type="radio"] {
-      border: 0;
-      clip: rect(0 0 0 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      width: 1px;
-    }
+   
   }
 }
 
@@ -159,124 +150,9 @@ $grey:#cccccc;
     label{
         margin-right: 1em;
         position: relative;
-        &:before {
-          content: "";
-          display: inline-block;
-          width: 0.5em;
-          height: 0.5em;
-          margin-right: 0.5em;
-          vertical-align: -2px;
-          border: 2px solid $grey;
-          padding: 0.12em;
-          background-color: transparent;
-          background-clip: content-box;
-          transition: all 0.2s ease;
-        }
-        &:after {
-          border-right: 2px solid $black;
-          border-top: 2px solid $black;
-          content: "";
-          height: 20px;
-          left: 2px;
-          position: absolute;
-          top: 7px;
-          transform: scaleX(-1) rotate(135deg);
-          transform-origin: left top;
-          width: 7px;
-          display: none;
-        }
+        
     }
-    input {
-    &:hover + label:before {
-      border-color: $black;
-    }
-    &:checked + label {
-      &:before {
-        border-color: $black;
-      }
-      &:after {
-        -moz-animation: check 0.8s ease 0s running;
-        -webkit-animation: check 0.8s ease 0s running;
-        animation: check 0.8s ease 0s running;
-        display: block;
-        width: 7px;
-        height: 20px;
-        border-color: $black;
-      }
-    }
-  }
-}
-.radio_option {
-  label {
-      margin-right: 1em;
-    &:before {
-      content: "";
-      display: inline-block;
-      width: 0.5em;
-      height: 0.5em;
-      margin-right: 0.5em;
-      border-radius: 100%;
-      vertical-align: -3px;
-      border: 2px solid $grey;
-      padding: 0.15em;
-      background-color: transparent;
-      background-clip: content-box;
-      transition: all 0.2s ease;
-    }
-  }
-  input {
-    &:hover + label:before {
-      border-color: $black;
-    }
-    &:checked + label:before {
-      background-color: $black;
-      border-color: $black;
-    }
-  }
-}
-.select_option {
-  position: relative;
-  width: 100%;
-  select {
-    display: inline-block;
-    width: 100%;
-    height: 35px;
-    padding: 0px 15px;
-    cursor: pointer;
-    color: #7b7b7b;
-    border: 1px solid $grey;
-    border-radius: 0;
-    background: #fff;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    transition: all 0.2s ease;
-    &::-ms-expand {
-      display: none;
-    }
-    &:hover, &:focus {
-      color: $black;
-      background: #fafafa;
-      border-color: $black;
-      outline: none;
-    }
-  }
-}
-.select_arrow {
-  position: absolute;
-  top: calc(50% - 4px);
-  right: 15px;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  border-width: 8px 5px 0 5px;
-  border-style: solid;
-  border-color: #7b7b7b transparent transparent transparent;
-}
-
-.select_option select {
-  &:hover + .select_arrow, &:focus + .select_arrow {
-    border-top-color: $black;
-  }
+    
 }
 
 @-webkit-keyframes check {

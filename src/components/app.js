@@ -25,6 +25,7 @@ class App extends Component {
         const uid = user.uid
         // update props
         firebase.database().ref('users/' + uid).on('value', snapshot => {
+          console.log("Active User Found!")
           this.props.setCurrentUser(snapshot.val())
           
         })

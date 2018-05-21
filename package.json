@@ -24,6 +24,7 @@
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "node-sass": "^4.9.0",
+    "react-select-country": "0.0.15",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   },

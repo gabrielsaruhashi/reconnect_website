@@ -25,13 +25,21 @@ class ReConnect extends Component {
             <div>
                 <Header/>
                 <div className="reconnect-wrapper">
-
+                    
                     <div className="sidebar">
-                        <div>
-                            <img className="profPic" src="https://image.freepik.com/free-photo/cute-cat-picture_1122-449.jpg"/>
-                            <h2>Gabriel Saruhashi</h2>
-                        </div>
                         
+                        {this.props.active_user?
+                            (
+                                <div>
+                                    <img className="profPic" src={this.props.active_user.prof_pic}/>
+                                    <h2>{this.props.active_user.name}</h2>
+                                </div>
+                            ) : (
+                                <div>
+                                    <img className="profPic" src="https://static.licdn.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png"/>
+                                    <h2>Loading profile...</h2>
+                                </div>
+                            )}
                     </div>
                     <div className="main_content">
                         <div className="header">
@@ -51,6 +59,7 @@ class ReConnect extends Component {
 function mapStateToProps(state) {
     return {
         suggestions: state.suggestions,
+        active_user: state.active_user,
         authenticated: state.authenticated
 	};
 }

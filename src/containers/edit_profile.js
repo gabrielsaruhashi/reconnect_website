@@ -113,6 +113,63 @@ class EditProfile extends Component {
 
                         <div className="row clearfix">
                             <div className="">
+                                <form onSubmit={this.handleSubmit}>
+                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
+                                        <input type="text" 
+                                        name="first_name" 
+                                        value={this.state.name} 
+                                        placeholder="Name"
+                                        onChange={this.handleNameInputChange.bind(this)}
+                                        required />
+                                    </div>
+
+                                    <div className="input_field"><span><i aria-hidden="true" className="fa fa-lock"></i></span>
+                                        <input name="name" 
+                                        type="text" 
+                                        placeholder="Which school will you be attending?"
+                                        value={this.state.school}
+                                        onChange={this.handleSchoolInputChange.bind(this)}  required />
+                                    </div>
+                                    <h2>Select your picture</h2>
+                                    <input name="image" type="file" accept="image/*" capture></input>
+                                    <h2>Interests</h2>
+                                    {this.createCheckboxes()}
+
+                                    <input className="button" type="submit" value="Submit" />
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+        )
+    }
+}
+ // props to login_form
+function mapStateToProps(state) {
+    return {
+		active_user: state.active_user
+	};
+}
+
+export default connect(mapStateToProps)(EditProfile);
+
+/*
+           
+        */
+
+
+        /*
+        <div className="form_wrapper">
+                    <div className="form_container">
+                        <div className="title_container">
+                            <h2>Welcome to ReConnect!</h2>
+                        </div>
+
+                        <div className="row clearfix">
+                            <div className="">
                                 <form>
                                     <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
                                         <input type="email" name="email" placeholder="Email" required />
@@ -170,51 +227,41 @@ class EditProfile extends Component {
 
                     </div>
                 </div>
+                */
+
+
+                /*
+                <div>
+                    <ProgressBar now={30} />
+                    <Header />
+                    <Jumbotron>
+                        <h1>Hello</h1>
+                        <p>
+                            Welcome to a community of millions of students!
+                            As a first step, we would love to learn more about you!
+                        </p>
+                        <form onSubmit={this.handleSubmit} >
+                            <h2>Some basic info</h2>
+                            <input 
+                                className="form-control" 
+                                value={this.state.name} 
+                                id="name" 
+                                placeholder="Enter name"
+                                onChange={this.handleNameInputChange.bind(this)}/>
+                            <input 
+                                className="form-control"
+                                value={this.state.school} 
+                                id="school" 
+                                placeholder="Which school are you going to attend?"
+                                onChange={this.handleSchoolInputChange.bind(this)}/>
+                            <h2>Select your picture</h2>
+                            <input name="image" type="file" accept="image/*" capture></input>
+
+                            <h2>Interests</h2>
+                            {this.createCheckboxes()}
+
+                            <button className="btn btn-seconday">Next</button>
+                        </form>
+                    </Jumbotron>
             </div>
-        )
-    }
-}
- // props to login_form
-function mapStateToProps(state) {
-    return {
-		active_user: state.active_user
-	};
-}
-
-export default connect(mapStateToProps)(EditProfile);
-
-/*
-            <div>
-                <ProgressBar now={30} />
-                <Header />
-                <Jumbotron>
-                    <h1>Hello</h1>
-                    <p>
-                        Welcome to a community of millions of students!
-                        As a first step, we would love to learn more about you!
-                    </p>
-                    <form onSubmit={this.handleSubmit} >
-                        <h2>Some basic info</h2>
-                        <input 
-                            className="form-control" 
-                            value={this.state.name} 
-                            id="name" 
-                            placeholder="Enter name"
-                            onChange={this.handleNameInputChange.bind(this)}/>
-                        <input 
-                            className="form-control"
-                            value={this.state.school} 
-                            id="school" 
-                            placeholder="Which school are you going to attend?"
-                            onChange={this.handleSchoolInputChange.bind(this)}/>
-                        <h2>Select your picture</h2>
-                        <input name="image" type="file" accept="image/*" capture></input>
-
-                        <h2>Interests</h2>
-                        {this.createCheckboxes()}
-
-                        <button className="btn btn-seconday">Next</button>
-                    </form>
-                </Jumbotron>
-        </div>
-        */
+            */

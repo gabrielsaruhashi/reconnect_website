@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setCurrentUser, authenticate } from '../actions/index';
 import Header from '../components/header';
+import Countries  from 'react-select-country';
+
 
 const loginStyles = {
     width: "90%",
@@ -20,34 +22,23 @@ const loginStyles = {
 class LoginForm extends Component {
     constructor(props, context) {
         super(props)
-        this.authWithFacebook = this.authWithFacebook.bind(this)
         this.authWithEmailPassword = this.authWithEmailPassword.bind(this)
+        this.onSelectCountry=this.onSelectCountry.bind(this);
+
         this.state = {
             redirect: false,
             new_user: false
         }
     }
 
-    authWithFacebook() {
-        const auth = firebase.auth()
-        const facebookProvider = new firebase.auth.FacebookAuthProvider()
-        
-        // sign in with facebook
-        auth.signInWithPopup(facebookProvider)
-        .then((user, error) => {
-          if (error) {
-              
-            this.toaster.show({ intent: Intent.DANGER, message: "Unable to sign in with Facebook" })
-          } else {
-            this.props.setCurrentUser(user)
-            if (user.additionalUserInfo.isNewUser) {
-                this.setState({new_user:true});
-            }
-            this.setState({ redirect: true })
-            
-          }
-        })
-    }
+    onSelectCountry(event){
+        this.state.selectedCountry={
+             id:event.target.value,
+             name:event.target.options[event.target.selectedIndex].text
+        }
+        //OR,if you assign "ref" to the component , ,
+        this.state.selectedCountry=this.refs.country.selected; // {value,name}
+      }
 
     authWithEmailPassword(event) {
         event.preventDefault()
@@ -110,7 +101,61 @@ class LoginForm extends Component {
         
         return (
             <div>
-                <Header />
+                <div className="form_wrapper">
+                    <div className="form_container">
+                        <div className="title_container">
+                            <h2>Welcome to ReConnect!</h2>
+                        </div>
+
+                        <div className="row clearfix">
+                            <div className="">
+                                <form onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form }}>
+                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
+                                        <input type="email" name="email" placeholder="Email" ref={(input) => { this.emailInput = input }} required />
+                                    </div>
+                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
+                                        <input type="password" name="password" placeholder="Password" ref={(input) => { this.passwordInput = input }} required />
+                                    </div>
+                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
+                                        <input type="password" name="password" placeholder="Re-type Password" required />
+                                    </div>
+                                    
+
+                                    <div className="input_field radio_option">
+                                        <input type="radio" name="radiogroup1" id="rd1"/>
+                                        <label>Male</label>
+                                        <input type="radio" name="radiogroup1" id="rd2"/>
+                                        <label>Female</label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="country">Country:</label>
+                                        <Countries ref="country" name="country" empty=" -- Select country --" onChange={(e)=>this.onSelectCountry(e)} />
+                                    </div>
+
+                                    <div className="input_field checkbox_option">
+                                        <input type="checkbox" id="cb1"/>
+                                        <label>I agree with terms and conditions</label>
+                                    </div>
+                                    <div className="input_field checkbox_option">
+                                        <input type="checkbox" id="cb2"/>
+                                        <label>I want to receive the newsletter</label>
+                                    </div>
+                                    <input className="button" type="submit" value="Submit" />
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+        )
+    }
+}
+
+/*
+<Header />
                 <div style={loginStyles}>
                     <button style={{width: "100%"}} className="pt-button pt-intent-primary" onClick={() => { this.authWithFacebook() }}>Log In with Facebook</button>
                     <hr style={{marginTop: "10px", marginBottom: "10px"}}/>
@@ -132,11 +177,7 @@ class LoginForm extends Component {
                         <input style={{width: "100%"}} type="submit" className="pt-button pt-intent-primary" value="Log In"></input>
                     </form>
                 </div>
-            </div>
-        )
-    }
-}
-
+*/
 function validate(values) {
     const errors = {};
   
