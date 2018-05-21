@@ -1,0 +1,31 @@
+@import '../abstracts/variables';
+
+/**
+* Footer
+**/
+
+footer {
+  height: 34px;
+  background: $color-white;
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 8px 40px;
+  font-size: 13px;
+  color: #aaa;
+  font-weight: 300;
+  border-top: 1px solid #ddd;
+}
+
+footer div {
+  display: inline-block;
+}
+
+footer .footer-right {
+  float: right;
+}
+
+footer a:hover {
+  color: $red;
+}

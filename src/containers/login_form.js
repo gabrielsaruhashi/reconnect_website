@@ -106,7 +106,7 @@ class LoginForm extends Component {
                 return <Redirect to={'/'} />
             }
         }
-      
+        
         return (
             <div style={loginStyles}>
                 <button style={{width: "100%"}} className="pt-button pt-intent-primary" onClick={() => { this.authWithFacebook() }}>Log In with Facebook</button>

@@ -56,11 +56,8 @@ class Header extends Component {
     return(
       <nav>
         <div className='app-brand'>
-          
           <span className='red'>Project</span>
           <span>ReConnect</span>
-         
-            
         </div>
         <ul className='links'>
           <li>
