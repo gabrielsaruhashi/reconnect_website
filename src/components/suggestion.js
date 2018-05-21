@@ -1,23 +1,20 @@
 import React from 'react';
-import { Grid, Row, Image, Col, Panel } from 'react-bootstrap'
 const Suggestion = ({suggestion}) => {
-    console.log
     return (
-        
-		<Grid>
-            <Col xs={6} md={4}>
-                <Image style={{height: "10h", width:"10vh"}} src={suggestion.prof_pic} rounded/>
-            </Col>
-            <Col xs={6} md={8}>
-                <Panel bsStyle="primary">
-                    <Panel.Heading>
-                        <Panel.Title componentClass="h3">{suggestion.name}</Panel.Title>
-                        <Panel.Title componentClass="h2">{suggestion.school}</Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body>{suggestion.about_me}</Panel.Body>
-                </Panel>
-            </Col>
-        </Grid>
+        <div className="suggestion_wrapper">
+            <img src={suggestion.prof_pic}/>
+            <div className="profile_box">
+                <div className="box_header">
+                    <h2>{suggestion.name}</h2>
+                    <h3>{suggestion.school}</h3>
+                </div>
+                <p>{suggestion.about_me}</p>
+            </div>
+            <div className="invite_banner">
+                <h3>View<br/>Profile<br/></h3>
+                <span><i aria-hidden="true" className="fa fa-chevron-circle-right"></i></span>
+            </div>
+        </div>
 	);
 }
 

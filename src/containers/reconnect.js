@@ -13,7 +13,6 @@ class ReConnect extends Component {
     // Get a database reference to our posts
     renderSuggestions() {
         return _.map(this.props.suggestions, suggestion => {
-            console.log(suggestion)
             return (
                 <li key={suggestion.uid}>
                     <Suggestion suggestion={suggestion}/>
@@ -35,7 +34,10 @@ class ReConnect extends Component {
                         
                     </div>
                     <div className="main_content">
-                        <h3>ReConnections</h3>
+                        <div className="header">
+                            <h1>Invite</h1>
+                            <p>Here is a list of reconnectors that we believe that match your profile and interests</p> 
+                        </div>
                         <ul>
                             {this.renderSuggestions()}
                         </ul>
