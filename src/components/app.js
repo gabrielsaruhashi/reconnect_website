@@ -18,7 +18,8 @@ import { authenticate, setCurrentUser } from '../actions/index'
 
 class App extends Component {
   
-  
+  notify = () => toast("Your invitation was sent!");
+
   componentWillMount() {
     this.removeAuthListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -41,10 +42,17 @@ class App extends Component {
     this.removeAuthListener();
   }
   render() {
+    if (this.props.app_status == "CREATE_INVITATION") {
+      console.log("New status");
+      this.notify();
+      console.log("Yep")
+    }
+
     return (
       
       <BrowserRouter>
         <div>
+         
           <Route exact path="/" component={ReConnect }/>
           <Route exact path="/login" component={LoginForm}/>
           <Route exact path="/edit_about_me" component={EditAboutMe}/>
@@ -60,7 +68,8 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     authenticated: state.authenticated,
-    active_user: state.active_user
+    active_user: state.active_user,
+    app_status: state.app_status
   };
 }
 

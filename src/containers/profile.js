@@ -2,10 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/header';
 import Sidebar from '../components/sidebar';
-import firebase from 'firebase';
-import { fetchProfile } from '../actions/index'
-class Profile extends Component {
+import {ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 
+import firebase from 'firebase';
+import { fetchProfile, createInvitation } from '../actions/index';
+
+class Profile extends Component {
+    TOAST_OPEN = false;  
+    notify = () => toast("Your invitation was sent!");
+
+    constructor(props) {
+        super(props);
+        // binding is necessary to make 'this' work on callback
+        this.onInviteClick = this.onInviteClick.bind(this);
+    }
     componentDidMount() {
         // get url ID
         if (!this.props.profile) {
@@ -13,10 +24,19 @@ class Profile extends Component {
             this.props.fetchProfile(id);
         }
     }
-    onInviteClick() {
-        const { id } = this.props.match.params;
-        this.props.history.push('/');
+    onInviteClick(event) {
 
+        this.props.createInvitation(this.props.active_user.uid , this.props.profile);
+        this.notify();
+        toast.onChange( (t) => {
+            if (this.TOAST_OPEN) {
+                this.props.history.push('/')
+            }
+            else {
+                this.TOAST_OPEN = true;
+            }
+            
+        });
         
         /*
         this.props.deletePost(id, () => {
@@ -42,8 +62,10 @@ class Profile extends Component {
                                 <img className="profile_picture" src={profile.prof_pic}/>
                                 
                                 <h1 className="name_header">{profile.name}</h1>
-
-                                <button>Invite</button>
+                                <div>
+                                    <button onClick={this.onInviteClick}>Invite</button>
+                                    <ToastContainer />
+                                </div>
                             </div>
 
                             <div className="essay_wrapper">
@@ -89,4 +111,4 @@ function mapStateToProps({ suggestions,active_user }, ownProps) {
         profile: suggestions[ownProps.match.params.id],
         active_user: active_user };
 }
-export default connect(mapStateToProps, { fetchProfile })(Profile);
+export default connect(mapStateToProps, { fetchProfile, createInvitation })(Profile);

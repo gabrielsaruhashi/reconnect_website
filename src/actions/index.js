@@ -9,6 +9,7 @@ export const AUTHENTICATE = "AUTHENTICATED";
 export const FETCH_SUGGESTIONS = "FETCH_SUGGESTIONS";
 export const FETCH_PROFILE = "FETCH_PROFILE";
 export const FETCH_INVITATIONS = "FETCH_INVITATIONS";
+export const CREATE_INVITATION = "CREATE_INVITATION";
 
 export function sendMessage(message) {
     return dispatch => firebase.database().ref('messages/').push(message)

@@ -17,7 +17,7 @@ class Header extends Component {
         </div>
         <ul className='links'>
           <li>
-            <Link to="/">My Reconnections</Link>
+            <Link to="/">Conversations</Link>
           </li>
           <li>
             <Link to="/">Opportunities</Link>
