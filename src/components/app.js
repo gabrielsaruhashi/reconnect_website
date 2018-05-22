@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
+
 import LoginForm from '../containers/login_form'
 import EditProfile from '../containers/edit_profile';
 import EditAboutMe from '../containers/edit_about_me';
+import Profile from '../containers/profile';
+
 import Chat from './chat'
 import ReConnect from '../containers/reconnect';
 import firebase from 'firebase';
@@ -17,7 +20,6 @@ class App extends Component {
   
   
   componentWillMount() {
-
     this.removeAuthListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.authenticate(true);
@@ -25,7 +27,6 @@ class App extends Component {
         const uid = user.uid
         // update props
         firebase.database().ref('users/' + uid).on('value', snapshot => {
-          console.log("Active User Found!")
           this.props.setCurrentUser(snapshot.val())
           
         })
@@ -48,6 +49,7 @@ class App extends Component {
           <Route exact path="/login" component={LoginForm}/>
           <Route exact path="/edit_about_me" component={EditAboutMe}/>
           <Route exact path="/edit" component={EditProfile}/>
+          <Route exact path="/usr/:id" component={Profile}/>
           
         </div>
       </BrowserRouter>
@@ -59,7 +61,6 @@ function mapStateToProps(state) {
   return {
     authenticated: state.authenticated,
     active_user: state.active_user
-    
   };
 }
 

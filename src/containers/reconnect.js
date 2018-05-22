@@ -4,7 +4,9 @@ import { bindActionCreators } from 'redux';
 import firebase from 'firebase';
 import Suggestion from '../components/suggestion';
 import { fetchSuggestions } from '../actions/index';
-import Header from '../components/header'
+import Header from '../components/header';
+import Sidebar from '../components/sidebar';
+import { withRouter } from 'react-router-dom';
 
 class ReConnect extends Component {
     componentDidMount() {
@@ -26,21 +28,7 @@ class ReConnect extends Component {
                 <Header/>
                 <div className="reconnect-wrapper">
                     
-                    <div className="sidebar">
-                        
-                        {this.props.active_user?
-                            (
-                                <div>
-                                    <img className="profPic" src={this.props.active_user.prof_pic}/>
-                                    <h2>{this.props.active_user.name}</h2>
-                                </div>
-                            ) : (
-                                <div>
-                                    <img className="profPic" src="https://static.licdn.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png"/>
-                                    <h2>Loading profile...</h2>
-                                </div>
-                            )}
-                    </div>
+                    <Sidebar user={this.props.active_user}/>
                     <div className="main_content">
                         <div className="header">
                             <h1>Invite</h1>
@@ -64,10 +52,27 @@ function mapStateToProps(state) {
 	};
 }
 
-// dispatch to all
 function mapDispatchToProps(dispatch) {
     return bindActionCreators( {fetchSuggestions: fetchSuggestions}, dispatch);
     
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReConnect);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ReConnect));
+
+/*
+<Sidebar user={this.props.active_user}/>
+<div className="sidebar">
+                        
+                        {this.props.active_user?
+                            (
+                                <div>
+                                    <img className="profPic" src={this.props.active_user.prof_pic}/>
+                                    <h2>{this.props.active_user.name}</h2>
+                                </div>
+                            ) : (
+                                <div>
+                                    <img className="profPic" src="https://static.licdn.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png"/>
+                                    <h2>Loading profile...</h2>
+                                </div>
+                            )}
+                    </div>*/

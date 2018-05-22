@@ -4,9 +4,12 @@ import _ from 'lodash';
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const CURRENT_USER = "CURRENT_USER";
-export const FETCH_MESSAGES = "FETCH_MESSAGES"
-export const AUTHENTICATE = "AUTHENTICATED"
-export const FETCH_SUGGESTIONS = "FETCH_SUGGESTIONS"
+export const FETCH_MESSAGES = "FETCH_MESSAGES";
+export const AUTHENTICATE = "AUTHENTICATED";
+export const FETCH_SUGGESTIONS = "FETCH_SUGGESTIONS";
+export const FETCH_PROFILE = "FETCH_PROFILE";
+export const FETCH_INVITATIONS = "FETCH_INVITATIONS";
+
 export function sendMessage(message) {
     return dispatch => firebase.database().ref('messages/').push(message)
 }
@@ -31,6 +34,31 @@ export function fetchSuggestions() {
         });
       });
     };
+}
+export function fetchProfile(uid) {
+    return dispatch => {
+        firebase.database().ref(`/users/${uid}`).on('value', snapshot => {
+          dispatch({
+            type: FETCH_PROFILE,
+            payload: snapshot.val()
+          });
+        });
+    };
+}
+
+export function fetchInvitations(uid) {
+    return dispatch => {
+        firebase.database().ref(`/invitations/${uid}`).on('value', snapshot => {
+          dispatch({
+            type: FETCH_INVITATIONS,
+            payload: snapshot.val()
+          });
+        });
+    };
+}
+
+export function createInvitation(uid, invitee) {
+    return dispatch => firebase.database().ref(`/invitations/${uid}`).push(invitee);
 }
 export function setCurrentUser(user) {
     return {

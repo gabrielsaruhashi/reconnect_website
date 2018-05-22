@@ -23,7 +23,6 @@ class EditAboutMe extends Component {
             "integration": event.target.integration.value
         };
 
-        console.log(newInfo)
         // update user entry
         firebase.database().ref('users/' + uid).update(newInfo);
 
