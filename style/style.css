@@ -5,6 +5,7 @@
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700");
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700");
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700");
+@import url("http://fonts.googleapis.com/css?family=Lato:400,700");
 *,
 *::after,
 *::before {
@@ -33,6 +34,55 @@ span {
 
 h1, h2, h3, h4, h5 {
   margin: 0; }
+
+.btn {
+  height: 40px;
+  border-radius: 4px;
+  text-align: center;
+  width: 10em;
+  background: #fff;
+  border: 2px solid #edc420;
+  color: #edc420;
+  letter-spacing: 1px;
+  text-shadow: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease; }
+  .btn:hover {
+    color: white;
+    background: #edc420; }
+  .btn:active {
+    letter-spacing: 2px; }
+  .btn:after {
+    content: "SUBMIT"; }
+
+.btn-onclic {
+  width: 40px;
+  border-color: #edc420;
+  border-width: 3px;
+  font-size: 0;
+  border-left-color: #edc420;
+  animation: rotating 2s 0.25s linear infinite; }
+  .btn-onclic:after {
+    content: ""; }
+  .btn-onclic:hover {
+    color: #edc420;
+    background: #fff; }
+
+.validate {
+  font-size: 13px;
+  color: white;
+  background: #edc420; }
+  .validate:after {
+    font-family: 'FontAwesome';
+    content: "\f00c"; }
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
 
 /* parent element, inheritance */
 body {
@@ -349,8 +399,7 @@ ul.links {
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
     background-color: #fff;
     display: flex;
-    flex-flow: column nowrap;
-    padding: 1em; }
+    flex-flow: column nowrap; }
     .reconnect-wrapper .main_content_profile .header {
       align-self: center; }
       .reconnect-wrapper .main_content_profile .header .profile_picture {
@@ -410,3 +459,43 @@ ul.links {
       width: 100%; }
     .suggestion_wrapper .invite_banner span {
       width: 100%; }
+
+/**
+* Footer
+**/
+footer {
+  height: 34px;
+  background: #fff;
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 8px 40px;
+  font-size: 13px;
+  color: #aaa;
+  font-weight: 300;
+  border-top: 1px solid #ddd; }
+
+footer div {
+  display: inline-block; }
+
+footer .footer-right {
+  float: right; }
+
+footer a:hover {
+  color: red; }
+
+.invitation_wrapper {
+  display: flex;
+  width: 100%;
+  border: 2px solid #ededed;
+  justify-content: start;
+  align-items: center;
+  padding: 1em; }
+  .invitation_wrapper img {
+    border-radius: 50%;
+    border: 1px solid transparent;
+    width: 8em;
+    height: 8em; }
+  .invitation_wrapper h2 {
+    font-weight: bold; }

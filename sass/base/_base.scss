@@ -34,4 +34,64 @@ span {
 h1, h2, h3, h4, h5 {
     margin: 0;
 }
-  
+
+.btn {
+  height: 40px;
+  border-radius: 4px;
+  text-align: center;
+  width: 10em;
+  background: #fff;
+  border: 2px solid $color-primary-light;
+  color:$color-primary-light;
+  letter-spacing:1px;
+  text-shadow:0;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  &:hover {
+    color:white;
+    background: $color-primary-light;
+  }
+  &:active {
+    //letter-spacing: 2px;
+    letter-spacing: 2px ;
+  }
+  &:after {
+    content:"SUBMIT";
+  }
+}
+.btn-onclic {
+  width: 40px;
+  border-color:$color-primary-light;
+  border-width:3px;
+  font-size:0;
+  border-left-color:$color-primary-light;
+  animation: rotating 2s 0.25s linear infinite;
+
+  &:after {
+    content:"";
+  }
+  &:hover {
+    color:$color-primary-light;
+    background: $color-white;
+  }
+}
+.validate {
+  font-size:13px;
+  color: white;
+  background: $color-primary-light;
+  &:after {
+    font-family:'FontAwesome';
+    content:"\f00c";
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

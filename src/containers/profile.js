@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/header';
 import Sidebar from '../components/sidebar';
-import {ToastContainer, toast } from 'react-toastify'; 
+import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
 
 import firebase from 'firebase';
@@ -25,9 +25,10 @@ class Profile extends Component {
         }
     }
     onInviteClick(event) {
-
-        this.props.createInvitation(this.props.active_user.uid , this.props.profile);
         this.notify();
+        const SENDER_PROFILE = this.props.active_user;
+        const RECIPIENT_ID = this.props.profile.uid;
+        this.props.createInvitation(SENDER_PROFILE , RECIPIENT_ID);
         toast.onChange( (t) => {
             if (this.TOAST_OPEN) {
                 this.props.history.push('/')
@@ -50,7 +51,6 @@ class Profile extends Component {
 
         return (
             <div>
-                <Header />
                 <div className="reconnect-wrapper">
                     <Sidebar user={this.props.active_user}/>
                     {
@@ -107,7 +107,7 @@ class Profile extends Component {
 // this.props === ownProps
 function mapStateToProps({ suggestions,active_user }, ownProps) {
     // do intermediate calculations
-    return { 
+    return {
         profile: suggestions[ownProps.match.params.id],
         active_user: active_user };
 }

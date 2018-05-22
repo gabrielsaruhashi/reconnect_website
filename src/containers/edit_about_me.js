@@ -36,7 +36,6 @@ class EditAboutMe extends Component {
         }
         return (
          <div>   
-            <Header/>
             <ProgressBar now={60} />
             <form onSubmit={this.handleSubmit}>
                 <h2>Tell us about yourself!</h2>

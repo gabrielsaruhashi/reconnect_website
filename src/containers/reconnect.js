@@ -25,7 +25,6 @@ class ReConnect extends Component {
     render() {
         return (
             <div>
-                <Header/>
                 <div className="reconnect-wrapper">
                     
                     <Sidebar user={this.props.active_user}/>

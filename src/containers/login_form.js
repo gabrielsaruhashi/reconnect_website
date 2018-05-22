@@ -9,15 +9,6 @@ import Header from '../components/header';
 import Countries  from 'react-select-country';
 
 
-const loginStyles = {
-    width: "90%",
-    maxWidth: "315px",
-    margin: "20px auto",
-    border: "1px solid #ddd",
-    borderRadius: "5px",
-    padding: "10px"
-}
-
 
 class LoginForm extends Component {
     constructor(props, context) {
@@ -86,7 +77,6 @@ class LoginForm extends Component {
         })
         .catch((error) => {
             console.log(error)
-            //this.toaster.show({ intent: Intent.DANGER, message: error })
         })
     }
     render() {
@@ -128,8 +118,8 @@ class LoginForm extends Component {
                                         <label>Female</label>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="country">Country:</label>
+                                    <div className="form-group">
+                                        <label htmlFor="country">Country:</label>
                                         <Countries ref="country" name="country" empty=" -- Select country --" onChange={(e)=>this.onSelectCountry(e)} />
                                     </div>
 
@@ -154,30 +144,7 @@ class LoginForm extends Component {
     }
 }
 
-/*
-<Header />
-                <div style={loginStyles}>
-                    <button style={{width: "100%"}} className="pt-button pt-intent-primary" onClick={() => { this.authWithFacebook() }}>Log In with Facebook</button>
-                    <hr style={{marginTop: "10px", marginBottom: "10px"}}/>
-                    
-                    <form onSubmit={(event) => { this.authWithEmailPassword(event) }} ref={(form) => { this.loginForm = form }}>
-                        <div style ={{marginBottom:"10px"}}>
-                            <h5>Note</h5>
-                            If you don't have an account already, this form will create your account.
-                        </div>
 
-                        <label className="pt-label">
-                            Email
-                            <input style={{width: "100%"}} className="pt-input" name="email" type="email" ref={(input) => { this.emailInput = input }} placeholder="Email"></input>
-                        </label>
-                        <label className="pt-label">
-                            Password
-                            <input style={{width: "100%"}} className="pt-input" name="password" type="password" ref={(input) => { this.passwordInput = input }} placeholder="Password"></input>
-                        </label>
-                        <input style={{width: "100%"}} type="submit" className="pt-button pt-intent-primary" value="Log In"></input>
-                    </form>
-                </div>
-*/
 function validate(values) {
     const errors = {};
   

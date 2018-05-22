@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   messages: MessagesReducer,
   authenticated: AuthenticatedReducer,
   suggestions: SuggestionsReducer,
-  invitations: InvitationsReducer,
+  invitations: InvitationsReducer
 });
 
 export default rootReducer;

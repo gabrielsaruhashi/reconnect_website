@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 import _ from 'lodash';
-//import { app } from '../base'
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const CURRENT_USER = "CURRENT_USER";
@@ -47,9 +46,9 @@ export function fetchProfile(uid) {
     };
 }
 
-export function fetchInvitations(uid) {
+export function fetchInvitations() {
     return dispatch => {
-        firebase.database().ref(`/invitations/${uid}`).on('value', snapshot => {
+        firebase.database().ref(`/invitations`).on('value', snapshot => {
           dispatch({
             type: FETCH_INVITATIONS,
             payload: snapshot.val()
@@ -58,9 +57,11 @@ export function fetchInvitations(uid) {
     };
 }
 
-export function createInvitation(uid, invitee) {
-    return dispatch => firebase.database().ref(`/invitations/${uid}`).push(invitee);
+export function createInvitation(sender_profile, recipient_uid) {
+    return dispatch => firebase.database().ref(`/invitations`).child(`${recipient_uid}/${sender_profile.uid}`).set(sender_profile);
 }
+
+
 export function setCurrentUser(user) {
     return {
         type: CURRENT_USER,

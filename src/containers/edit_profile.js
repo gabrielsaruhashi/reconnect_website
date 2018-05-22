@@ -104,7 +104,6 @@ class EditProfile extends Component {
         }
         return (
             <div>
-                <Header />
                 <div className="form_wrapper">
                     <div className="form_container">
                         <div className="title_container">
