@@ -32,9 +32,9 @@ class Invitation extends Component {
             'creation_date': creation_date   
         }
         // create connection and delete invitation from host's
-        this.props.createConnection(connection, host, incoming);
-        this.props.updateUserConnections(host, incoming);
-        this.props.updateUserConnections(incoming, host);
+        const newConnection = this.props.createConnection(connection, host, incoming);        
+        this.props.updateUserConnections(host, newConnection.key);
+        this.props.updateUserConnections(incoming, newConnection.key);
         this.props.deleteInvitation(host, incoming);
         return <Redirect to="/"/>
         

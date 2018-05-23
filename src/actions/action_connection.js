@@ -1,22 +1,30 @@
 import firebase from 'firebase';
 import _ from 'lodash';
 
+export const FETCH_RECONNECTIONS = "FETCH_RECONNECTIONS"
 
-export function fetchReconnections() {
-
+export function fetchReconnections(uid) {
+    return dispatch => {
+        firebase.database().ref(`/invitations`).child(`${uid}`).on('value', snapshot => {
+          dispatch({
+            type: FETCH_RECONNECTIONS,
+            payload: snapshot.val()
+          });
+        });
+    };
 }
 
 export function createConnection(connection, host, international) {
     return dispatch => firebase.database().ref(`/reconnections`).push(connection);
 }
 
-export function updateUserConnections(user, new_connection) {
+export function updateUserConnections(user, newReconnection_id) {
     var user_connections;
 
     if (user.connections) {
-        user_connections = { ... user.connections, [new_connection.uid] : true};
+        user_connections = { ... user.connections, [newReconnection_id] : true};
     } else {
-        user_connections = {[new_connection.uid]: true};
+        user_connections = {[newReconnection_id]: true};
     }
 
     const newData_user = {

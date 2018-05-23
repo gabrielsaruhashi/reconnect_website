@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchR } from '../actions/index'
+import { fetchRec } from '../actions/index';
 class ConversationList extends Component {
     render() {
         return (

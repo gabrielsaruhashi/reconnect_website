@@ -11,7 +11,6 @@ import moment from 'moment';
 
 
 class DashboardHost extends Component {
-    
 
     constructor(props) {
         super(props);
