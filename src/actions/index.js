@@ -46,9 +46,9 @@ export function fetchProfile(uid) {
     };
 }
 
-export function fetchInvitations() {
+export function fetchInvitations(uid) {
     return dispatch => {
-        firebase.database().ref(`/invitations`).on('value', snapshot => {
+        firebase.database().ref(`/invitations`).child(`${uid}`).on('value', snapshot => {
           dispatch({
             type: FETCH_INVITATIONS,
             payload: snapshot.val()
@@ -74,7 +74,7 @@ export function updateUserInvitations(user, invitee) {
     }
     return dispatch => firebase.database().ref('/users').child(`${user.uid}`).update(newData_user);
 }
-export function setCurrentUser(user) {
+export function setCurrentUser(user, callback) {
     return {
         type: CURRENT_USER,
         payload: user

@@ -16,13 +16,12 @@ class DashboardHost extends Component {
     constructor(props) {
         super(props);
         this.renderInvitations = this.renderInvitations.bind(this);
-        this.invitations = {};
     }
     componentDidMount() {
-        this.props.fetchInvitations();
+        this.props.fetchInvitations(this.props.active_user.uid);
     }
     renderInvitations() {
-        return _.map(this.invitations, student => {
+        return _.map(this.props.invitations, student => {
             return (
                 <li key={student.uid}>
                     <Invitation student={student} host_friend={this.props.active_user}/>
@@ -32,11 +31,8 @@ class DashboardHost extends Component {
     }
 
     render() {
-        // get invitations and their length
-        // TODO fix this
-        this.invitations = this.props.active_user && this.props.invitations ? this.props.invitations[this.props.active_user.uid] : {};        
-
-        const len_invitations = this.invitations? Object.keys(this.invitations).length : 0;
+        const { invitations } = this.props;
+        const len_invitations = invitations? Object.keys(invitations).length : 0;
 
         return (
             <div className="reconnect-wrapper">

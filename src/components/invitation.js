@@ -31,7 +31,7 @@ class Invitation extends Component {
             'members': members,
             'creation_date': creation_date   
         }
-
+        // create connection and delete invitation from host's
         this.props.createConnection(connection, host, incoming);
         this.props.updateUserConnections(host, incoming);
         this.props.updateUserConnections(incoming, host);
@@ -53,7 +53,6 @@ class Invitation extends Component {
             </div>
         );
     }
-    
 }
 
 export default connect(null, {createConnection, updateUserConnections, deleteInvitation})(Invitation);

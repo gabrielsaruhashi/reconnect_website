@@ -1,6 +1,11 @@
 import firebase from 'firebase';
 import _ from 'lodash';
 
+
+export function fetchReconnections() {
+
+}
+
 export function createConnection(connection, host, international) {
     return dispatch => firebase.database().ref(`/reconnections`).push(connection);
 }

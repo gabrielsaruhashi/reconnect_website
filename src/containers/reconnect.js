@@ -17,7 +17,7 @@ class ReConnect extends Component {
         return _.map(this.props.suggestions, suggestion => {
             return (
                 <li key={suggestion.uid}>
-                    <Suggestion suggestion={suggestion}/>
+                    <Suggestion suggestion={suggestion} />
                 </li>
             );
         });

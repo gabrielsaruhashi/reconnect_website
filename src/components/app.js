@@ -23,21 +23,35 @@ import 'react-toastify/dist/ReactToastify.css';
 import Spinner from '../components/spinner';
 
 class App extends Component {
-  
+  constructor() {
+    super();
+    this.state = {
+      loading: true
+    };
+  }
+
   componentWillMount() {
     this.removeAuthListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.authenticate(true);
         // get user uid
         const uid = user.uid
+
         // update props
         firebase.database().ref('users/' + uid).on('value', snapshot => {
           this.props.setCurrentUser(snapshot.val())
           
+          this.setState({
+            loading: false
+          })
         })
+        
       } else {
+        
         this.props.authenticate(false);
-        this.props.setCurrentUser(null);
+        this.setState({
+          loading: false
+        })
       }
     })
   }
@@ -46,6 +60,15 @@ class App extends Component {
     this.removeAuthListener();
   }
   render() {
+    if (this.state.loading === true) {
+      return (
+        <div className="loading_wrapper">
+          <h2>Loading</h2>
+          <Spinner />
+        </div>
+      )
+    }
+
     return (
       
       <BrowserRouter>
