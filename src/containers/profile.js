@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/header';
 import Sidebar from '../components/sidebar';
-import { ToastContainer, toast } from 'react-toastify'; 
+import { toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
 
 import firebase from 'firebase';
-import { fetchProfile, createInvitation } from '../actions/index';
+import { fetchProfile, createInvitation, updateUserInvitations } from '../actions/index';
 
 class Profile extends Component {
-    TOAST_OPEN = false;  
     notify = () => toast("Your invitation was sent!");
 
     constructor(props) {
@@ -27,17 +26,12 @@ class Profile extends Component {
     onInviteClick(event) {
         this.notify();
         const SENDER_PROFILE = this.props.active_user;
-        const RECIPIENT_ID = this.props.profile.uid;
-        this.props.createInvitation(SENDER_PROFILE , RECIPIENT_ID);
-        toast.onChange( (t) => {
-            if (this.TOAST_OPEN) {
-                this.props.history.push('/')
-            }
-            else {
-                this.TOAST_OPEN = true;
-            }
-            
-        });
+        const RECIPIENT = this.props.profile;
+
+        // add this invitation to the international friend's invitation list
+        this.props.updateUserInvitations(SENDER_PROFILE, RECIPIENT);
+        this.props.createInvitation(SENDER_PROFILE , RECIPIENT.uid);
+        this.props.history.push('/');
         
         /*
         this.props.deletePost(id, () => {
@@ -62,10 +56,7 @@ class Profile extends Component {
                                 <img className="profile_picture" src={profile.prof_pic}/>
                                 
                                 <h1 className="name_header">{profile.name}</h1>
-                                <div>
-                                    <button onClick={this.onInviteClick}>Invite</button>
-                                    <ToastContainer />
-                                </div>
+                                <button className="btn" onClick={this.onInviteClick}>Invite</button>
                             </div>
 
                             <div className="essay_wrapper">
@@ -102,8 +93,6 @@ class Profile extends Component {
     }
 }
 
-// we only care about the individual post state.posts
-// ownProps is the props that is sent to component
 // this.props === ownProps
 function mapStateToProps({ suggestions,active_user }, ownProps) {
     // do intermediate calculations
@@ -111,4 +100,4 @@ function mapStateToProps({ suggestions,active_user }, ownProps) {
         profile: suggestions[ownProps.match.params.id],
         active_user: active_user };
 }
-export default connect(mapStateToProps, { fetchProfile, createInvitation })(Profile);
+export default connect(mapStateToProps, { fetchProfile, createInvitation, updateUserInvitations })(Profile);

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import moment from 'moment'; 
-import { createConnection, updateUserConnections } from '../actions/action_connection'
-import { ToastContainer, toast } from 'react-toastify'; 
+import { createConnection, updateUserConnections, deleteInvitation } from '../actions/action_connection'
+import { toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 class Invitation extends Component {
 
     constructor(props) {
@@ -15,6 +16,7 @@ class Invitation extends Component {
     notify = () => toast("You have a new connection!");
     dismissAll = () =>  toast.dismiss();
     onAccept(event) {
+        this.notify();
         const creation_date = moment().format();
         
         const host = this.props.host_friend;
@@ -33,7 +35,7 @@ class Invitation extends Component {
         this.props.createConnection(connection, host, incoming);
         this.props.updateUserConnections(host, incoming);
         this.props.updateUserConnections(incoming, host);
-        
+        this.props.deleteInvitation(host, incoming);
         return <Redirect to="/"/>
         
     }
@@ -46,7 +48,6 @@ class Invitation extends Component {
                 <h2>{student.name}</h2>
                 <div>
                     <button className="btn" onClick={this.onAccept}><i className="fa fa-check-circle-o fa-2x"></i></button>
-                    <ToastContainer />
                 </div>
                 <button className="btn"><i className="fa fa-close fa-2x"></i></button>
             </div>
@@ -55,4 +56,4 @@ class Invitation extends Component {
     
 }
 
-export default connect(null, {createConnection, updateUserConnections})(Invitation);
+export default connect(null, {createConnection, updateUserConnections, deleteInvitation})(Invitation);

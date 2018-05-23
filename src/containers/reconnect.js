@@ -57,21 +57,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ReConnect));
-
-/*
-<Sidebar user={this.props.active_user}/>
-<div className="sidebar">
-                        
-                        {this.props.active_user?
-                            (
-                                <div>
-                                    <img className="profPic" src={this.props.active_user.prof_pic}/>
-                                    <h2>{this.props.active_user.name}</h2>
-                                </div>
-                            ) : (
-                                <div>
-                                    <img className="profPic" src="https://static.licdn.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_200x200_v1.png"/>
-                                    <h2>Loading profile...</h2>
-                                </div>
-                            )}
-                    </div>*/

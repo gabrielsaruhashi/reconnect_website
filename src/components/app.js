@@ -15,10 +15,12 @@ import firebase from 'firebase';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import { authenticate, setCurrentUser } from '../actions/index';
 import Footer from '../components/footer';
 import Header from '../components/header';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Spinner from '../components/spinner';
 
 class App extends Component {
   
@@ -55,6 +57,8 @@ class App extends Component {
           <Route exact path="/edit_about_me" component={EditAboutMe}/>
           <Route exact path="/edit" component={EditProfile}/>
           <Route exact path="/usr/:id" component={Profile}/>
+          <ToastContainer />
+
         </div>
       </BrowserRouter>
     );

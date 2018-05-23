@@ -54,8 +54,6 @@ h1, h2, h3, h4, h5 {
     background: #edc420; }
   .btn:active {
     letter-spacing: 2px; }
-  .btn:after {
-    content: "SUBMIT"; }
 
 .btn-onclic {
   width: 40px;
@@ -83,6 +81,10 @@ h1, h2, h3, h4, h5 {
     transform: rotate(0deg); }
   to {
     transform: rotate(360deg); } }
+
+.spinner {
+  text-align: center;
+  margin-top: 50vh; }
 
 /* parent element, inheritance */
 body {

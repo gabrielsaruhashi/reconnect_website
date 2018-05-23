@@ -18,7 +18,6 @@ export function updateUserConnections(user, new_connection) {
         connections: user_connections
     }
 
-    console.log("Updating users");
     return dispatch => firebase.database().ref('/users').child(`${user.uid}`).update(newData_user);
 }
 

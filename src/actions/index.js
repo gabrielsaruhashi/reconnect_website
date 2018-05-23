@@ -61,7 +61,19 @@ export function createInvitation(sender_profile, recipient_uid) {
     return dispatch => firebase.database().ref(`/invitations`).child(`${recipient_uid}/${sender_profile.uid}`).set(sender_profile);
 }
 
+export function updateUserInvitations(user, invitee) {
+    var user_invitations;
+    if (user.invitations) {
+        user_invitations = { ... user.invitations, [invitee.uid] : true};
+    } else {
+        user_invitations = {[invitee.uid]: true};
+    }
 
+    const newData_user = {
+        invitations: user_invitations
+    }
+    return dispatch => firebase.database().ref('/users').child(`${user.uid}`).update(newData_user);
+}
 export function setCurrentUser(user) {
     return {
         type: CURRENT_USER,
