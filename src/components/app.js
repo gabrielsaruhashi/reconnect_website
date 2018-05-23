@@ -5,8 +5,8 @@ import LoginForm from '../containers/login_form'
 import EditProfile from '../containers/edit_profile';
 import EditAboutMe from '../containers/edit_about_me';
 import Profile from '../containers/profile';
+import ConversationList from '../containers/conversation_list';
 
-import Chat from './chat'
 import ReConnect from '../containers/reconnect';
 import DashboardHost from '../containers/dashboard_host';
 
@@ -70,7 +70,6 @@ class App extends Component {
     }
 
     return (
-      
       <BrowserRouter>
         <div>
           <Header />
@@ -80,6 +79,7 @@ class App extends Component {
           <Route exact path="/edit_about_me" component={EditAboutMe}/>
           <Route exact path="/edit" component={EditProfile}/>
           <Route exact path="/usr/:id" component={Profile}/>
+          <Route exact path="/inbox" component={ConversationList}/>
           <ToastContainer />
 
         </div>

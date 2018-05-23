@@ -24,8 +24,8 @@ class Invitation extends Component {
 
         // create dictionary of members
         const members = {};
-        members[host.uid] = true;
-        members[incoming.uid] = true;
+        members[host.name] = true;
+        members[incoming.name] = true;
 
         const connection = {
             'members': members,
