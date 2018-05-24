@@ -9,29 +9,29 @@ function loadConnectionsParallel(keys, callback) {
 export function fetchConnections(uid) {
     return dispatch => {
         firebase.database().ref(`/users`).child(`${uid}/connections`).on('value', snapshot => {
-        const connectionsRef = firebase.database().ref('reconnections');
-        const data = snapshot.val();
-        const keys = Object.keys(data);
-        var connections = {};
-        
-        // retrieve all reconnections using a parallel method
-        Promise.all(
-            _.map(keys, id => {
-                return connectionsRef.child(`${id}`).once('value', snap => {
-                    return snap;
+            const connectionsRef = firebase.database().ref('reconnections');
+            const data = snapshot.val();
+            const keys = Object.keys(data);
+            var connections = {};
+            
+            // retrieve all reconnections using a parallel method
+            Promise.all(
+                _.map(keys, id => {
+                    return connectionsRef.child(`${id}`).once('value', snap => {
+                        return snap;
+                    })
                 })
-            })
-        ).then( r => 
-            {
-                for (let i = 0; i < r.length; i++) {
-                    connections[r[i].key] = r[i].val();
-                }
-                dispatch({
-                    type: FETCH_CONNECTIONS,
-                    payload: connections
+            ).then( r => 
+                {
+                    for (let i = 0; i < r.length; i++) {
+                        connections[r[i].key] = r[i].val();
+                    }
+                    dispatch({
+                        type: FETCH_CONNECTIONS,
+                        payload: connections
+                    });
                 });
-            });
-       
+        
         });
     };
 }

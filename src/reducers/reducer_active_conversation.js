@@ -2,7 +2,6 @@ export default function(state = null, action) { // ES6 state = null, if undefine
 
     switch (action.type) {
 		case 'SELECT_CONVERSATION':
-			// selected conversation
 			return action.payload;
 	}
     return state;

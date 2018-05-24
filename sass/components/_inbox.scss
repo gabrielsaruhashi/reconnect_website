@@ -5,7 +5,7 @@
     display: grid;
     box-shadow: 0px 3px 3px rgba(0,0,0,0.12);
     background-color: white;
-    grid-template-columns: min-content 1fr;
+    grid-template-columns: auto auto;
     position: relative;
     margin: 10em 2em 10em;
     
@@ -41,19 +41,26 @@
             &:hover {
                 background: #efefef;
             }
+
+            .selected {
+                background: $color-primary-light;
+            }
+
         }
 
     }
 
     & .chat {
-        
+        width: inherit;
         .chat-header {
             display: flex;
+            padding-top: 1em;
+            padding-bottom: 1em;
             align-items: center;
-            padding: 20px;
             border-bottom: 2px solid #ededed;
             
             & img {
+                margin-left: 1em;
                 border-radius: 50%;
                 width: 5em;
                 height: 5em;
@@ -61,14 +68,14 @@
             
         
             .chat-with {
-                padding-left: 1em;
+                margin-left: 1em;
                 font-weight: bold;
                 font-size: 16px;
             }    
         }
 
         .chat-history {
-            padding: 30px 30px 20px;
+            //padding: 30px 30px 20px;
             border-bottom: 2px solid #ededed;
             overflow-y: scroll;
             height: 575px;
@@ -85,23 +92,30 @@
         }
 
         .chat-message {
-            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            
+            //padding: 30px;
             
             & textarea {
-              width: 100%;
-              background: #efefef;
-              border: none;
-              padding: 10px 20px;
-              font: 14px/22px "Lato", Arial, sans-serif;
-              margin-bottom: 10px;
-              border-radius: 5px;
-              resize: none;
+                margin-top: 1em;
+                width: 80%;
+                align-self: center;
+                background: #efefef;
+                border: none;
+                padding: 10px 20px;
+                font: 14px/22px "Lato", Arial, sans-serif;
+                margin-bottom: 1em;
+                border-radius: 5px;
+                resize: none;
               
             }
             
             & button {
                 float: right;
+                align-self: flex-end;
                 margin-bottom: 1em;
+                margin-right: 4em;
             }
           }
 

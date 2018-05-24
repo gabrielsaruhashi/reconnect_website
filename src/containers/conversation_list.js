@@ -17,17 +17,19 @@ class ConversationList extends Component {
         return _.map(keys, key => {
             const connection = connections[key];
             
+            const class_name = (this.props.active_conversation == key)? "conversation-cell selected" : "conversation-cell";
+            console.log(class_name)
             return (
-                <li key={key}>
-                    <div className="conversation-cell">
+                <li onClick={() => this.props.selectConversation(key)} key={key}>
+                    <div className={class_name}>
                     <img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/68dd54ca-60cf-4ef7-898b-26d7cbe48ec7/10-dithering-opt.jpg"/>
                     <div>
-                        <p>Lorem Ipsum</p>
+                        <p>{key}</p>
                         <p>Last message sent</p>
                     </div>
                     </div>
                 </li>
-            )
+            );
         })
     }
     render() {
@@ -38,8 +40,9 @@ class ConversationList extends Component {
                         {this.renderConversations()}
                     </ul>
                 </div>
-
-                <Chat />
+                <div className="chat">
+                    <Chat />
+                </div>
             </div>
         )
     }
@@ -48,8 +51,7 @@ class ConversationList extends Component {
 function mapStateToProps({connections, active_user, active_conversation }) {
     return {
         connections: connections,
-        active_user: active_user,
-        active_conversation: active_conversation
+        active_user: active_user
 	};
 }
 
