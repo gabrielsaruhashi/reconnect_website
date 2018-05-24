@@ -21,13 +21,18 @@ const Message = ({ message }) => {
 
 class Chat extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
-       
-        if (this.props.active_conversation && 
-                this.props.active_conversation != prevProps.active_conversation ) {
+        const { active_conversation } = this.props;
+        // only fetch messages when there is a new active conversation
+        if (active_conversation && 
+                !_.isEqual(active_conversation, prevProps)) {
             
+            const { connection_id } = active_conversation;
+
+            // fetch messages if this chat's messages have not been loaded yet
+            // OR if messages state object does not exist yet
             if (!this.props.messages ||
-                !this.props.messages[this.props.active_conversation]) {
-                    this.props.fetchMessages(this.props.active_conversation);
+                !this.props.messages[connection_id]) {
+                    this.props.fetchMessages(connection_id);
             }
         }
             
@@ -54,7 +59,7 @@ class Chat extends Component {
             sender: this.props.active_user.uid
         }
         // create message
-        this.props.createMessage(this.props.active_conversation, message);
+        this.props.createMessage(this.props.active_conversation.connection_id, message);
         // reset field
         this.setState({
             message: ''
@@ -69,7 +74,7 @@ class Chat extends Component {
 
     renderMessages() {
         var counter = 0;
-        const chat_messages = this.props.messages[this.props.active_conversation];
+        const chat_messages = this.props.messages[this.props.active_conversation.connection_id];
         
         // message is the key of the object that contains the list of messages
         return _.map(chat_messages, message => { 
@@ -82,6 +87,7 @@ class Chat extends Component {
         });
     }
     render() {
+
         if (!this.props.active_conversation) {
             return (
                 <div>
@@ -91,11 +97,13 @@ class Chat extends Component {
             )
         }
 
+        const { person } = this.props.active_conversation;
+
         return (
             <div>
                 <div className="chat-header">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
-                    <div className="chat-with">Chat with Vincent Porter</div>
+                    <img src={person.prof_pic} alt="avatar" />
+                    <div className="chat-with">Chat with {person.name}</div>
             
                 </div>
                 

@@ -4,10 +4,15 @@ export const SELECT_CONVERSATION = "SELECT_CONVERSATION";
 export const FETCH_MESSAGES = "FETCH_MESSAGES";
 export const FETCH_CONNECTIONS_INFO = "FETCH_CONNECTIONS_INFO";
 
-export function selectConversation(connection) {
+export function selectConversation(connection_id, person) {
+    const conversation = {
+        connection_id: connection_id,
+        person: person
+    };
+
     return {
         type: SELECT_CONVERSATION,
-        payload: connection
+        payload: conversation
     }
 }
 

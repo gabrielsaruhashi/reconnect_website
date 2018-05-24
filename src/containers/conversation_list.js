@@ -32,12 +32,13 @@ class ConversationList extends Component {
             
             // get other's info
             const other_info = this.props.connections_info[other_id];
-            console.log(other_info);
-            const class_name = (this.props.active_conversation == key)? "conversation-cell selected" : "conversation-cell";
+
+            const class_name = (this.props.active_conversation && 
+                this.props.active_conversation.connection_id == key)? "conversation-cell selected" : "conversation-cell";
             
             if (other_info) {
                 return (
-                    <li onClick={() => this.props.selectConversation(key)} key={key}>
+                    <li onClick={() => this.props.selectConversation(key, other_info)} key={key}>
                         <div className={class_name}>
                             <img src={other_info.prof_pic}/>
                             <div>
