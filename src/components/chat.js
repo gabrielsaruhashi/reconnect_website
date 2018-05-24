@@ -41,6 +41,9 @@ class Chat extends Component {
                     this.props.fetchMessages(connection_id);
             }
         }
+        // scroll to latest message added
+        var el = this.refs.wrap;
+        el.scrollTop = el.scrollHeight;
             
     }
     constructor() {
@@ -100,9 +103,9 @@ class Chat extends Component {
 
         if (!this.props.active_conversation) {
             return (
-                <div>
-                    No conversations selected.
-                    Try selecting a conversation.
+                <div className="no-selection-message">
+                    <h1>No conversations selected.</h1>
+                    <h2>Try selecting a conversation.</h2>
                 </div>
             )
         }
@@ -112,20 +115,21 @@ class Chat extends Component {
         return (
             <div>
                 <div className="chat-header">
-                    <img src={person.prof_pic} alt="avatar" />
+                    <div className="circled-profPic medium-pic" style={{backgroundImage: 'url(' + person.prof_pic + ')'}}/>
+                    
                     <div className="chat-with">Chat with {person.name}</div>
             
                 </div>
                 
-                <div className="chat-history">
+                <div className="chat-history" ref="wrap">
                     <ul>
                         {this.renderMessages()}
                     </ul>
                     
                 </div>
             
-                <div className="chat-message">
-                    <form onSubmit={this.handleSubmit} ref="form">
+                <div>
+                    <form className="chat-message" onSubmit={this.handleSubmit} ref="form">
                         <textarea  name="message-to-send" onChange={this.handleChange} value={this.state.message} rows="3"></textarea>
                         <button className="btn">Send</button>
                     </form>

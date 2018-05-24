@@ -109,3 +109,30 @@ ul {
   margin-top: 25vh;
   
 }
+
+.profPic {
+  height: 100%;
+  width: 20em;;
+  background-size:cover;
+  background-position: center center;
+  background-clip: padding-box;
+}
+
+.circled-profPic {
+  border-radius: 50%;
+  background-size:cover;
+  background-position: center center;
+  background-clip: padding-box;
+  
+}
+.small-pic {
+  margin-left: 1em;
+  width: 4.5em;
+  height: 4.5em;
+}
+
+.medium-pic {
+  margin-left: 1em;
+  width: 5em;
+  height: 5em;
+}

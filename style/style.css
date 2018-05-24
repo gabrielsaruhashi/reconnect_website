@@ -96,6 +96,29 @@ ul {
   margin-left: 40vw;
   margin-top: 25vh; }
 
+.profPic {
+  height: 100%;
+  width: 20em;
+  background-size: cover;
+  background-position: center center;
+  background-clip: padding-box; }
+
+.circled-profPic {
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center center;
+  background-clip: padding-box; }
+
+.small-pic {
+  margin-left: 1em;
+  width: 4.5em;
+  height: 4.5em; }
+
+.medium-pic {
+  margin-left: 1em;
+  width: 5em;
+  height: 5em; }
+
 /* parent element, inheritance */
 body {
   font-family: "Lato", sans-serif;
@@ -373,7 +396,7 @@ ul.links {
 .reconnect-wrapper {
   font-family: inherit;
   display: grid;
-  grid-template-columns: min-content 1fr;
+  grid-template-columns: min-content auto;
   position: relative;
   margin-top: 10em;
   margin: 10em 2em 10em;
@@ -398,12 +421,17 @@ ul.links {
     overflow-y: scroll; }
     .reconnect-wrapper .main_content .header {
       box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
-      background-color: #edc420;
+      background-color: #fff;
       padding-top: 1em;
       padding-bottom: 1em; }
       .reconnect-wrapper .main_content .header h1 {
-        text-align: center; }
+        text-align: center;
+        color: #f2a908;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px; }
       .reconnect-wrapper .main_content .header p {
+        font-style: italic;
         text-align: center;
         font-size: 1.5em;
         margin: 0 1em 0; }
@@ -440,18 +468,22 @@ ul.links {
 .suggestion_wrapper {
   margin: 2em 1em 2em;
   background-color: white;
+  width: inherit;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
-  display: grid;
-  grid-template-columns: 2fr 5fr min-content; }
-  .suggestion_wrapper img {
-    width: 100%;
-    height: auto; }
+  display: flex;
+  height: 20vh; }
   .suggestion_wrapper .profile_box {
     justify-content: start;
     margin: 0 1em;
     width: 90%; }
     .suggestion_wrapper .profile_box p {
-      font-style: italic; }
+      font-style: italic;
+      overflow: hidden;
+      color: #777;
+      font-size: 1.2em; }
+    .suggestion_wrapper .profile_box h3 {
+      color: #777;
+      font-weight: 300; }
     .suggestion_wrapper .profile_box .box_header {
       display: grid;
       align-items: center;
@@ -462,7 +494,6 @@ ul.links {
         justify-self: end; }
   .suggestion_wrapper .invite_banner {
     background-color: #edc420;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
     height: 100%;
     white-space: nowrap;
     padding: 0 1em;
@@ -473,6 +504,9 @@ ul.links {
       width: 100%; }
     .suggestion_wrapper .invite_banner span {
       width: 100%; }
+    .suggestion_wrapper .invite_banner:hover {
+      color: white;
+      background-color: #f0ce46; }
 
 /**
 * Footer
@@ -537,29 +571,39 @@ footer a:hover {
       padding-bottom: 0.5em;
       border-bottom: 1px solid #ededed;
       justify-content: start;
-      align-items: center; }
-      .inbox-wrapper .sidebar-conversation-list .conversation-cell img {
-        margin-left: 1em;
-        width: 4.5em;
-        height: 4.5em;
-        border-radius: 50%; }
+      align-items: center;
+      white-space: nowrap;
+      overflow: hidden; }
+      .inbox-wrapper .sidebar-conversation-list .conversation-cell .container {
+        margin-left: 0.6em; }
+        .inbox-wrapper .sidebar-conversation-list .conversation-cell .container p {
+          color: #777; }
+        .inbox-wrapper .sidebar-conversation-list .conversation-cell .container h2 {
+          font-weight: bold;
+          font-size: 1.4em; }
       .inbox-wrapper .sidebar-conversation-list .conversation-cell:hover {
         background: #efefef; }
     .inbox-wrapper .sidebar-conversation-list .selected {
-      background: #edc420; }
+      background: #edc420;
+      color: white; }
   .inbox-wrapper .chat {
-    width: inherit; }
+    width: inherit;
+    display: flex;
+    flex-direction: column; }
+    .inbox-wrapper .chat .no-selection-message {
+      align-self: center;
+      padding-top: 20vh;
+      padding-bottom: 20vh; }
+      .inbox-wrapper .chat .no-selection-message h1 {
+        font-size: 2.5em; }
+      .inbox-wrapper .chat .no-selection-message h2 {
+        color: #777; }
     .inbox-wrapper .chat .chat-header {
       display: flex;
       padding-top: 1em;
       padding-bottom: 1em;
       align-items: center;
       border-bottom: 2px solid #ededed; }
-      .inbox-wrapper .chat .chat-header img {
-        margin-left: 1em;
-        border-radius: 50%;
-        width: 5em;
-        height: 5em; }
       .inbox-wrapper .chat .chat-header .chat-with {
         margin-left: 1em;
         font-weight: bold;
@@ -567,7 +611,7 @@ footer a:hover {
     .inbox-wrapper .chat .chat-history {
       border-bottom: 2px solid #ededed;
       overflow-y: scroll;
-      height: 575px; }
+      height: 50vh; }
       .inbox-wrapper .chat .chat-history .message-data {
         margin-bottom: 0.5em; }
       .inbox-wrapper .chat .chat-history .align-right {
@@ -597,12 +641,12 @@ footer a:hover {
           font-size: 1.4em;
           margin-left: 0.5em; }
       .inbox-wrapper .chat .chat-history .my-message {
-        background: #86BB71;
+        background: #92959E;
         align-self: flex-end;
         margin-right: 0.8em; }
       .inbox-wrapper .chat .chat-history .other-message {
         margin-left: 0.8em;
-        background: #94C2ED; }
+        background: #edc420; }
     .inbox-wrapper .chat .chat-message {
       display: flex;
       flex-direction: column; }

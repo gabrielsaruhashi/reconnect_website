@@ -5,7 +5,7 @@ const Suggestion = ({suggestion}) => {
     const REDIRECT_URL = `/usr/${suggestion.uid}`;
     return (
         <div className="suggestion_wrapper">
-            <img src={suggestion.prof_pic}/>
+            <div className="profPic" style={{backgroundImage: 'url(' + suggestion.prof_pic + ')'}}/>
             <div className="profile_box">
                 <div className="box_header">
                     <h2>{suggestion.name}</h2>

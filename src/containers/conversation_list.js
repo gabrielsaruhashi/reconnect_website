@@ -40,9 +40,10 @@ class ConversationList extends Component {
                 return (
                     <li onClick={() => this.props.selectConversation(key, other_info)} key={key}>
                         <div className={class_name}>
-                            <img src={other_info.prof_pic}/>
-                            <div>
-                                <p>{other_info.name}</p>
+                            <div className="circled-profPic small-pic" style={{backgroundImage: 'url(' + other_info.prof_pic + ')'}}/>
+                            
+                            <div className="container">
+                                <h2>{other_info.name}</h2>
                                 <p>Last message sent</p>
                             </div>
                         </div>
