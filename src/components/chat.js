@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { createMessage, fetchMessages } from '../actions/action_conversation';
 import moment from 'moment';
+import Moment from 'react-moment';
 import { connect } from 'react-redux';
 
 
-const Message = ({ message }) => {
+const Message = ({ message, sender, isMe }) => {
+    const current_time = moment().format();
+    const display_name = isMe ? "Me" : sender.name;
+    const profile_pic = sender.prof_pic;
+    const message_class = isMe? "message my-message" : "message other-message"
+    const message_data_class = isMe? "message-data align-right" : "message-data align-left";
     return (
-        <div>
-            <div className="message-data">
-                <span className="message-data-time" >{message.creation_date}</span> &nbsp; &nbsp;
-                <span className="message-data-name" >{message.sender}</span>
+        <div className="message_wrapper">
+            <div className={message_data_class}>
+                <span className="message-data-time" ><Moment fromNow>{message.creation_date}</Moment></span> &nbsp; &nbsp;
+                <span className="message-data-name" >{display_name}</span>
             </div>
-            <div className="message other-message">
-            {message.message}
+            <div className={message_class}>
+                <p>{message.message}</p>
             </div>
         </div>
     )
@@ -74,14 +80,18 @@ class Chat extends Component {
 
     renderMessages() {
         var counter = 0;
-        const chat_messages = this.props.messages[this.props.active_conversation.connection_id];
-        
+        const { active_conversation } = this.props;
+        const chat_messages = this.props.messages[active_conversation.connection_id];
+        const { active_user } = this.props;
         // message is the key of the object that contains the list of messages
         return _.map(chat_messages, message => { 
             counter += 1;
+
+            const sender_info = (message.sender == active_user.uid) ? active_user : active_conversation.person;
+            const isMe = (message.sender == active_user.uid) ? true : false;
             return (
                 <li key={counter}>
-                    <Message message={message}/>
+                    <Message message={message} sender={sender_info} isMe={isMe} />
                 </li>
             );
         });

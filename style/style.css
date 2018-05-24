@@ -394,19 +394,21 @@ ul.links {
       height: 10em; }
     .reconnect-wrapper .sidebar h2 {
       text-align: center; }
-  .reconnect-wrapper .main_content .header {
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
-    background-color: #edc420;
-    padding-top: 1em;
-    padding-bottom: 1em; }
-    .reconnect-wrapper .main_content .header h1 {
-      text-align: center; }
-    .reconnect-wrapper .main_content .header p {
-      text-align: center;
-      font-size: 1.5em;
-      margin: 0 1em 0; }
-  .reconnect-wrapper .main_content ul {
-    list-style-type: none; }
+  .reconnect-wrapper .main_content {
+    overflow-y: scroll; }
+    .reconnect-wrapper .main_content .header {
+      box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
+      background-color: #edc420;
+      padding-top: 1em;
+      padding-bottom: 1em; }
+      .reconnect-wrapper .main_content .header h1 {
+        text-align: center; }
+      .reconnect-wrapper .main_content .header p {
+        text-align: center;
+        font-size: 1.5em;
+        margin: 0 1em 0; }
+    .reconnect-wrapper .main_content ul {
+      list-style-type: none; }
   .reconnect-wrapper .main_content_profile {
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
     background-color: #fff;
@@ -567,10 +569,40 @@ footer a:hover {
       overflow-y: scroll;
       height: 575px; }
       .inbox-wrapper .chat .chat-history .message-data {
-        margin-bottom: 15px; }
+        margin-bottom: 0.5em; }
+      .inbox-wrapper .chat .chat-history .align-right {
+        text-align: right; }
+      .inbox-wrapper .chat .chat-history .align-left {
+        text-align: left; }
+      .inbox-wrapper .chat .chat-history .message_wrapper {
+        display: flex;
+        flex-direction: column; }
       .inbox-wrapper .chat .chat-history .message-data-time {
         color: #a8aab1;
-        padding-left: 6px; }
+        padding-left: 0.8em; }
+      .inbox-wrapper .chat .chat-history .message-data-name {
+        padding-right: 0.8em;
+        font-weight: bold;
+        font-size: 1em; }
+      .inbox-wrapper .chat .chat-history .message {
+        color: white;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        line-height: 26px;
+        border-radius: 7px;
+        margin-bottom: 2.5em;
+        width: 30vw;
+        position: relative; }
+        .inbox-wrapper .chat .chat-history .message p {
+          font-size: 1.4em;
+          margin-left: 0.5em; }
+      .inbox-wrapper .chat .chat-history .my-message {
+        background: #86BB71;
+        align-self: flex-end;
+        margin-right: 0.8em; }
+      .inbox-wrapper .chat .chat-history .other-message {
+        margin-left: 0.8em;
+        background: #94C2ED; }
     .inbox-wrapper .chat .chat-message {
       display: flex;
       flex-direction: column; }
