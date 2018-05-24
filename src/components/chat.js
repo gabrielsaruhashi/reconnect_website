@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 
 const Message = ({ message }) => {
-    
     return (
         <div>
             <div className="message-data">

@@ -10,6 +10,7 @@ class Invitation extends Component {
 
     constructor(props) {
         super(props);
+        
         this.onAccept = this.onAccept.bind(this);
     }
 
@@ -21,20 +22,21 @@ class Invitation extends Component {
         
         const host = this.props.host_friend;
         const incoming = this.props.student; 
-
+        
         // create dictionary of members
-        const members = {};
-        members[host.name] = true;
-        members[incoming.name] = true;
+        var members = {};
+        members[host.uid] = true;
+        members[incoming.uid] = true;
 
         const connection = {
             'members': members,
             'creation_date': creation_date   
         }
         // create connection and delete invitation from host's
-        const newConnection = this.props.createConnection(connection, host, incoming);        
-        this.props.updateUserConnections(host, newConnection.key);
-        this.props.updateUserConnections(incoming, newConnection.key);
+        const newConnection = this.props.createConnection(connection);        
+        this.props.updateUserConnections(host, newConnection.key, incoming);
+        this.props.updateUserConnections(incoming, newConnection.key, host);
+        // invitation is always from an international student to a host
         this.props.deleteInvitation(host, incoming);
         return <Redirect to="/"/>
         

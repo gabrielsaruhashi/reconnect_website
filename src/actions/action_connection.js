@@ -3,14 +3,15 @@ import _ from 'lodash';
 
 export const FETCH_CONNECTIONS = "FETCH_CONNECTIONS"
 
-function loadConnectionsParallel(keys, callback) {
 
-}
 export function fetchConnections(uid) {
     return dispatch => {
         firebase.database().ref(`/users`).child(`${uid}/connections`).on('value', snapshot => {
+            // reference to storage
             const connectionsRef = firebase.database().ref('reconnections');
             const data = snapshot.val();
+
+            // get the ids of the reconnections
             const keys = Object.keys(data);
             var connections = {};
             
@@ -21,32 +22,33 @@ export function fetchConnections(uid) {
                         return snap;
                     })
                 })
-            ).then( r => 
-                {
-                    for (let i = 0; i < r.length; i++) {
-                        connections[r[i].key] = r[i].val();
-                    }
-                    dispatch({
-                        type: FETCH_CONNECTIONS,
-                        payload: connections
-                    });
+            ).then( res => {
+                
+                for (let i = 0; i < res.length; i++) {
+                    connections[res[i].key] = res[i].val();
+                }
+
+                dispatch({
+                    type: FETCH_CONNECTIONS,
+                    payload: connections
                 });
+            });
         
         });
     };
 }
 
-export function createConnection(connection, host, international) {
+export function createConnection(connection) {
     return dispatch => firebase.database().ref(`/reconnections`).push(connection);
 }
 
-export function updateUserConnections(user, newReconnection_id) {
+export function updateUserConnections(user, newReconnection_id, other) {
     var user_connections;
 
     if (user.connections) {
-        user_connections = { ... user.connections, [newReconnection_id] : true};
+        user_connections = { ... user.connections, [newReconnection_id] : other.uid};
     } else {
-        user_connections = {[newReconnection_id]: true};
+        user_connections = {[newReconnection_id]: other.uid};
     }
 
     const newData_user = {

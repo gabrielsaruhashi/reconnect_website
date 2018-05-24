@@ -2,6 +2,7 @@ import firebase from 'firebase';
 
 export const SELECT_CONVERSATION = "SELECT_CONVERSATION";
 export const FETCH_MESSAGES = "FETCH_MESSAGES";
+export const FETCH_CONNECTIONS_INFO = "FETCH_CONNECTIONS_INFO";
 
 export function selectConversation(connection) {
     return {
@@ -22,6 +23,38 @@ export function fetchMessages(reconnection_id) {
         });
     };
 }
+
+export function fetchConnectionsInfo(uid) {
+    return dispatch => {
+        firebase.database().ref(`/users`).child(`${uid}/connections`).on('value', snapshot => {
+            const usersRef = firebase.database().ref('users');
+            const data = snapshot.val();
+            //console.log(data);
+            const keys = Object.keys(data);
+            var connections_info = {};
+
+            // retrieve all connection's info using parallel method
+            Promise.all(
+                _.map(keys, id => {
+                    const other_id = data[id];
+                    return usersRef.child(`${other_id}`).once('value', snap => {
+                        return snap;
+                    })
+                })
+            ).then(res => {
+                for (let i = 0; i < res.length; i++) {
+                    connections_info[res[i].key] = res[i].val();
+                }
+                dispatch({
+                    type: FETCH_CONNECTIONS_INFO,
+                    payload: connections_info
+                });
+
+            })
+        })
+    }
+}
+
 export function createMessage(connection_id, message) {
     const newMessageKey = firebase.database().ref(`/messages`).child(`${connection_id}`).push().key;
     return dispatch => firebase.database().ref(`/messages`)
