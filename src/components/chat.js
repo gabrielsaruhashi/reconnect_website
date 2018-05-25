@@ -49,7 +49,7 @@ class Chat extends Component {
     constructor() {
         super();
         this.state = {
-            message: "Type your message..."
+            message: ""
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -73,7 +73,7 @@ class Chat extends Component {
         
         // update connection with the latest message
         this.props.updateLastMessageSent(connection_id, message);
-        
+
         // reset field
         this.setState({
             message: ''
@@ -135,7 +135,7 @@ class Chat extends Component {
             
                 <div>
                     <form className="chat-message" onSubmit={this.handleSubmit} ref="form">
-                        <textarea  name="message-to-send" onChange={this.handleChange} value={this.state.message} rows="3"></textarea>
+                        <textarea  name="message-to-send" onChange={this.handleChange} value={this.state.message} placeholder="Type your message..." rows="3"></textarea>
                         <button className="btn">Send</button>
                     </form>
                 </div>

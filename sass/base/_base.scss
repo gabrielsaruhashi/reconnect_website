@@ -136,3 +136,15 @@ ul {
   width: 5em;
   height: 5em;
 }
+
+.select-pic {
+  width: 8em;
+  height: 8em;
+  display: table;
+  margin-top: 1em;
+  &:hover {
+    opacity:0.7;
+    cursor: pointer;
+  }
+  
+}

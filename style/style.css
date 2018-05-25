@@ -119,6 +119,15 @@ ul {
   width: 5em;
   height: 5em; }
 
+.select-pic {
+  width: 8em;
+  height: 8em;
+  display: table;
+  margin-top: 1em; }
+  .select-pic:hover {
+    opacity: 0.7;
+    cursor: pointer; }
+
 /* parent element, inheritance */
 body {
   font-family: "Lato", sans-serif;
@@ -206,11 +215,36 @@ ul.links {
   transition: none;
   -webkit-animation: expand 0.8s 0.6s ease-out forwards;
   animation: expand 0.8s 0.6s ease-out forwards;
-  opacity: 0; }
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .form_wrapper img {
+    max-width: 50%;
+    height: auto;
+    margin-bottom: 2em; }
+  .form_wrapper input[type=file] {
+    cursor: pointer;
+    display: table-cell;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    right: 0;
+    z-index: 99;
+    /*This makes the button huge. If you want a bigger button, increase the font size*/
+    font-size: 50px;
+    /*Opacity settings for all browsers*/
+    opacity: 0;
+    -moz-opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0); }
+  .form_wrapper h1 {
+    font-size: 1.8em;
+    letter-spacing: 1px;
+    text-transform: uppercase; }
   .form_wrapper h2 {
     font-size: 1.5em;
     line-height: 1.5em;
-    margin: 0; }
+    margin-top: 1em; }
   .form_wrapper .title_container {
     text-align: center;
     padding-bottom: 15px; }
@@ -230,6 +264,7 @@ ul.links {
     width: 50%;
     float: left; }
   .form_wrapper .input_field {
+    width: 100%;
     position: relative;
     margin-bottom: 20px;
     -webkit-animation: bounce 0.6s ease-out;
@@ -275,8 +310,10 @@ ul.links {
     outline: none;
     cursor: pointer;
     color: #fff;
-    font-size: 1.1em;
+    font-size: 1.3em;
+    margin-top: 1em;
     margin-bottom: 10px;
+    text-transform: uppercase;
     -webkit-transition: all 0.30s ease-in-out;
     -moz-transition: all 0.30s ease-in-out;
     -ms-transition: all 0.30s ease-in-out;
@@ -285,6 +322,12 @@ ul.links {
       background: #d8b011; }
     .form_wrapper input[type="submit"]:focus {
       background: #d8b011; }
+
+.form-profile-edit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; }
 
 .form_container .row .col_half.last {
   border-left: 1px solid #cccccc; }

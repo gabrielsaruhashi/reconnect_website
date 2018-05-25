@@ -32,6 +32,7 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
+    "@material-ui/core": "^1.0.0",
     "babel-plugin-import": "^1.7.0",
     "babel-preset-stage-1": "^6.1.18",
     "firebase": "^5.0.2",
@@ -48,7 +49,6 @@
     "react-toastify": "^4.0.1",
     "react-transition-group": "^2.3.1",
     "redux": "4.0.0",
-    "redux-thunk": "^2.2.0",
-    "semantic-ui-react": "^0.80.0"
+    "redux-thunk": "^2.2.0"
   }
 }

@@ -7,6 +7,7 @@ import Checkbox from '../components/checkbox';
 import { Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import FontAwesome from 'react-fontawesome';
+import MultipleSelect from '../components/mutiple_select';
 
 const BUCKET = "project-reconnect.appspot.com/"
 const items = [
@@ -21,23 +22,13 @@ class EditProfile extends Component {
         this.state = {
             redirect: false,
             school: "",
-            name: ""
+            name: "",
+            interests: [],
+            selected_picture: ""
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    
-    componentWillMount = () => {
-        this.selectedCheckboxes = new Set();
-    }
-    
-    toggleCheckbox = label => {
-        if (this.selectedCheckboxes.has(label)) {
-            this.selectedCheckboxes.delete(label);
-        } else {
-            this.selectedCheckboxes.add(label);
-        }
-    }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -79,17 +70,7 @@ class EditProfile extends Component {
         
     }
 
-    createCheckbox = label => (
-        <Checkbox
-                label={label}
-                handleCheckboxChange={this.toggleCheckbox}
-                key={label}
-            />
-      )
-    
-    createCheckboxes = () => (
-        items.map(this.createCheckbox)
-    )
+  
 
     handleSchoolInputChange(event) {
         this.setState({ school : event.target.value });
@@ -98,21 +79,39 @@ class EditProfile extends Component {
         this.setState({ name: event.target.value });
     }
 
+    handlePictureChange(event) {
+        //console.log(event.target.files[0].name);
+        const file = event.target.files[0];
+        var reader = new FileReader();
+        var url = reader.readAsDataURL(file);
+
+        reader.onloadend = function (e) {
+            this.setState({
+                selected_picture: [reader.result]
+            })
+        }.bind(this);
+        console.log(url)
+    }
+
     render() {
         if (this.state.redirect === true) {
             return <Redirect to={'/edit_about_me'} />
         }
+        
+        const selected_picture = this.state.selected_picture ? this.state.selected_picture : "https://www.ischool.berkeley.edu/sites/default/files/default_images/avatar.jpeg" 
         return (
             <div>
                 <div className="form_wrapper">
+                    <img className="" src="../../public/logo.png"/>
                     <div className="form_container">
                         <div className="title_container">
-                            <h2>Welcome to ReConnect!</h2>
+                            <h1>Welcome to ReConnect!</h1>
                         </div>
 
                         <div className="row clearfix">
                             <div className="">
-                                <form onSubmit={this.handleSubmit}>
+                                
+                                <form className="form-profile-edit" onSubmit={this.handleSubmit}>
                                     <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
                                         <input type="text" 
                                         name="first_name" 
@@ -130,9 +129,12 @@ class EditProfile extends Component {
                                         onChange={this.handleSchoolInputChange.bind(this)}  required />
                                     </div>
                                     <h2>Select your picture</h2>
-                                    <input name="image" type="file" accept="image/*" capture></input>
+                                    <div className="circled-profPic select-pic" style={{backgroundImage: 'url(' + selected_picture + ')'}}>
+                                        <input name="image" type="file" accept="image/*" onChange={(e) => this.handlePictureChange(e)} capture></input>
+                                    </div>
                                     <h2>Interests</h2>
-                                    {this.createCheckboxes()}
+                                    <MultipleSelect onInterestSelect={ (interests) => this.setState({interests}) }/>
+
 
                                     <input className="button" type="submit" value="Submit" />
                                 </form>
@@ -154,113 +156,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(EditProfile);
-
-/*
-           
-        */
-
-
-        /*
-        <div className="form_wrapper">
-                    <div className="form_container">
-                        <div className="title_container">
-                            <h2>Welcome to ReConnect!</h2>
-                        </div>
-
-                        <div className="row clearfix">
-                            <div className="">
-                                <form>
-                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
-                                        <input type="email" name="email" placeholder="Email" required />
-                                    </div>
-                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
-                                        <input type="password" name="password" placeholder="Password" required />
-                                    </div>
-                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
-                                        <input type="password" name="password" placeholder="Re-type Password" required />
-                                    </div>
-                                    
-
-                                    <div className="row clearfix">
-                                        <div className="col_half">
-                                            <div className="input_field"> <span><i aria-hidden="true" className="fa fa-user"></i></span>
-                                                <input type="text" name="name" placeholder="First Name" />
-                                            </div>
-                                        </div>
-                                
-
-                                        <div className="col_half">
-                                            <div className="input_field"> <span><i aria-hidden="true" className="fa fa-user"></i></span>
-                                                <input type="text" name="name" placeholder="Last Name" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input_field radio_option">
-                                        <input type="radio" name="radiogroup1" id="rd1"/>
-                                        <label>Male</label>
-                                        <input type="radio" name="radiogroup1" id="rd2"/>
-                                        <label>Female</label>
-                                    </div>
-
-                                    <div className="input_field select_option">
-                                        <select>
-                                        <option>Select a country</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        </select>
-                                        <div className="select_arrow"></div>
-                                    </div>
-
-                                    <div className="input_field checkbox_option">
-                                        <input type="checkbox" id="cb1"/>
-                                        <label>I agree with terms and conditions</label>
-                                    </div>
-                                    <div className="input_field checkbox_option">
-                                        <input type="checkbox" id="cb2"/>
-                                        <label>I want to receive the newsletter</label>
-                                    </div>
-                                    <input className="button" type="submit" value="Register" />
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                */
-
-
-                /*
-                <div>
-                    <ProgressBar now={30} />
-                    <Header />
-                    <Jumbotron>
-                        <h1>Hello</h1>
-                        <p>
-                            Welcome to a community of millions of students!
-                            As a first step, we would love to learn more about you!
-                        </p>
-                        <form onSubmit={this.handleSubmit} >
-                            <h2>Some basic info</h2>
-                            <input 
-                                className="form-control" 
-                                value={this.state.name} 
-                                id="name" 
-                                placeholder="Enter name"
-                                onChange={this.handleNameInputChange.bind(this)}/>
-                            <input 
-                                className="form-control"
-                                value={this.state.school} 
-                                id="school" 
-                                placeholder="Which school are you going to attend?"
-                                onChange={this.handleSchoolInputChange.bind(this)}/>
-                            <h2>Select your picture</h2>
-                            <input name="image" type="file" accept="image/*" capture></input>
-
-                            <h2>Interests</h2>
-                            {this.createCheckboxes()}
-
-                            <button className="btn btn-seconday">Next</button>
-                        </form>
-                    </Jumbotron>
-            </div>
-            */

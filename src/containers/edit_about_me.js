@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Header from '../components/header';
-import { ProgressBar } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 
@@ -36,7 +35,6 @@ class EditAboutMe extends Component {
         }
         return (
          <div>   
-            <ProgressBar now={60} />
             <form onSubmit={this.handleSubmit}>
                 <h2>Tell us about yourself!</h2>
                 <textarea name="about_me" rows="10" cols="30" defaultValue={"I am..."}/>
@@ -49,6 +47,7 @@ class EditAboutMe extends Component {
                 <h2>What are your dreams for the future? </h2>
                 <textarea name="dreams" rows="10" cols="30" defaultValue={"I have a dream..."}/>
                 <button className="btn btn-seconday">Next</button>
+                
             </form>
         </div>
 
