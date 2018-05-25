@@ -17,6 +17,7 @@ class ConversationList extends Component {
         
         return _.map(keys, key => {
             
+            const { active_conversation } = this.props;
             const connection = connections[key];
 
             // get other member's id
@@ -31,10 +32,16 @@ class ConversationList extends Component {
             }
             
             // get other's info
+            
             const other_info = this.props.connections_info[other_id];
 
-            const class_name = (this.props.active_conversation && 
-                this.props.active_conversation.connection_id == key)? "conversation-cell selected" : "conversation-cell";
+            const class_name = (active_conversation && 
+                active_conversation.connection_id == key)? 
+                "conversation-cell selected" : "conversation-cell";
+
+            const last_message_sent = (connections[key].last_message_sent) ? 
+                                        connections[key].last_message_sent.message:
+                                        "No messages sent yet!";
             
             if (other_info) {
                 return (
@@ -44,7 +51,7 @@ class ConversationList extends Component {
                             
                             <div className="container">
                                 <h2>{other_info.name}</h2>
-                                <p>Last message sent</p>
+                                <p>{last_message_sent}</p>
                             </div>
                         </div>
                     </li>

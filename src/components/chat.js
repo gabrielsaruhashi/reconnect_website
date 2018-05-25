@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createMessage, fetchMessages } from '../actions/action_conversation';
+import { createMessage, fetchMessages, updateLastMessageSent } from '../actions/action_conversation';
 import moment from 'moment';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
@@ -68,7 +68,12 @@ class Chat extends Component {
             sender: this.props.active_user.uid
         }
         // create message
-        this.props.createMessage(this.props.active_conversation.connection_id, message);
+        const { connection_id } = this.props.active_conversation;
+        this.props.createMessage(connection_id, message);
+        
+        // update connection with the latest message
+        this.props.updateLastMessageSent(connection_id, message);
+        
         // reset field
         this.setState({
             message: ''
@@ -150,4 +155,4 @@ function mapStateToProps({active_conversation, messages, active_user}) {
 	};
 }
 
-export default connect(mapStateToProps, { createMessage, fetchMessages })(Chat);
+export default connect(mapStateToProps, { createMessage, fetchMessages, updateLastMessageSent })(Chat);

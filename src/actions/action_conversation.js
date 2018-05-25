@@ -65,3 +65,13 @@ export function createMessage(connection_id, message) {
     return dispatch => firebase.database().ref(`/messages`)
         .child(`${connection_id}/${newMessageKey}`).set(message);
 }
+
+export function updateLastMessageSent(connection_id, message) {
+    var user_connections;
+
+    const new_data = {
+        last_message_sent: message
+    }
+
+    return dispatch => firebase.database().ref('/reconnections').child(`${connection_id}`).update(new_data);
+}
