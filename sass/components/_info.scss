@@ -179,6 +179,27 @@ $grey:#cccccc;
     flex-direction: column;
     align-items: center;
     width:100%;
+
+    & textarea {
+        width: 100%;
+        padding: 1em;
+        border: none;
+        border-left: 2px solid #efefef;
+        color: $color-grey-dark;
+        box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);
+        -webkit-transition: height 2s ease;
+        -moz-transition: height 2s ease;
+        -ms-transition: height 2s ease;
+        -o-transition: height 2s ease;
+        transition: height 2s ease;
+        margin-top: 1em;
+    }
+
+    & .btn-next {
+        margin-top: 1em;
+        align-self: flex-end;
+    }
+
 }
 
 .form_container {

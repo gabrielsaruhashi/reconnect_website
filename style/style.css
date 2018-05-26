@@ -7,6 +7,7 @@
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700");
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700");
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700");
+@import url("http://fonts.googleapis.com/css?family=Lato:400,700");
 *,
 *::after,
 *::before {
@@ -49,9 +50,8 @@ ul {
   color: #edc420;
   letter-spacing: 1px;
   text-shadow: 0;
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: bold;
-  text-transform: uppercase;
   cursor: pointer;
   transition: all 0.25s ease; }
   .btn:hover {
@@ -328,6 +328,22 @@ ul.links {
   flex-direction: column;
   align-items: center;
   width: 100%; }
+  .form-profile-edit textarea {
+    width: 100%;
+    padding: 1em;
+    border: none;
+    border-left: 2px solid #efefef;
+    color: #777;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+    -webkit-transition: height 2s ease;
+    -moz-transition: height 2s ease;
+    -ms-transition: height 2s ease;
+    -o-transition: height 2s ease;
+    transition: height 2s ease;
+    margin-top: 1em; }
+  .form-profile-edit .btn-next {
+    margin-top: 1em;
+    align-self: flex-end; }
 
 .form_container .row .col_half.last {
   border-left: 1px solid #cccccc; }
@@ -439,12 +455,11 @@ ul.links {
 .reconnect-wrapper {
   font-family: inherit;
   display: grid;
-  grid-template-columns: min-content auto;
+  grid-template-columns: min-content 450px;
   position: relative;
   margin-top: 10em;
   margin: 10em 2em 10em;
-  grid-column-gap: 5em;
-  text-decoration: none; }
+  grid-column-gap: 2em; }
   .reconnect-wrapper .sidebar {
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
     background-color: white;
@@ -667,7 +682,7 @@ footer a:hover {
   display: flex;
   width: 100%;
   border: 2px solid #ededed;
-  justify-content: start;
+  justify-content: space-around;
   align-items: center;
   padding: 1em; }
   .invitation_wrapper img {
@@ -677,6 +692,22 @@ footer a:hover {
     height: 8em; }
   .invitation_wrapper h2 {
     font-weight: bold; }
+  .invitation_wrapper:hover {
+    cursor: pointer; }
+  .invitation_wrapper__btn-actions {
+    display: flex;
+    align-items: space-between; }
+    .invitation_wrapper__btn-actions .btn-reject {
+      cursor: pointer;
+      background-color: transparent;
+      color: rgba(0, 0, 0, 0.6);
+      border-radius: 2px;
+      font-weight: 600;
+      border: none;
+      margin-right: 1em;
+      font-size: 1.3em; }
+      .invitation_wrapper__btn-actions .btn-reject:hover {
+        background: #ededed; }
 
 .inbox-wrapper {
   font-family: inherit;
@@ -805,3 +836,61 @@ footer a:hover {
         align-self: flex-end;
         margin-bottom: 1em;
         margin-right: 4em; }
+
+.dashboard-host {
+  font-family: inherit;
+  display: grid;
+  grid-template-columns: min-content 450px;
+  position: relative;
+  margin-top: 10em;
+  margin: 10em 2em 10em;
+  grid-column-gap: 2em;
+  text-decoration: none; }
+  .dashboard-host .sidebar {
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    max-height: 50vh;
+    min-width: 20vw; }
+    .dashboard-host .sidebar .profPic {
+      margin: 1em 2em 1em;
+      border-radius: 50% 50%;
+      width: 10em;
+      height: 10em; }
+    .dashboard-host .sidebar h2 {
+      text-align: center; }
+  .dashboard-host .main_content {
+    overflow-y: scroll; }
+    .dashboard-host .main_content .header {
+      box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
+      background-color: #fff;
+      padding-top: 1em;
+      padding-bottom: 1em; }
+      .dashboard-host .main_content .header h1 {
+        text-align: center;
+        color: #f2a908;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px; }
+      .dashboard-host .main_content .header p {
+        font-style: italic;
+        text-align: center;
+        font-size: 1.5em;
+        margin: 0 1em 0; }
+    .dashboard-host .main_content ul {
+      list-style-type: none; }
+  .dashboard-host .main_content_profile {
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
+    background-color: #fff;
+    display: flex; }
+    .dashboard-host .main_content_profile .header {
+      align-self: center; }
+      .dashboard-host .main_content_profile .header .profile_picture {
+        width: 20vh;
+        border-radius: 50% 50%;
+        height: auto; }
+    .dashboard-host .main_content_profile h1 {
+      font-size: 1.8em;
+      margin: 1em 1em 1em 1em; }

@@ -34,22 +34,37 @@ class EditAboutMe extends Component {
             return <Redirect to={'/'} />
         }
         return (
-         <div>   
-            <form onSubmit={this.handleSubmit}>
-                <h2>Tell us about yourself!</h2>
-                <textarea name="about_me" rows="10" cols="30" defaultValue={"I am..."}/>
-                <br/>
 
-                <h2>What is integration for you?</h2>
-                <textarea name="integration" rows="10" cols="30" defaultValue={"Integration is..."}/>
-                <br/>
+            <div className="form_wrapper edit_about_me">
+                    <img className="" src="../../public/logo.png"/>
+                    <div className="form_container">
+                        <div className="title_container">
+                            <h1>Welcome to ReConnect!</h1>
+                        </div>
 
-                <h2>What are your dreams for the future? </h2>
-                <textarea name="dreams" rows="10" cols="30" defaultValue={"I have a dream..."}/>
-                <button className="btn btn-seconday">Next</button>
-                
-            </form>
-        </div>
+                        <div className="row clearfix">
+                            <div className="">
+                                
+                                <form className="form-profile-edit" onSubmit={this.handleSubmit}>
+                                    <h2>Tell us about yourself!</h2>
+                                    
+                                    <textarea name="about_me" rows="10" cols="30" defaultValue={"I am..."}/>
+                                    <br/>
+
+                                    <h2>What is integration for you?</h2>
+                                    <textarea name="integration" rows="10" cols="30" defaultValue={"Integration is..."}/>
+                                    <br/>
+
+                                    <h2>What are your dreams for the future? </h2>
+                                    <textarea name="dreams" rows="10" cols="30" defaultValue={"I have a dream..."}/>
+                                    <button className="btn btn-next">Next</button>
+                                
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 
         )
     };

@@ -80,6 +80,7 @@ class App extends Component {
           <Route exact path="/edit" component={EditProfile}/>
           <Route exact path="/usr/:id" component={Profile}/>
           <Route exact path="/inbox" component={ConversationList}/>
+          <Footer/>
           <ToastContainer />
 
         </div>

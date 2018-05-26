@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     border: 2px solid #ededed;
-    justify-content: start;
+    justify-content: space-around;
     align-items: center;
     padding: 1em;
     
@@ -15,6 +15,32 @@
 
     & h2 {
         font-weight: bold;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &__btn-actions {
+        display: flex;
+        align-items: space-between;
+
+        .btn-reject {
+            
+            cursor: pointer;
+            background-color: transparent;
+            color: rgba(0, 0, 0, .6);
+            border-radius: 2px;
+            font-weight: 600;
+            border:none;
+            margin-right: 1em;
+            font-size: 1.3em;
+            
+            
+            &:hover {
+                background: #ededed
+            }
+        }
     }
 
 }

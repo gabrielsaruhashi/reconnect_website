@@ -1,20 +1,41 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Jumbotron, Button, Form, FormGroup, ProgressBar } from 'react-bootstrap';  
 import Header from '../components/header';
 import Checkbox from '../components/checkbox';
 import { Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import FontAwesome from 'react-fontawesome';
 import MultipleSelect from '../components/mutiple_select';
+import Slider from 'rc-slider';
+import Tooltip from 'rc-tooltip';
+
+import 'rc-slider/assets/index.css';
 
 const BUCKET = "project-reconnect.appspot.com/"
+
 const items = [
     "Sports",
     "Culture",
     "Nightlife"
 ];
+
+const Handle = Slider.Handle;
+
+const handle = (props) => {
+    const { value, dragging, index, ...restProps } = props;
+    return (
+      <Tooltip
+        prefixCls="rc-slider-tooltip"
+        overlay={value}
+        visible={dragging}
+        placement="top"
+        key={index}
+      >
+        <Handle value={value} {...restProps} />
+      </Tooltip>
+    );
+  };
 
 class EditProfile extends Component {
     constructor() {
@@ -24,7 +45,8 @@ class EditProfile extends Component {
             school: "",
             name: "",
             interests: [],
-            selected_picture: ""
+            selected_picture: "",
+            age: 18
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -93,10 +115,17 @@ class EditProfile extends Component {
         console.log(url)
     }
 
+    handleSliderChange(e) {
+        console.log(e);
+    }
+
+    
+
     render() {
         if (this.state.redirect === true) {
             return <Redirect to={'/edit_about_me'} />
         }
+        const { age } = this.state;
         
         const selected_picture = this.state.selected_picture ? this.state.selected_picture : "https://www.ischool.berkeley.edu/sites/default/files/default_images/avatar.jpeg" 
         return (
@@ -110,7 +139,6 @@ class EditProfile extends Component {
 
                         <div className="row clearfix">
                             <div className="">
-                                
                                 <form className="form-profile-edit" onSubmit={this.handleSubmit}>
                                     <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
                                         <input type="text" 
@@ -135,6 +163,9 @@ class EditProfile extends Component {
                                     <h2>Interests</h2>
                                     <MultipleSelect onInterestSelect={ (interests) => this.setState({interests}) }/>
 
+                                    <div style={wrapperStyle}>
+                                    <Slider  handle={handle} min={0} max={20} defaultValue={this.state.age}/>
+                                    </div>
 
                                     <input className="button" type="submit" value="Submit" />
                                 </form>

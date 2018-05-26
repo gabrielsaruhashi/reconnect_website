@@ -15,21 +15,22 @@ class LoginForm extends Component {
         super(props)
         this.authWithEmailPassword = this.authWithEmailPassword.bind(this)
         this.onSelectCountry=this.onSelectCountry.bind(this);
-
+        this.onSelectGender = this.onSelectGender.bind(this);
         this.state = {
             redirect: false,
-            new_user: false
+            new_user: false,
+            selected_country: "",
+            gender: ""
         }
     }
 
     onSelectCountry(event){
-        this.state.selectedCountry={
-             id:event.target.value,
-             name:event.target.options[event.target.selectedIndex].text
-        }
-        //OR,if you assign "ref" to the component , ,
-        this.state.selectedCountry=this.refs.country.selected; // {value,name}
-      }
+        this.setState({selected_country: this.refs.country.selected.name});
+    }
+
+    onSelectGender(event) {
+        this.setState({gender: event.target.value});
+    }
 
     authWithEmailPassword(event) {
         event.preventDefault()
@@ -59,7 +60,9 @@ class LoginForm extends Component {
                     // compile info of new user
                     const newUser = {  
                         "uid": uid,
-                        "email": user.user.email
+                        "email": user.user.email,
+                        "country": this.state.selected_country,
+                        "gender": this.state.gender
                     }
 
                     // create entry in firebase
@@ -112,9 +115,9 @@ class LoginForm extends Component {
                                     
 
                                     <div className="input_field radio_option">
-                                        <input type="radio" name="radiogroup1" id="rd1"/>
+                                        <input type="radio" name="radiogroup1" id="rd1" value="male"  onChange={this.onSelectGender}/>
                                         <label>Male</label>
-                                        <input type="radio" name="radiogroup1" id="rd2"/>
+                                        <input type="radio" name="radiogroup1" id="rd2" value="female"  onChange={this.onSelectGender}/>
                                         <label>Female</label>
                                     </div>
 
@@ -166,10 +169,5 @@ function mapStateToProps(state) {
 	};
 }
 
-/*
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators( {setCurrentUser: setCurrentUser, authenticate: authenticate}, dispatch); // selectBook is a function
-    
-} */
 
 export default connect(mapStateToProps)(LoginForm);

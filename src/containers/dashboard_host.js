@@ -38,7 +38,7 @@ class DashboardHost extends Component {
                 <Sidebar user={this.props.active_user} />
 
                 <div className="main_content_profile">
-                    <h2>Invitations ( {len_invitations} )</h2>
+                    <h1>Invitations ( {len_invitations} )</h1>
                     <ul>
                         {this.renderInvitations()}
                     </ul>

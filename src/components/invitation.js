@@ -3,7 +3,7 @@ import moment from 'moment';
 import { createConnection, updateUserConnections, deleteInvitation } from '../actions/action_connection'
 import { toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Invitation extends Component {
@@ -42,17 +42,22 @@ class Invitation extends Component {
         
     }
 
+    
     render() {
         const { student } = this.props;
+        const REDIRECT_URL = `usr/${student.uid}`;
         return (
-            <div className="invitation_wrapper">
-                <img src={student.prof_pic} />
-                <h2>{student.name}</h2>
-                <div>
-                    <button className="btn" onClick={this.onAccept}><i className="fa fa-check-circle-o fa-2x"></i></button>
+            <Link to={REDIRECT_URL}>
+                <div className="invitation_wrapper">
+                    <img src={student.prof_pic} />
+                    <h2>{student.name}</h2>
+                    <div className="invitation_wrapper__btn-actions">
+                        <button className="btn-reject">Ignore</button>
+                        <button className="btn" onClick={this.onAccept}><i className="fa fa-check-circle-o fa-2x"></i>Accept</button>
+                    </div>
+                   
                 </div>
-                <button className="btn"><i className="fa fa-close fa-2x"></i></button>
-            </div>
+            </Link>
         );
     }
 }
