@@ -7,29 +7,29 @@ import { connect } from 'react-redux';
 import { setCurrentUser, authenticate } from '../actions/index';
 import Header from '../components/header';
 import Countries  from 'react-select-country';
-
+import { toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 
 class LoginForm extends Component {
+    notify = (message) => { toast.error(message, {
+        position: toast.POSITION.BOTTOM_CENTER
+        });
+    };
+
+    notify_success = (message) => { toast.success(message, {
+        position: toast.POSITION.BOTTOM_CENTER
+      });
+
+    }
+
     constructor(props, context) {
         super(props)
         this.authWithEmailPassword = this.authWithEmailPassword.bind(this)
-        this.onSelectCountry=this.onSelectCountry.bind(this);
-        this.onSelectGender = this.onSelectGender.bind(this);
+
         this.state = {
-            redirect: false,
-            new_user: false,
-            selected_country: "",
-            gender: ""
+            redirect: false
         }
-    }
-
-    onSelectCountry(event){
-        this.setState({selected_country: this.refs.country.selected.name});
-    }
-
-    onSelectGender(event) {
-        this.setState({gender: event.target.value});
     }
 
     authWithEmailPassword(event) {
@@ -40,42 +40,28 @@ class LoginForm extends Component {
         firebase.auth().fetchSignInMethodsForEmail(email)
         .then((providers) => {
             if (providers.length === 0) {
-            // create user
-            return firebase.auth().createUserWithEmailAndPassword(email, password)
-            } else if (providers.indexOf("password") === -1) {
-            // they used facebook
-            this.loginForm.reset()
-            this.toaster.show({ intent: Intent.WARNING, message: "Try alternative login." })
+                // notify
+                this.loginForm.reset()
+                this.notify("Invalid email address");
+            }  else if (providers.indexOf("password") === -1) {
+                // wrong password
+                this.loginForm.reset()
+                this.notify("Wrong password");
             } else {
-            // sign user in
-            return firebase.auth().signInWithEmailAndPassword(email, password)
+                // sign user in
+                return firebase.auth().signInWithEmailAndPassword(email, password)
             }
         })
         .then((user) => {
             if (user) {
                 const uid = user.user.uid;
-                // if new user create entry in firebase
-                if (user.additionalUserInfo.isNewUser) {
-                    
-                    // compile info of new user
-                    const newUser = {  
-                        "uid": uid,
-                        "email": user.user.email,
-                        "country": this.state.selected_country,
-                        "gender": this.state.gender
-                    }
-
-                    // create entry in firebase
-                    firebase.database().ref('users/' + uid).set(newUser);
-
-                    this.setState({new_user: true});
-        
-                }
+                console.log(user.user);
                 // reset form
                 this.loginForm.reset()
 
                 // redirect to next route
                 this.setState({redirect: true})
+                this.notify_success(`Welcome back ${user.user.email}!`);
             }
         })
         .catch((error) => {
@@ -84,12 +70,7 @@ class LoginForm extends Component {
     }
     render() {
         if (this.state.redirect === true) {
-            if (this.state.new_user) {
-                return <Redirect to={'/edit'} />
-            }
-            else {
-                return <Redirect to={'/'} />
-            }
+            return <Redirect to={'/'} />
         }
         
         return (
@@ -109,31 +90,7 @@ class LoginForm extends Component {
                                     <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
                                         <input type="password" name="password" placeholder="Password" ref={(input) => { this.passwordInput = input }} required />
                                     </div>
-                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
-                                        <input type="password" name="password" placeholder="Re-type Password" required />
-                                    </div>
-                                    
-
-                                    <div className="input_field radio_option">
-                                        <input type="radio" name="radiogroup1" id="rd1" value="male"  onChange={this.onSelectGender}/>
-                                        <label>Male</label>
-                                        <input type="radio" name="radiogroup1" id="rd2" value="female"  onChange={this.onSelectGender}/>
-                                        <label>Female</label>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="country">Country:</label>
-                                        <Countries ref="country" name="country" empty=" -- Select country --" onChange={(e)=>this.onSelectCountry(e)} />
-                                    </div>
-
-                                    <div className="input_field checkbox_option">
-                                        <input type="checkbox" id="cb1"/>
-                                        <label>I agree with terms and conditions</label>
-                                    </div>
-                                    <div className="input_field checkbox_option">
-                                        <input type="checkbox" id="cb2"/>
-                                        <label>I want to receive the newsletter</label>
-                                    </div>
+                                   
                                     <input className="button" type="submit" value="Submit" />
                                 </form>
                             </div>

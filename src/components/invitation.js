@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
+
 
 class Invitation extends Component {
 
@@ -38,19 +40,51 @@ class Invitation extends Component {
         this.props.updateUserConnections(incoming, newConnection.key, host);
         // invitation is always from an international student to a host
         this.props.deleteInvitation(host, incoming);
+
+        //this.sendEmail();
         return <Redirect to="/"/>
         
     }
 
-    
+    sendEmail() {
+        const BASE_URL = 'https://api.mailgun.net/v3';
+        const DOMAIN = 'sandbox8d14ebfc431f4c31b7d2c764af5262b8.mailgun.org'
+
+        axios({
+            method: 'post',
+            url: `${BASE_URL}/${DOMAIN}/messages`,
+            auth: {
+                username: 'api',
+                password: 'b0b4412e4e8317df7c3d6a75f601f3f9-115fe3a6-044c0528'
+            },
+            params: {
+                from: 'Awesome Development Team <noreply@yourdomain.com>',
+                to: 'testing@example.com',
+                subject: 'Hello',
+                text: 'Welcome to the team!'
+            }
+        }).then(
+            response => {
+                console.log(response)
+            },
+            reject => {
+                console.log(reject)
+            }
+        )
+    }
     render() {
         const { student } = this.props;
         const REDIRECT_URL = `usr/${student.uid}`;
         return (
             <Link to={REDIRECT_URL}>
                 <div className="invitation_wrapper">
-                    <img src={student.prof_pic} />
-                    <h2>{student.name}</h2>
+                    <div className="invitation_wrapper__info">
+                        <img src={student.prof_pic} />
+                        <div classname="user_info">
+                            <h2>{student.name}</h2>
+                            <h3>{student.school}</h3>
+                        </div>
+                    </div>
                     <div className="invitation_wrapper__btn-actions">
                         <button className="btn-reject">Ignore</button>
                         <button className="btn" onClick={this.onAccept}><i className="fa fa-check-circle-o fa-2x"></i>Accept</button>

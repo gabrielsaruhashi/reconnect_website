@@ -6,7 +6,7 @@ import EditProfile from '../containers/edit_profile';
 import EditAboutMe from '../containers/edit_about_me';
 import Profile from '../containers/profile';
 import ConversationList from '../containers/conversation_list';
-
+import SignupPage from '../containers/sign_up_page';
 import ReConnect from '../containers/reconnect';
 import DashboardHost from '../containers/dashboard_host';
 
@@ -76,6 +76,7 @@ class App extends Component {
           <Route exact path="/" component={ReConnect }/>
           <Route exact path="/dashboard_host" component={DashboardHost }/>
           <Route exact path="/login" component={LoginForm}/>
+          <Route exact path="/signup" component={SignupPage}/>
           <Route exact path="/edit_about_me" component={EditAboutMe}/>
           <Route exact path="/edit" component={EditProfile}/>
           <Route exact path="/usr/:id" component={Profile}/>

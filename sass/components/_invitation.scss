@@ -21,6 +21,15 @@
         cursor: pointer;
     }
 
+    &__info {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        & h2 {
+            margin-left: 0.5em;
+        }
+    }
     &__btn-actions {
         display: flex;
         align-items: space-between;
