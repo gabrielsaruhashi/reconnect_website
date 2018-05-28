@@ -34,7 +34,6 @@ export function fetchConnectionsInfo(uid) {
         firebase.database().ref(`/users`).child(`${uid}/connections`).on('value', snapshot => {
             const usersRef = firebase.database().ref('users');
             const data = snapshot.val();
-            //console.log(data);
             const keys = Object.keys(data);
             var connections_info = {};
 

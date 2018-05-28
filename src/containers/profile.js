@@ -43,8 +43,10 @@ class Profile extends Component {
     
     render() {
         const { profile } = this.props;
-
+        //const i = Object.keys(profile.interests);
+        
         return (
+            
             <div>
                 <div className="reconnect-wrapper">
                     <Sidebar user={profile}/>
@@ -80,7 +82,7 @@ class Profile extends Component {
                                     <h2>Interests</h2>
                                 </div>
                                 <div className="chips"> 
-                                {profile.interests.map(value => <Chip key={value} label={value} className="chip" />)}
+                                {Object.keys(profile.interests).map(value => <Chip key={value} label={value} className="chip" />)}
                                 </div>
                             </div>
                             <div className="btn-invite">

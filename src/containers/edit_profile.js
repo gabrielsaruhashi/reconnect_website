@@ -57,13 +57,15 @@ class EditProfile extends Component {
         const usr = firebase.auth().currentUser;
         const uid = usr.uid;
 
-        // get checked interests
-        var interests = [];
-        for (const checkbox of this.selectedCheckboxes) {
-            interests.push(checkbox)
-        }
         // initialize firebase storage
         const storage = firebase.storage();
+
+        // convert array of intesrests to object
+        const { interests } = this.state;
+        var interests_dict = {}
+        for (let i = 0; i < interests.name.length; i++) {
+            interests_dict[interests.name[i]] = true;
+        }
 
         // get uploaded profile picture and upload it to 
         const file = event.target.image.files[0];
@@ -76,7 +78,7 @@ class EditProfile extends Component {
                     .then((url) => {
                         // update user entry in firebase
                         const newInfo = {
-                            "interests": interests,
+                            "interests": interests_dict,
                             "prof_pic": url,
                             "name": this.state.name,
                             "school": this.state.school
@@ -102,7 +104,6 @@ class EditProfile extends Component {
     }
 
     handlePictureChange(event) {
-        //console.log(event.target.files[0].name);
         const file = event.target.files[0];
         var reader = new FileReader();
         var url = reader.readAsDataURL(file);
@@ -112,7 +113,6 @@ class EditProfile extends Component {
                 selected_picture: [reader.result]
             })
         }.bind(this);
-        console.log(url)
     }
 
     handleSliderChange(e) {
@@ -162,10 +162,6 @@ class EditProfile extends Component {
                                     </div>
                                     <h2>Interests</h2>
                                     <MultipleSelect onInterestSelect={ (interests) => this.setState({interests}) }/>
-
-                                    <div style={wrapperStyle}>
-                                    <Slider  handle={handle} min={0} max={20} defaultValue={this.state.age}/>
-                                    </div>
 
                                     <input className="button" type="submit" value="Submit" />
                                 </form>

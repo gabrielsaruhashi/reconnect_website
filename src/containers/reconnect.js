@@ -12,9 +12,38 @@ class ReConnect extends Component {
     componentDidMount() {
         this.props.fetchSuggestions();
     }
+    constructor() {
+        super();
+        this.renderSuggestions = this.renderSuggestions.bind(this);
+        this.compareSimilarity = this.compareSimilarity.bind(this);
+    }
     // Get a database reference to our posts
     renderSuggestions() {
-        return _.map(this.props.suggestions, suggestion => {
+        // only show suggestions that have not been invited yet
+        const { active_user } = this.props;
+        var valid_suggestions = {}
+        if (this.props.invitations) {
+            valid_suggestions = _.filter(this.props.suggestions, 
+                suggestion => {
+                    
+                    return (!(suggestion.uid in active_user.invitations) &&
+                            (suggestion.uid != active_user.uid))
+                })
+        }
+        else {
+            valid_suggestions = _.omit(this.props.suggestions, active_user.uid );
+        }
+
+        // sort valid suggestions by similarity
+        var items = Object.keys(valid_suggestions).map(function(key) {
+            return [key, valid_suggestions[key]];
+        });
+        // Sort the array based on the user's info
+        console.log(items);
+        items.sort(this.compareSimilarity);
+        console.log(items);
+
+        return _.map(valid_suggestions, suggestion => {
             return (
                 <li key={suggestion.uid}>
                     <Suggestion suggestion={suggestion} />
@@ -22,7 +51,29 @@ class ReConnect extends Component {
             );
         });
     }
+
+    sim(user, suggestion) {
+        var sim_score = 0;
+       
+        for (var interest in user.interests) {
+
+            if ( interest in suggestion.interests) {
+                sim_score += 1;
+            }
+        }
+        return sim_score;
+    }
+
+    compareSimilarity(p1, p2) {
+        const { active_user } = this.props;
+
+        var sim1 = this.sim(active_user, p1[1]);
+        var sim2 = this.sim(active_user, p2[1]);
+        
+        return sim2 - sim1;
+    }
     render() {
+        
         return (
             <div>
                 <div className="reconnect-wrapper">

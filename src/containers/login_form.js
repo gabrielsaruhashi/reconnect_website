@@ -56,7 +56,6 @@ class LoginForm extends Component {
         .then((user) => {
             if (user) {
                 const uid = user.user.uid;
-                console.log(user.user);
                 // reset form
                 this.loginForm.reset()
 

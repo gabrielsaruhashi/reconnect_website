@@ -7,12 +7,10 @@ import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-
 class Invitation extends Component {
 
     constructor(props) {
         super(props);
-        
         this.onAccept = this.onAccept.bind(this);
         this.onReject = this.onReject.bind(this);
     }
@@ -39,6 +37,7 @@ class Invitation extends Component {
         const newConnection = this.props.createConnection(connection);        
         this.props.updateUserConnections(host, newConnection.key, incoming);
         this.props.updateUserConnections(incoming, newConnection.key, host);
+        
         // invitation is always from an international student to a host
         this.props.deleteInvitation(host, incoming);
 

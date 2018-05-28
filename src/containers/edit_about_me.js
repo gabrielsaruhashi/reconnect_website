@@ -43,7 +43,7 @@ class EditAboutMe extends Component {
                         </div>
 
                         <div className="row clearfix">
-                            <div className="">
+                            <div>
                                 
                                 <form className="form-profile-edit" onSubmit={this.handleSubmit}>
                                     <h2>Tell us about yourself!</h2>
@@ -55,7 +55,7 @@ class EditAboutMe extends Component {
                                     <textarea name="integration" rows="10" cols="30" defaultValue={"Integration is..."}/>
                                     <br/>
 
-                                    <h2>What are your dreams for the future? </h2>
+                                    <h2>What are your dreams for the future?</h2>
                                     <textarea name="dreams" rows="10" cols="30" defaultValue={"I have a dream..."}/>
                                     <button className="btn btn-next">Next</button>
                                 

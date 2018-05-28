@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
 const ICONS = {
-    "Soccer": "fa fa-futbol-o",
+    "Soccer": "fa fa-futbol",
     "Travel": "fa fa-plane",
     "Outdoors": "fa fa-map-o",
     "Music": "fa fa-music",
-    "Art": "fa paint-brush",
-    "Games": "fa gamepad-o",
+    "Art": "fa fa-paint-brush",
+    "Games": "fa fa-gamepad",
     "Photography": "fa fa-camera",
     "Coffee": "fa fa-coffee",
     "Food": "fa fa-glass",
@@ -16,15 +16,13 @@ const ICONS = {
 }
 
 function renderIcons(interests) {
-    console.log(interests);
-    return _.map(interests, interest => {
+    return _.map(Object.keys(interests), interest => {
         const icon = ICONS[interest]
         return (<i className={icon} key={interest} aria-hidden="true"></i>)
     })
 }
 const Suggestion = ({suggestion}) => {
     const REDIRECT_URL = `/usr/${suggestion.uid}`;
-    //console.log(suggestion.interests);
     return (
         <Link to={REDIRECT_URL}>
             <div className="content">
