@@ -9,6 +9,7 @@ import ConversationList from '../containers/conversation_list';
 import SignupPage from '../containers/sign_up_page';
 import ReConnect from '../containers/reconnect';
 import DashboardHost from '../containers/dashboard_host';
+import LandingPage from '../containers/landing_page'
 
 import firebase from 'firebase';
 
@@ -59,6 +60,17 @@ class App extends Component {
   componentWillUnmount() {
     this.removeAuthListener();
   }
+
+  notify_error = (message) => { toast.error(message, {
+    position: toast.POSITION.BOTTOM_CENTER
+    });
+  };
+
+  notify_success = (message) => { toast.success(message, {
+      position: toast.POSITION.BOTTOM_CENTER
+    });
+  }
+
   render() {
     if (this.state.loading === true) {
       return (
@@ -68,6 +80,7 @@ class App extends Component {
         </div>
       )
     }
+    
 
     return (
       <BrowserRouter>
@@ -75,12 +88,13 @@ class App extends Component {
           <Header />
           <Route exact path="/" component={ReConnect }/>
           <Route exact path="/dashboard_host" component={DashboardHost }/>
-          <Route exact path="/login" component={LoginForm}/>
+          <Route exact path="/login" component={LoginForm} />
           <Route exact path="/signup" component={SignupPage}/>
           <Route exact path="/edit_about_me" component={EditAboutMe}/>
           <Route exact path="/edit" component={EditProfile}/>
-          <Route exact path="/usr/:id" component={Profile}/>
+          <Route exact path="/usr/:id" component={Profile} />
           <Route exact path="/inbox" component={ConversationList}/>
+          <Route exact path="/landing" component={LandingPage}/>
           <Footer/>
           <ToastContainer />
 

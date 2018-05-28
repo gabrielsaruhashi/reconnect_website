@@ -8,6 +8,7 @@ const Sidebar = ({ user }) => {
                     <div>
                         <img className="profPic" src={user.prof_pic}/>
                         <h2>{user.name}</h2>
+                        <h3>{user.school}</h3>
                     </div>
                 ) : (
                     <div>

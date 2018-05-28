@@ -1,0 +1,160 @@
+
+@import '../abstracts/variables';
+
+.landing {
+    margin-top: 35px;
+}
+.header_ {
+    height: 95vh; /* element will always be 95% of view height */
+    background-image: 
+        linear-gradient(
+            to right bottom
+            , $color-primary-light,
+            #ff5722 ),
+        url(../../public/hero.jpg); /* order of views - gradient then image*/
+    background-size: cover; /* wherever the width of the viewport or element, always try to fit the element inside the box */
+    background-position: top; /* ensure that w/e viewport size, box goes to top of container */
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100% ); /*define polygon that defines image, makes the weird square shape */
+
+    /* so that you can use absolute for child elements */
+    position: relative;
+
+    &__logo-box {
+        /* relative to the header - overarching box */
+        position: absolute;
+        top: 4rem;
+        left: 4rem;
+    }
+
+
+    &__logo {
+        height: 3rem;
+    }
+
+    /* 50% width of parent element */
+    &__text-box {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        /* so that inline-block button is centered */
+        text-align: center;
+    }
+}
+
+.heading-primary {
+    color: $color-white;
+    text-transform: uppercase;
+
+    /* fix to shake animation that moves div up */
+    backface-visibility: hidden;
+    margin-bottom: 6rem;
+
+    &--main {
+        display: block;
+        font-size: 6rem;
+        font-weight: 400;
+        letter-spacing: 3.5rem;
+    
+        animation-name: moveInLeft;
+        animation-duration: 1s;
+    
+    
+        /*
+        animation-delay: 3s;
+        animation-timing-function: ease-in; // faster in the beginning
+        animation-iteration-count: 3;
+        */
+    }
+    
+    &--sub {
+        display: block;
+        letter-spacing: 1.75rem;
+        font-weight: 700;
+        font-size: 2rem;
+    
+        animation: moveInRight 2s ease-out;
+    }
+    
+}
+
+.btnl {
+
+    background-color: white;
+    /* link is a pseudo class, special state of selector
+    when it is a clickable url - pseudoclasses allow us to style classes under a special condition 
+    If we dont do this, the styling is blue when link, and dark blue when visited */
+    &:link,
+    &:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+        /* top right bottom left */
+        /* top-bottom right-left */
+        padding: 1.5rem 4rem;
+        /* inline-block makes it be treated like text, 
+        always add it if we are doing padding, width height */
+        display: inline-block;
+        border-radius: 10rem;
+        /* all - there can be transition in all states, transitions are .2s */
+        transition: all .2s;
+        /* for btn::after to be relative to this thing */
+        position: relative;
+
+        font-size: 1.6rem;
+    }
+
+    &:hover {
+        /* in CSS, moves top to bottom */
+        transform: translateY(-0.3rem);
+
+        /* x shadow; y shadow; blur ; color of shadow*/
+        box-shadow: 0 1rem 2rem $color-black;
+
+        &:after {
+            transform: scaleX(1.4) scaleY(1.6);
+            /* fade out effect */
+            opacity: 0;
+        }
+    }
+
+    &:active {
+        transform: translateY(-.1rem);
+        box-shadow: 0 .5rem 1rem $color-black;
+
+    }
+
+    &--white {
+        background-color: $color-white;
+        color: $color-grey-dark;
+
+        &::after {
+            background-color: #fff;
+        }
+    }
+
+    /* add element that look exactly like button, but put it behind the button
+    when hover out of the button, hidden pseudoelemnt goes back behind button 
+    treated like child of button so use 100% to get same heigth
+    content and display are mandatory */
+    &::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width:100%;
+        border-radius: 10rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        /* definitely behind button */
+        z-index: -1;
+        transition: all .4s;
+    }
+
+    &--animated {
+
+        animation: moveInBottom .5s ease-out .75s;
+        /* automatically apply the stiles from 0% before animation starts - smoother Ui*/
+        animation-fill-mode: backwards;
+    }
+}

@@ -8,7 +8,7 @@ footer {
   height: 34px;
   background: $color-white;
   bottom: 0;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   padding: 8px 40px;
@@ -27,5 +27,5 @@ footer .footer-right {
 }
 
 footer a:hover {
-  color: $red;
+  color: $color-primary;
 }

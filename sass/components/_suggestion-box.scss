@@ -1,71 +1,6 @@
 
 @import '../abstracts/variables';
 
-.suggestion_wrapper {
-    margin: 2em 1em 2em;
-    background-color: white;
-    overflow: hidden;
-    width: inherit;
-    box-shadow: 0px 3px 3px rgba(0,0,0,0.12);
-    display: flex;
-    height: 20vh;
-
-    & .profile_box {
-        justify-content: start;
-        margin: 0 1em;
-        width: 90%;
-
-        & p {
-            font-style: italic;
-            overflow: hidden;
-            color: $color-grey-dark;
-            font-size: 1.2em;
-        }
-
-        & h3 {
-            color: $color-grey-dark;
-            font-weight: 300;
-        }
-        
-        & .box_header {
-
-            display: grid;
-            align-items: center;
-            grid-template-columns: 1fr 1fr;
-            & h2 {
-                justify-self: start;
-            }
-            & h3 {
-                justify-self: end;
-            }
-        }  
-    }
-
-    & .invite_banner {
-        background-color: $color-primary-light;
-        height: 100%;
-        white-space: nowrap;
-        padding: 0 1em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        & h2 {
-            width: 100%;
-        }
-        & span {
-            width: 100%;
-        }
-
-        &:hover {
-            color: white;
-            background-color: lighten($color-primary-light, 8%);
-        }
-      
-
-    }
-
-}
 
 /*
 */
@@ -85,26 +20,32 @@
 .content{
 
   position: relative; 
-  margin-top: 3em;
+  margin-top: 4em;
   animation: animatop 0.9s  cubic-bezier(0.425, 1.140, 0.470, 1.125) forwards ;
+  
 }
 
-.card{  
+.card{
   border-radius: 3px;
+  padding: 2px 0px 2px;
   background-color: white;
   box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
   position: relative;
   overflow: hidden;
-  &:after {
-    content: '';
-    display: block;
-    width: 190px;
-    height: 300px;
-    background: $color-primary-light;
-    
-    position: absolute;
-    animation: rotatemagic 0.75s cubic-bezier(0.425, 1.040, 0.470, 1.105) 1s both;
-}
+  &:hover {
+    opacity: 0.8;
+  }
+    &:after {
+      content: '';
+      display: block;
+      width: 190px;
+      height: 300px;
+      background: $color-primary-light;
+      
+      position: absolute;
+      animation: rotatemagic 0.75s cubic-bezier(0.425, 1.040, 0.470, 1.105) 1s both;
+  }
+  
 }
 
   .badgescard{
@@ -114,7 +55,7 @@
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
     position: absolute;
     z-index: -1; 
-    left: 10px; 
+    left: 45px; 
     bottom: 10px;
     @extend %flex; 
     animation: animainfos 0.5s cubic-bezier(0.425, 1.040, 0.470, 1.105) 0.75s forwards;
@@ -124,6 +65,12 @@
     margin: 0px 6px;
     opacity: 0.6;
     }
+
+    i {
+      font-size: 1.5em;
+      margin: 0px 6px;
+      opacity: 0.6;
+    }
   }   
 
 .firstinfo{
@@ -131,13 +78,18 @@
   flex-direction: row;  
   z-index:2;
   position: relative;
+  margin-right: 30px;
+
   img{ 
+    align-self: flex-start;
+    margin-right: 3em;
+    justify-self: flex-start;
     border-radius: 50%;
     width: 120px;
-height: 120px;
+    height: 120px;
   }
   .profileinfo{
-   
+    
     h1{ font-size: 1.8em;}
     h3{ font-size: 1.2em;
         color: $color-primary-light;

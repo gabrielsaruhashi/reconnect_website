@@ -42,7 +42,8 @@ class LoginForm extends Component {
             if (providers.length === 0) {
                 // notify
                 this.loginForm.reset()
-                this.notify("Invalid email address");
+                
+                this.notify_success("Invalid email address");
             }  else if (providers.indexOf("password") === -1) {
                 // wrong password
                 this.loginForm.reset()

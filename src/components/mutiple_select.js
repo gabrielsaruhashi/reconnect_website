@@ -43,11 +43,14 @@ const MenuProps = {
 const names = [
   'Sports',
   'Soccer',
-  'Culture',
-  'Movies',
+  'Photography',
+  'Coffee',
+  'Travel',
+  'Games',
+  'Music',
   'Outdoors',
-  'Netflix',
-  'Food'
+  'Food',
+  "Nightlife"
 ];
 
 class MultipleSelect extends React.Component {

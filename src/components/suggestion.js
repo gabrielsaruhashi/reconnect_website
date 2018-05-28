@@ -1,27 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
+const ICONS = {
+    "Soccer": "fa fa-futbol-o",
+    "Travel": "fa fa-plane",
+    "Outdoors": "fa fa-map-o",
+    "Music": "fa fa-music",
+    "Art": "fa paint-brush",
+    "Games": "fa gamepad-o",
+    "Photography": "fa fa-camera",
+    "Coffee": "fa fa-coffee",
+    "Food": "fa fa-glass",
+    "Nightlife": "fa fa-beer"
+}
+
+function renderIcons(interests) {
+    console.log(interests);
+    return _.map(interests, interest => {
+        const icon = ICONS[interest]
+        return (<i className={icon} key={interest} aria-hidden="true"></i>)
+    })
+}
 const Suggestion = ({suggestion}) => {
     const REDIRECT_URL = `/usr/${suggestion.uid}`;
-    /*return (
-        <div className="suggestion_wrapper">
-            <div className="profPic" style={{backgroundImage: 'url(' + suggestion.prof_pic + ')'}}/>
-            <div className="profile_box">
-                <div className="box_header">
-                    <h2>{suggestion.name}</h2>
-                    <h3>{suggestion.school}</h3>
-                </div>
-                <p>{suggestion.about_me}</p>
-            </div>
-            <div className="invite_banner">
-                <Link to={REDIRECT_URL}>
-                <h3>View<br/>Profile<br/></h3>
-                <span><i aria-hidden="true" className="fa fa-chevron-circle-right"></i></span>
-                </Link>
-            </div>
-        </div>
-    );*/
-    
+    //console.log(suggestion.interests);
     return (
         <Link to={REDIRECT_URL}>
             <div className="content">
@@ -34,10 +37,14 @@ const Suggestion = ({suggestion}) => {
                     </div>
                     </div>
                 </div>
-                <div className="badgescard"> <span className="devicons devicons-django"></span><span className="devicons devicons-python"> </span><span className="devicons devicons-codepen"></span><span className="devicons devicons-javascript_badge"></span><span className="devicons devicons-gulp"></span><span className="devicons devicons-angular"></span><span className="devicons devicons-sass"> </span></div>
+                <div className="badgescard">{renderIcons(suggestion.interests)}</div>
             </div>
         </Link>
     )
 }
 
 export default Suggestion;
+
+/*
+<i class="fa fa-futbol-o" aria-hidden="true"></i>
+<span className="devicons devicons-django"></span><span className="devicons devicons-python"> </span><span className="devicons devicons-codepen"></span><span className="devicons devicons-javascript_badge"></span><span className="devicons devicons-gulp"></span><span className="devicons devicons-angular"></span><span className="devicons devicons-sass"> </span>*/

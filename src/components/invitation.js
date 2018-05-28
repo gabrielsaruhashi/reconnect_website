@@ -14,6 +14,7 @@ class Invitation extends Component {
         super(props);
         
         this.onAccept = this.onAccept.bind(this);
+        this.onReject = this.onReject.bind(this);
     }
 
     notify = () => toast("You have a new connection!");
@@ -43,7 +44,13 @@ class Invitation extends Component {
 
         //this.sendEmail();
         return <Redirect to="/"/>
-        
+    }
+
+    onReject(event) {
+        const host = this.props.host_friend;
+        const incoming = this.props.student; 
+        // invitation is always from an international student to a host
+        this.props.deleteInvitation(host, incoming);
     }
 
     sendEmail() {
@@ -76,22 +83,24 @@ class Invitation extends Component {
         const { student } = this.props;
         const REDIRECT_URL = `usr/${student.uid}`;
         return (
-            <Link to={REDIRECT_URL}>
+            
                 <div className="invitation_wrapper">
-                    <div className="invitation_wrapper__info">
-                        <img src={student.prof_pic} />
-                        <div classname="user_info">
-                            <h2>{student.name}</h2>
-                            <h3>{student.school}</h3>
+                    <Link to={REDIRECT_URL}>
+                        <div className="invitation_wrapper__info">
+                            <img src={student.prof_pic} />
+                            <div className="user_info">
+                                <h2>{student.name}</h2>
+                                <h3>{student.school}</h3>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                     <div className="invitation_wrapper__btn-actions">
-                        <button className="btn-reject">Ignore</button>
+                        <button className="btn-reject" onClick={this.onReject}>Ignore</button>
                         <button className="btn" onClick={this.onAccept}><i className="fa fa-check-circle-o fa-2x"></i>Accept</button>
                     </div>
                    
                 </div>
-            </Link>
+            
         );
     }
 }

@@ -7,6 +7,8 @@
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700");
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700");
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700");
+@import url("http://fonts.googleapis.com/css?family=Lato:400,700");
+@import url("http://fonts.googleapis.com/css?family=Lato:400,700");
 *,
 *::after,
 *::before {
@@ -454,7 +456,7 @@ ul.links {
 .reconnect-wrapper {
   font-family: inherit;
   display: grid;
-  grid-template-columns: min-content 450px;
+  grid-template-columns: min-content auto;
   position: relative;
   margin-top: 10em;
   margin: 10em 2em 10em;
@@ -466,16 +468,23 @@ ul.links {
     grid-template-columns: 1fr;
     justify-items: center;
     max-height: 50vh;
-    min-width: 20vw; }
+    min-width: 20vw;
+    text-align: center; }
     .reconnect-wrapper .sidebar .profPic {
       margin: 1em 2em 1em;
       border-radius: 50% 50%;
-      width: 10em;
-      height: 10em; }
+      width: 225px;
+      height: 225px; }
     .reconnect-wrapper .sidebar h2 {
-      text-align: center; }
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 1em; }
+    .reconnect-wrapper .sidebar h3 {
+      font-size: 20px;
+      font-weight: 400; }
   .reconnect-wrapper .main_content {
-    overflow-y: scroll; }
+    overflow-y: scroll;
+    height: 80vh; }
     .reconnect-wrapper .main_content .header {
       box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
       background-color: #fff;
@@ -499,6 +508,15 @@ ul.links {
     background-color: #fff;
     display: flex;
     flex-flow: column nowrap; }
+    .reconnect-wrapper .main_content_profile .chips {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 1em; }
+    .reconnect-wrapper .main_content_profile .box-header {
+      padding: 1em 1.4em;
+      border-bottom: 1px solid #e6e6e6; }
+    .reconnect-wrapper .main_content_profile h1 {
+      margin: 0.5em; }
     .reconnect-wrapper .main_content_profile .header {
       align-self: center; }
       .reconnect-wrapper .main_content_profile .header .profile_picture {
@@ -507,64 +525,23 @@ ul.links {
         height: auto; }
     .reconnect-wrapper .main_content_profile .essay_wrapper {
       display: flex;
+      flex-direction: column;
       margin: 1em 1em;
-      justify-items: flex-start;
-      align-items: center;
-      justify-content: space-between; }
+      justify-content: flex-start; }
       .reconnect-wrapper .main_content_profile .essay_wrapper .essay_title {
-        background-color: #edc420;
-        width: 12em;
-        height: 8em;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center; }
+        width: 12em; }
       .reconnect-wrapper .main_content_profile .essay_wrapper .essay_content {
-        border-color: black; }
+        border-color: black;
+        font-size: 1.5em; }
+    .reconnect-wrapper .main_content_profile .btn-invite {
+      text-align: center;
+      padding: 1em; }
 
-.suggestion_wrapper {
-  margin: 2em 1em 2em;
-  background-color: white;
-  overflow: hidden;
-  width: inherit;
-  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.12);
-  display: flex;
-  height: 20vh; }
-  .suggestion_wrapper .profile_box {
-    justify-content: start;
-    margin: 0 1em;
-    width: 90%; }
-    .suggestion_wrapper .profile_box p {
-      font-style: italic;
-      overflow: hidden;
-      color: #777;
-      font-size: 1.2em; }
-    .suggestion_wrapper .profile_box h3 {
-      color: #777;
-      font-weight: 300; }
-    .suggestion_wrapper .profile_box .box_header {
-      display: grid;
-      align-items: center;
-      grid-template-columns: 1fr 1fr; }
-      .suggestion_wrapper .profile_box .box_header h2 {
-        justify-self: start; }
-      .suggestion_wrapper .profile_box .box_header h3 {
-        justify-self: end; }
-  .suggestion_wrapper .invite_banner {
-    background-color: #edc420;
-    height: 100%;
-    white-space: nowrap;
-    padding: 0 1em;
-    display: flex;
-    justify-content: center;
-    align-items: center; }
-    .suggestion_wrapper .invite_banner h2 {
-      width: 100%; }
-    .suggestion_wrapper .invite_banner span {
-      width: 100%; }
-    .suggestion_wrapper .invite_banner:hover {
-      color: white;
-      background-color: #f0ce46; }
+@media screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .reconnect-wrapper {
+    grid-template-columns: auto;
+    grid-row-gap: 1em; } }
 
 /*
 */
@@ -575,15 +552,18 @@ ul.links {
 
 .content {
   position: relative;
-  margin-top: 3em;
+  margin-top: 4em;
   animation: animatop 0.9s cubic-bezier(0.425, 1.14, 0.47, 1.125) forwards; }
 
 .card {
   border-radius: 3px;
+  padding: 2px 0px 2px;
   background-color: white;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden; }
+  .card:hover {
+    opacity: 0.8; }
   .card:after {
     content: '';
     display: block;
@@ -600,19 +580,27 @@ ul.links {
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   position: absolute;
   z-index: -1;
-  left: 10px;
+  left: 45px;
   bottom: 10px;
   animation: animainfos 0.5s cubic-bezier(0.425, 1.04, 0.47, 1.105) 0.75s forwards; }
   .badgescard span {
     font-size: 1.6em;
     margin: 0px 6px;
     opacity: 0.6; }
+  .badgescard i {
+    font-size: 1.5em;
+    margin: 0px 6px;
+    opacity: 0.6; }
 
 .firstinfo {
   flex-direction: row;
   z-index: 2;
-  position: relative; }
+  position: relative;
+  margin-right: 30px; }
   .firstinfo img {
+    align-self: flex-start;
+    margin-right: 3em;
+    justify-self: flex-start;
     border-radius: 50%;
     width: 120px;
     height: 120px; }
@@ -659,7 +647,7 @@ footer {
   height: 34px;
   background: #fff;
   bottom: 0;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   padding: 8px 40px;
@@ -675,15 +663,14 @@ footer .footer-right {
   float: right; }
 
 footer a:hover {
-  color: red; }
+  color: #f2a908; }
 
 .invitation_wrapper {
   display: flex;
   width: 100%;
-  border: 2px solid #ededed;
-  justify-content: space-around;
+  border-top: 1px solid #ededed;
   align-items: center;
-  padding: 1em; }
+  padding: 1em 1em 1em; }
   .invitation_wrapper img {
     border-radius: 50%;
     border: 1px solid transparent;
@@ -695,13 +682,19 @@ footer a:hover {
     cursor: pointer; }
   .invitation_wrapper__info {
     display: flex;
-    justify-content: space-around;
     align-items: center; }
-    .invitation_wrapper__info h2 {
-      margin-left: 0.5em; }
+    .invitation_wrapper__info .user_info {
+      margin-left: 0.5em;
+      display: flex;
+      flex-flow: column;
+      align-items: flex-start;
+      justify-content: flex-start; }
+      .invitation_wrapper__info .user_info h3 {
+        color: #777; }
   .invitation_wrapper__btn-actions {
     display: flex;
-    align-items: space-between; }
+    align-items: space-between;
+    margin-left: auto; }
     .invitation_wrapper__btn-actions .btn-reject {
       cursor: pointer;
       background-color: transparent;
@@ -841,3 +834,148 @@ footer a:hover {
         align-self: flex-end;
         margin-bottom: 1em;
         margin-right: 4em; }
+
+.landing {
+  margin-top: 35px; }
+
+.header_ {
+  height: 95vh;
+  /* element will always be 95% of view height */
+  background-image: linear-gradient(to right bottom, #edc420, #ff5722), url(../../public/hero.jpg);
+  /* order of views - gradient then image*/
+  background-size: cover;
+  /* wherever the width of the viewport or element, always try to fit the element inside the box */
+  background-position: top;
+  /* ensure that w/e viewport size, box goes to top of container */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  /*define polygon that defines image, makes the weird square shape */
+  /* so that you can use absolute for child elements */
+  position: relative;
+  /* 50% width of parent element */ }
+  .header___logo-box {
+    /* relative to the header - overarching box */
+    position: absolute;
+    top: 4rem;
+    left: 4rem; }
+  .header___logo {
+    height: 3rem; }
+  .header___text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* so that inline-block button is centered */
+    text-align: center; }
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  /* fix to shake animation that moves div up */
+  backface-visibility: hidden;
+  margin-bottom: 6rem; }
+  .heading-primary--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    /*
+        animation-delay: 3s;
+        animation-timing-function: ease-in; // faster in the beginning
+        animation-iteration-count: 3;
+        */ }
+  .heading-primary--sub {
+    display: block;
+    letter-spacing: 1.75rem;
+    font-weight: 700;
+    font-size: 2rem;
+    animation: moveInRight 2s ease-out; }
+
+.btnl {
+  background-color: white;
+  /* link is a pseudo class, special state of selector
+    when it is a clickable url - pseudoclasses allow us to style classes under a special condition 
+    If we dont do this, the styling is blue when link, and dark blue when visited */
+  /* add element that look exactly like button, but put it behind the button
+    when hover out of the button, hidden pseudoelemnt goes back behind button 
+    treated like child of button so use 100% to get same heigth
+    content and display are mandatory */ }
+  .btnl:link, .btnl:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    /* top right bottom left */
+    /* top-bottom right-left */
+    padding: 1.5rem 4rem;
+    /* inline-block makes it be treated like text, 
+        always add it if we are doing padding, width height */
+    display: inline-block;
+    border-radius: 10rem;
+    /* all - there can be transition in all states, transitions are .2s */
+    transition: all .2s;
+    /* for btn::after to be relative to this thing */
+    position: relative;
+    font-size: 1.6rem; }
+  .btnl:hover {
+    /* in CSS, moves top to bottom */
+    transform: translateY(-0.3rem);
+    /* x shadow; y shadow; blur ; color of shadow*/
+    box-shadow: 0 1rem 2rem #000; }
+    .btnl:hover:after {
+      transform: scaleX(1.4) scaleY(1.6);
+      /* fade out effect */
+      opacity: 0; }
+  .btnl:active {
+    transform: translateY(-0.1rem);
+    box-shadow: 0 0.5rem 1rem #000; }
+  .btnl--white {
+    background-color: #fff;
+    color: #777; }
+    .btnl--white::after {
+      background-color: #fff; }
+  .btnl::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* definitely behind button */
+    z-index: -1;
+    transition: all .4s; }
+  .btnl--animated {
+    animation: moveInBottom .5s ease-out .75s;
+    /* automatically apply the stiles from 0% before animation starts - smoother Ui*/
+    animation-fill-mode: backwards; }
+
+/* span is just like text */
+/* translate(0) == current position */
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-10rem); }
+  80% {
+    transform: translateX(2rem); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem); }
+  80% {
+    transform: translateX(-2rem); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem); }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }

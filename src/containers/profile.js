@@ -4,6 +4,7 @@ import Header from '../components/header';
 import Sidebar from '../components/sidebar';
 import { toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
+import Chip from '@material-ui/core/Chip';
 
 import firebase from 'firebase';
 import { fetchProfile, createInvitation, updateUserInvitations } from '../actions/index';
@@ -46,19 +47,14 @@ class Profile extends Component {
         return (
             <div>
                 <div className="reconnect-wrapper">
-                    <Sidebar user={this.props.active_user}/>
+                    <Sidebar user={profile}/>
                     {
                         profile?
                         (
                         <div className="main_content_profile">
-                            
-                            <div className="header">
-                                <img className="profile_picture" src={profile.prof_pic}/>
-                                
-                                <h1 className="name_header">{profile.name}</h1>
-                                <button className="btn" onClick={this.onInviteClick}>Invite</button>
+                            <div className="box-header">
+                                <h1>About me</h1>
                             </div>
-
                             <div className="essay_wrapper">
                                 <div className="essay_title">
                                     <h2>About me</h2>
@@ -78,6 +74,17 @@ class Profile extends Component {
                                     <h2>Dreams</h2>
                                 </div>
                                 <p className="essay_content">{profile.dreams}</p>
+                            </div>
+                            <div className="essay_wrapper">
+                                <div className="essay_title">
+                                    <h2>Interests</h2>
+                                </div>
+                                <div className="chips"> 
+                                {profile.interests.map(value => <Chip key={value} label={value} className="chip" />)}
+                                </div>
+                            </div>
+                            <div className="btn-invite">
+                                <button className="btn" onClick={this.onInviteClick}>Invite</button>
                             </div>
 
                         </div>
