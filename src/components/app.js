@@ -86,7 +86,7 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Header />
-          <Route exact path="/" component={ReConnect }/>
+          <Route exact path="/" component={ReConnect}/>
           <Route exact path="/dashboard_host" component={DashboardHost }/>
           <Route exact path="/login" component={LoginForm} />
           <Route exact path="/signup" component={SignupPage}/>
