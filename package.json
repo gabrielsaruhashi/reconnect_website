@@ -5,10 +5,12 @@
   "main": "index.js",
   "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "run": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch",
-    "compile:sass": "node-sass sass/main.scss style/style.css -w "
+    "compile:sass": "node-sass sass/main.scss style/style.css -w ",
+    "postinstall": "webpack -p",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +34,7 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
+    "@blueprintjs/core": "^2.3.1",
     "@material-ui/core": "^1.0.0",
     "axios": "^0.18.0",
     "babel-plugin-import": "^1.7.0",
