@@ -68,7 +68,6 @@ export function setCurrentUser(user, callback) {
         payload: user
     }
 }
-
 export function authenticate(status) {
     return {
         type: AUTHENTICATE,

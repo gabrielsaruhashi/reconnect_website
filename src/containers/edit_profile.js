@@ -7,35 +7,33 @@ import { Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import FontAwesome from 'react-fontawesome';
 import MultipleSelect from '../components/mutiple_select';
-import Slider from 'rc-slider';
-import Tooltip from 'rc-tooltip';
+import SingleSelect from '../components/single_select';
+import TextField from '@material-ui/core/TextField';
 
-import 'rc-slider/assets/index.css';
-
-const BUCKET = "project-reconnect.appspot.com/"
-
-const items = [
-    "Sports",
-    "Culture",
+const INTERESTS = [
+    'Sports',
+    'Soccer',
+    'Photography',
+    'Coffee',
+    'Travel',
+    'Games',
+    'Music',
+    'Outdoors',
+    'Food',
     "Nightlife"
 ];
 
-const Handle = Slider.Handle;
+const SCHOOLS = [
+    'De La Salle University- Manila',
+    'De La Salle- College of Saint Benilde',
+    'Ateneo de Manila University',
+    'University of the Philippines',
+    'Universitas Indonesia',
+    'Chulalongkorn University',
+    'Mahidol University'
+];
 
-const handle = (props) => {
-    const { value, dragging, index, ...restProps } = props;
-    return (
-      <Tooltip
-        prefixCls="rc-slider-tooltip"
-        overlay={value}
-        visible={dragging}
-        placement="top"
-        key={index}
-      >
-        <Handle value={value} {...restProps} />
-      </Tooltip>
-    );
-  };
+const DEFAULT_PICTURE = "https://www.ischool.berkeley.edu/sites/default/files/default_images/avatar.jpeg";
 
 class EditProfile extends Component {
     constructor() {
@@ -46,7 +44,7 @@ class EditProfile extends Component {
             name: "",
             interests: [],
             selected_picture: "",
-            age: 18
+            age: "",
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -56,20 +54,17 @@ class EditProfile extends Component {
         event.preventDefault();
         const usr = firebase.auth().currentUser;
         const uid = usr.uid;
-
-        // initialize firebase storage
         const storage = firebase.storage();
-
         // convert array of intesrests to object
         const { interests } = this.state;
-        var interests_dict = {}
+        var interests_dict = {};
+        console.log(interests);
         for (let i = 0; i < interests.name.length; i++) {
             interests_dict[interests.name[i]] = true;
         }
-
         // get uploaded profile picture and upload it to 
         const file = event.target.image.files[0];
-        const path = uid + '/profilePicture/' + file.name
+        const path = uid + '/profilePicture/' + file.name;
         var task = storage.ref(path).put(file)
             .then(() => { 
                 // get URl reference to stored picture
@@ -87,20 +82,11 @@ class EditProfile extends Component {
                         firebase.database().ref('users/' + uid).update(newInfo)
                     })
                 
-            });        
+            });
         
         // redirect to next page
         this.setState({redirect: true})
         
-    }
-
-  
-
-    handleSchoolInputChange(event) {
-        this.setState({ school : event.target.value });
-    }
-    handleNameInputChange(event) {
-        this.setState({ name: event.target.value });
     }
 
     handlePictureChange(event) {
@@ -115,19 +101,19 @@ class EditProfile extends Component {
         }.bind(this);
     }
 
-    handleSliderChange(e) {
-        console.log(e);
-    }
-
+    handleChange = name => event => {
+        this.setState({
+          [name]: event.target.value,
+        });
+      };
     
-
     render() {
         if (this.state.redirect === true) {
             return <Redirect to={'/edit_about_me'} />
         }
         const { age } = this.state;
-        
-        const selected_picture = this.state.selected_picture ? this.state.selected_picture : "https://www.ischool.berkeley.edu/sites/default/files/default_images/avatar.jpeg" 
+        const selected_picture = this.state.selected_picture ? this.state.selected_picture : DEFAULT_PICTURE; 
+
         return (
             <div>
                 <div className="form_wrapper">
@@ -139,30 +125,41 @@ class EditProfile extends Component {
 
                         <div className="row clearfix">
                             <div className="">
+
+                                
                                 <form className="form-profile-edit" onSubmit={this.handleSubmit}>
                                     <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
                                         <input type="text" 
                                         name="first_name" 
                                         value={this.state.name} 
                                         placeholder="Name"
-                                        onChange={this.handleNameInputChange.bind(this)}
+                                        onChange={this.handleChange('name')}
                                         required />
                                     </div>
 
-                                    <div className="input_field"><span><i aria-hidden="true" className="fa fa-lock"></i></span>
-                                        <input name="name" 
-                                        type="text" 
-                                        placeholder="Which school will you be attending?"
-                                        value={this.state.school}
-                                        onChange={this.handleSchoolInputChange.bind(this)}  required />
+                                    <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
+                                        <input type="text" 
+                                            name="age" 
+                                            value={this.state.age} 
+                                            placeholder="Age"
+                                            onChange={this.handleChange('age')}
+                                            required 
+                                        />
                                     </div>
+                                    <SingleSelect 
+                                        OnSelectEvent={ (school) => this.setState({school}) } 
+                                        fields={SCHOOLS}
+                                    />
+                                    <h2>Interests</h2>
+                                    <MultipleSelect 
+                                        OnSelectEvent={ (interests) => this.setState({interests}) } 
+                                        fields={INTERESTS}
+                                    />
+
                                     <h2>Select your picture</h2>
                                     <div className="circled-profPic select-pic" style={{backgroundImage: 'url(' + selected_picture + ')'}}>
                                         <input name="image" type="file" accept="image/*" onChange={(e) => this.handlePictureChange(e)} capture></input>
-                                    </div>
-                                    <h2>Interests</h2>
-                                    <MultipleSelect onInterestSelect={ (interests) => this.setState({interests}) }/>
-
+                                    </div>  
                                     <input className="button" type="submit" value="Submit" />
                                 </form>
                             </div>
@@ -175,11 +172,5 @@ class EditProfile extends Component {
         )
     }
 }
- // props to login_form
-function mapStateToProps(state) {
-    return {
-		active_user: state.active_user
-	};
-}
 
-export default connect(mapStateToProps)(EditProfile);
+export default connect(null)(EditProfile);

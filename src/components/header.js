@@ -32,9 +32,7 @@ class Header extends Component {
 }
 function mapStateToProps(state) {
 	return {
-    active_user: state.active_user,
-    authenticated: state.authenticated
-	};
+    active_user: state.active_user	};
 }
 
 

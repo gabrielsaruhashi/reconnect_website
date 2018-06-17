@@ -10,10 +10,8 @@ import SignupPage from '../containers/sign_up_page';
 import ReConnect from '../containers/reconnect';
 import DashboardHost from '../containers/dashboard_host';
 import LandingPage from '../containers/landing_page'
-
 import firebase from 'firebase';
-
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { authenticate, setCurrentUser } from '../actions/index';
@@ -22,12 +20,22 @@ import Header from '../components/header';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from '../components/spinner';
+function AuthenticatedRoute({component: Component, authenticated, ...rest}) {
+  // props.location is that where the person was trying to go;
+  return (
+    <Route
+      {...rest}
+      render={(props) => authenticated === true
+          ? <Component {...props} {...rest} />
+          : <Redirect to={{pathname: '/login', state: {from: props.location}}} /> } />
+  )
+}
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      loading: true
+      loading: true,
     };
   }
 
@@ -35,23 +43,20 @@ class App extends Component {
     this.removeAuthListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.props.authenticate(true);
-        // get user uid
-        const uid = user.uid
-
+        const { uid }  = user;
         // update props
         firebase.database().ref('users/' + uid).on('value', snapshot => {
-          this.props.setCurrentUser(snapshot.val())
-          
+          this.props.setCurrentUser(snapshot.val());
           this.setState({
-            loading: false
-          })
+            loading: false,
+            client_authenticated: true,
+          });
         })
-        
       } else {
-        
+        this.props.setCurrentUser(null);
         this.props.authenticate(false);
         this.setState({
-          loading: false
+          loading: false,
         })
       }
     })
@@ -80,22 +85,54 @@ class App extends Component {
         </div>
       )
     }
-    
 
     return (
       <BrowserRouter>
         <div>
           <Header />
-          <Route exact path="/" component={ReConnect}/>
-          <Route exact path="/dashboard_host" component={DashboardHost }/>
-          <Route exact path="/login" component={LoginForm} />
-          <Route exact path="/signup" component={SignupPage}/>
-          <Route exact path="/edit_about_me" component={EditAboutMe}/>
-          <Route exact path="/edit" component={EditProfile}/>
-          <Route exact path="/usr/:id" component={Profile} />
-          <Route exact path="/inbox" component={ConversationList}/>
-          <Route exact path="/landing" component={LandingPage}/>
-          <Footer/>
+          <Route 
+            exact path="/" 
+            component={LandingPage} 
+          />
+          <AuthenticatedRoute 
+            exact path="/dashboard_host"
+            component={DashboardHost} 
+            authenticated={this.props.authenticated}
+          />
+          <Route 
+            exact path="/login"
+            component={LoginForm} 
+          />
+          <Route 
+            exact path="/signup" 
+            component={SignupPage} 
+          />
+          <AuthenticatedRoute 
+            exact path="/edit_about_me"
+            component={EditAboutMe} 
+            authenticated={this.props.authenticated} 
+          />
+          <AuthenticatedRoute 
+            exact path="/edit"
+            component={EditProfile} 
+            authenticated={this.props.authenticated} 
+          />
+          <AuthenticatedRoute 
+            exact path="/usr/:id"
+            component={Profile} 
+            authenticated={this.props.authenticated} 
+          />
+          <AuthenticatedRoute 
+            exact path="/inbox"
+            component={ConversationList} 
+            authenticated={this.props.authenticated} 
+          />
+          <AuthenticatedRoute 
+            exact path="/dashboard_international"
+            component={ReConnect} 
+            authenticated={this.props.authenticated} 
+          />
+          <Footer />
           <ToastContainer />
 
         </div>

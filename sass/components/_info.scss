@@ -14,7 +14,6 @@ $grey:#cccccc;
 }
 
 .form_wrapper {
-    
 	background: white;
 	width: 400px;
 	max-width: 100%;
@@ -39,7 +38,11 @@ $grey:#cccccc;
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 1.2em;
 
+    label {
+        margin-left: 0.5em;
+    }
     & img {
         max-width: 50%;
         height: auto;
@@ -115,8 +118,9 @@ $grey:#cccccc;
 			>i {
 				padding-top: 10px;
 			}
-		}
-	}
+        }
+    }
+    
 	.textarea_field {
 		>span {
 			>i {
@@ -125,6 +129,10 @@ $grey:#cccccc;
 		}
 	}
 	input {
+    &[type="radio"] {
+        padding: 8px 10px 9px 35px;
+        margin-left: 1em;
+    }
     &[type="text"], &[type="email"], &[type="password"] {
       width: 100%;
       padding: 8px 10px 9px 35px;
@@ -175,6 +183,7 @@ $grey:#cccccc;
   }
 }
 
+
 .form-profile-edit {
     display: flex;
     flex-direction: column;
@@ -216,21 +225,20 @@ $grey:#cccccc;
         position: relative;
         
     }
-    
 }
 
 @-webkit-keyframes check {
     0% { height: 0; width: 0; }
     25% { height: 0; width: 7px; }
     50% { height: 20px; width: 7px; }
-  }
+}
   
-  @keyframes check {
+@keyframes check {
     0% { height: 0; width: 0; }
     25% { height: 0; width: 7px; }
     50% { height: 20px; width: 7px; }
-  }
-  
+}
+
   @-webkit-keyframes expand { 
       0% { -webkit-transform: scale3d(1,0,1); opacity:0; }
       25% { -webkit-transform: scale3d(1,1.2,1); }
@@ -286,4 +294,8 @@ $grey:#cccccc;
       .remember_me {
           padding-bottom: 20px;
       }
-  }
+    }
+
+.form-group {
+    padding-bottom: 2em;
+}

@@ -40,32 +40,19 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'Sports',
-  'Soccer',
-  'Photography',
-  'Coffee',
-  'Travel',
-  'Games',
-  'Music',
-  'Outdoors',
-  'Food',
-  "Nightlife"
-];
-
 class MultipleSelect extends React.Component {
   state = {
     name: [],
   };
 
   handleChange = event => {
-    this.props.onInterestSelect({name: event.target.value});
+    this.props.OnSelectEvent({name: event.target.value});
     this.setState({ name: event.target.value });
   };
 
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme, fields } = this.props;
     return (
       <div className={classes.root}>
         <FormControl className={classes.formControl}>
@@ -82,7 +69,7 @@ class MultipleSelect extends React.Component {
             )}
             MenuProps={MenuProps}
           >
-            {names.map(name => (
+            {fields.map(name => (
               <MenuItem
                 key={name}
                 value={name}

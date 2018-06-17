@@ -21,6 +21,7 @@ class DashboardHost extends Component {
     }
     renderInvitations() {
         return _.map(this.props.invitations, student => {
+            console.log(student);
             return (
                 <li key={student.uid}>
                     <Invitation student={student} host_friend={this.props.active_user}/>

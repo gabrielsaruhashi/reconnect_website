@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
   "scripts": {
-    "run": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch",
     "compile:sass": "node-sass sass/main.scss style/style.css -w ",
@@ -39,6 +39,7 @@
     "axios": "^0.18.0",
     "babel-plugin-import": "^1.7.0",
     "babel-preset-stage-1": "^6.1.18",
+    "express": "^4.16.3",
     "firebase": "^5.0.2",
     "lodash": "^3.10.1",
     "moment": "^2.22.1",

@@ -97,8 +97,7 @@ class ReConnect extends Component {
 function mapStateToProps(state) {
     return {
         suggestions: state.suggestions,
-        active_user: state.active_user,
-        authenticated: state.authenticated
+        active_user: state.active_user
 	};
 }
 

@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { Alert } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setCurrentUser, authenticate } from '../actions/index';
+import { setCurrentUser } from '../actions/index';
 import Header from '../components/header';
 import Countries  from 'react-select-country';
 import { toast } from 'react-toastify'; 
@@ -76,6 +76,7 @@ class LoginForm extends Component {
         return (
             <div>
                 <div className="form_wrapper">
+                    <img className="" src="../../public/logo.png"/>
                     <div className="form_container">
                         <div className="title_container">
                             <h2>Welcome to ReConnect!</h2>
@@ -121,8 +122,7 @@ function validate(values) {
 // props to login_form
 function mapStateToProps(state) {
     return {
-        active_user: state.active_user,
-        authenticated: state.authenticated
+        active_user: state.active_user
 	};
 }
 
