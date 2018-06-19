@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
 const ICONS = {
-    "Soccer": "fa fa-futbol",
+    "Soccer": "fa fa-futbol-o",
     "Travel": "fa fa-plane",
     "Outdoors": "fa fa-map-o",
     "Music": "fa fa-music",
