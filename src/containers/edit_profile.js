@@ -62,11 +62,11 @@ class EditProfile extends Component {
         for (let i = 0; i < interests.name.length; i++) {
             interests_dict[interests.name[i]] = true;
         }
-        // get uploaded profile picture and upload it to 
+        // get uploaded profile picture and upload it to
         const file = event.target.image.files[0];
         const path = uid + '/profilePicture/' + file.name;
         var task = storage.ref(path).put(file)
-            .then(() => { 
+            .then(() => {
                 // get URl reference to stored picture
                 const picRef = storage.ref(path);
                 picRef.getDownloadURL()
@@ -76,17 +76,17 @@ class EditProfile extends Component {
                             "interests": interests_dict,
                             "prof_pic": url,
                             "name": this.state.name,
-                            "school": this.state.school
+                            "school": this.state.school.name
                         }
 
                         firebase.database().ref('users/' + uid).update(newInfo)
                     })
-                
+
             });
-        
+
         // redirect to next page
         this.setState({redirect: true})
-        
+
     }
 
     handlePictureChange(event) {
@@ -106,13 +106,13 @@ class EditProfile extends Component {
           [name]: event.target.value,
         });
       };
-    
+
     render() {
         if (this.state.redirect === true) {
             return <Redirect to={'/edit_about_me'} />
         }
         const { age } = this.state;
-        const selected_picture = this.state.selected_picture ? this.state.selected_picture : DEFAULT_PICTURE; 
+        const selected_picture = this.state.selected_picture ? this.state.selected_picture : DEFAULT_PICTURE;
 
         return (
             <div>
@@ -126,40 +126,40 @@ class EditProfile extends Component {
                         <div className="row clearfix">
                             <div className="">
 
-                                
+
                                 <form className="form-profile-edit" onSubmit={this.handleSubmit}>
                                     <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
-                                        <input type="text" 
-                                        name="first_name" 
-                                        value={this.state.name} 
+                                        <input type="text"
+                                        name="first_name"
+                                        value={this.state.name}
                                         placeholder="Name"
                                         onChange={this.handleChange('name')}
                                         required />
                                     </div>
 
                                     <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
-                                        <input type="text" 
-                                            name="age" 
-                                            value={this.state.age} 
+                                        <input type="text"
+                                            name="age"
+                                            value={this.state.age}
                                             placeholder="Age"
                                             onChange={this.handleChange('age')}
-                                            required 
+                                            required
                                         />
                                     </div>
-                                    <SingleSelect 
-                                        OnSelectEvent={ (school) => this.setState({school}) } 
+                                    <SingleSelect
+                                        OnSelectEvent={ (school) => this.setState({school}) }
                                         fields={SCHOOLS}
                                     />
                                     <h2>Interests</h2>
-                                    <MultipleSelect 
-                                        OnSelectEvent={ (interests) => this.setState({interests}) } 
+                                    <MultipleSelect
+                                        OnSelectEvent={ (interests) => this.setState({interests}) }
                                         fields={INTERESTS}
                                     />
 
                                     <h2>Select your picture</h2>
                                     <div className="circled-profPic select-pic" style={{backgroundImage: 'url(' + selected_picture + ')'}}>
                                         <input name="image" type="file" accept="image/*" onChange={(e) => this.handlePictureChange(e)} capture></input>
-                                    </div>  
+                                    </div>
                                     <input className="button" type="submit" value="Submit" />
                                 </form>
                             </div>
@@ -167,7 +167,7 @@ class EditProfile extends Component {
 
                     </div>
                 </div>
-                
+
             </div>
         )
     }

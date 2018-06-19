@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 const Sidebar = ({ user }) => {
     return (
-        <div className="sidebar">   
+        <div className="sidebar">
             {user?
                 (
                     <div>
