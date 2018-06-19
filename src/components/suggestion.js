@@ -27,12 +27,13 @@ const Suggestion = ({suggestion}) => {
         <Link to={REDIRECT_URL}>
             <div className="content">
                 <div className="card">
-                    <div className="firstinfo"><img src={suggestion.prof_pic}/>
-                    <div className="profileinfo">
-                        <h1>{suggestion.name}</h1>
-                        <h3>{suggestion.school}</h3>
-                        <p className="bio">{suggestion.about_me}</p>
-                    </div>
+                    <div className="firstinfo">
+                      <img src={suggestion.prof_pic}/>
+                      <div className="profileinfo">
+                          <h1>{suggestion.name}</h1>
+                          <h3>{suggestion.school}</h3>
+                          <p className="bio">{suggestion.about_me}</p>
+                      </div>
                     </div>
                 </div>
                 <div className="badgescard">{renderIcons(suggestion.interests)}</div>

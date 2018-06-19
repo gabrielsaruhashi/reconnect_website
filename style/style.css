@@ -465,7 +465,7 @@ ul.links {
 .reconnect-wrapper {
   font-family: inherit;
   display: grid;
-  grid-template-columns: min-content auto;
+  grid-template-columns: min-content 50%;
   position: relative;
   margin-top: 10em;
   margin: 10em 2em 10em;
@@ -570,7 +570,10 @@ ul.links {
   background-color: white;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   position: relative;
-  overflow: hidden; }
+  overflow: hidden;
+  display: flex;
+  flex-flow: row;
+  padding: 1em 0; }
   .card:hover {
     opacity: 0.8; }
   .card:after {
@@ -605,7 +608,8 @@ ul.links {
   flex-direction: row;
   z-index: 2;
   position: relative;
-  margin-right: 30px; }
+  margin-right: 30px;
+  margin-left: 1em; }
   .firstinfo img {
     align-self: flex-start;
     margin-right: 3em;
@@ -613,16 +617,35 @@ ul.links {
     border-radius: 50%;
     width: 120px;
     height: 120px; }
-  .firstinfo .profileinfo h1 {
-    font-size: 1.8em; }
-  .firstinfo .profileinfo h3 {
-    font-size: 1.2em;
-    color: #edc420;
-    font-style: italic; }
-  .firstinfo .profileinfo p.bio {
-    color: #5A5A5A;
-    line-height: 1.2;
-    font-style: initial; }
+  .firstinfo .profileinfo {
+    display: flex;
+    flex-flow: column;
+    padding: 1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    line-height: 16px;
+    /* fallback */
+    max-height: 150px;
+    /* fallback */ }
+    .firstinfo .profileinfo h1 {
+      font-size: 1.8em; }
+    .firstinfo .profileinfo h3 {
+      font-size: 1.2em;
+      color: #edc420;
+      font-style: italic;
+      margin: 0.5em 0; }
+    .firstinfo .profileinfo p.bio {
+      font-size: 1.2em;
+      color: #5A5A5A;
+      line-height: 1.2;
+      font-style: initial;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
 
 @keyframes animatop {
   0% {

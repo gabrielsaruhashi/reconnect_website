@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from '../actions/index';
 import Header from '../components/header';
 import Countries  from 'react-select-country';
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -42,7 +42,7 @@ class LoginForm extends Component {
             if (providers.length === 0) {
                 // notify
                 this.loginForm.reset()
-                
+
                 this.notify_success("Invalid email address");
             }  else if (providers.indexOf("password") === -1) {
                 // wrong password
@@ -72,7 +72,7 @@ class LoginForm extends Component {
         if (this.state.redirect === true) {
             return <Redirect to={'/'} />
         }
-        
+
         return (
             <div>
                 <div className="form_wrapper">
@@ -91,7 +91,7 @@ class LoginForm extends Component {
                                     <div className="input_field"> <span><i aria-hidden="true" className="fa fa-lock"></i></span>
                                         <input type="password" name="password" placeholder="Password" ref={(input) => { this.passwordInput = input }} required />
                                     </div>
-                                   
+
                                     <input className="button" type="submit" value="Submit" />
                                 </form>
                             </div>
@@ -99,7 +99,7 @@ class LoginForm extends Component {
 
                     </div>
                 </div>
-                
+
             </div>
         )
     }
@@ -108,7 +108,7 @@ class LoginForm extends Component {
 
 function validate(values) {
     const errors = {};
-  
+
     if (!values.email) {
       errors.title = 'Enter email';
     }

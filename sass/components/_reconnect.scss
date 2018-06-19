@@ -2,13 +2,13 @@
 .reconnect-wrapper {
     font-family: inherit;
     display: grid;
-    grid-template-columns: min-content auto;
+    grid-template-columns: min-content 50%;
     position: relative;
     margin-top: 10em;
     margin: 10em 2em 10em;
     grid-column-gap: 2em;
 
-    
+
 
     & .sidebar {
         box-shadow: 0px 3px 3px rgba(0,0,0,0.12);
@@ -19,7 +19,7 @@
         max-height: 50vh;
         min-width: 20vw;
         text-align: center;
-    
+
         & .profPic {
             margin: 1em 2em 1em;
             border-radius: 50% 50%;
@@ -48,20 +48,20 @@
             background-color: $color-white;
             padding-top: 1em;
             padding-bottom: 1em;
-            
+
             & h1 {
                 text-align: center;
                 color: $color-primary;
                 font-weight: bold;
                 text-transform: uppercase;
                 letter-spacing: 2px;
-                
+
             }
             & p {
                 font-style: italic;
                 text-align: center;
                 font-size: 1.5em;
-            
+
                 margin: 0 1em 0;
             }
 
@@ -70,16 +70,16 @@
             list-style-type: none;
         }
 
-        
-        
+
+
     }
 
     & .main_content_profile {
         box-shadow: 0px 3px 3px rgba(0,0,0,0.12);
         background-color: $color-white;
         display:flex;
-        flex-flow: column nowrap;    
-        
+        flex-flow: column nowrap;
+
         & .chips {
             display: flex;
             flex-wrap: wrap;
@@ -103,14 +103,14 @@
             }
 
         }
-        
+
         & .essay_wrapper {
             display: flex;
             flex-direction: column;
             margin: 1em 1em;
             justify-content: flex-start;
 
-          
+
             & .essay_title {
                 width: 12em;
             }
@@ -125,10 +125,10 @@
             text-align: center;
             padding: 1em;
         }
-       
+
     }
 
-    
+
 }
 
 

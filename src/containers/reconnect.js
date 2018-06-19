@@ -23,9 +23,8 @@ class ReConnect extends Component {
         const { active_user } = this.props;
         var valid_suggestions = {}
         if (this.props.invitations) {
-            valid_suggestions = _.filter(this.props.suggestions, 
+            valid_suggestions = _.filter(this.props.suggestions,
                 suggestion => {
-                    
                     return (!(suggestion.uid in active_user.invitations) &&
                             (suggestion.uid != active_user.uid))
                 })
@@ -54,7 +53,7 @@ class ReConnect extends Component {
 
     sim(user, suggestion) {
         var sim_score = 0;
-       
+
         for (var interest in user.interests) {
 
             if ( interest in suggestion.interests) {
@@ -69,20 +68,21 @@ class ReConnect extends Component {
 
         var sim1 = this.sim(active_user, p1[1]);
         var sim2 = this.sim(active_user, p2[1]);
-        
+
         return sim2 - sim1;
     }
+
     render() {
-        
+
         return (
             <div>
                 <div className="reconnect-wrapper">
-                    
+
                     <Sidebar user={this.props.active_user}/>
                     <div className="main_content">
                         <div className="header">
                             <h1>Invite</h1>
-                            <p>Here is a list of reconnectors that we believe that match your profile and interests</p> 
+                            <p>Here is a list of reconnectors that we believe that match your profile and interests</p>
                         </div>
                         <ul>
                             {this.renderSuggestions()}
@@ -90,7 +90,7 @@ class ReConnect extends Component {
                     </div>
                 </div>
             </div>
-        ); 
+        );
     };
 }
 
@@ -103,7 +103,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators( {fetchSuggestions: fetchSuggestions}, dispatch);
-    
+
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ReConnect));

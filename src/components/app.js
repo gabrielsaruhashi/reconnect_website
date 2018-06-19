@@ -42,6 +42,7 @@ class App extends Component {
   componentWillMount() {
     this.removeAuthListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        console.log(user);
         this.props.authenticate(true);
         const { uid }  = user;
         // update props
@@ -49,7 +50,6 @@ class App extends Component {
           this.props.setCurrentUser(snapshot.val());
           this.setState({
             loading: false,
-            client_authenticated: true,
           });
         })
       } else {
@@ -90,51 +90,50 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Header />
-          <Route 
-            exact path="/" 
-            component={LandingPage} 
+          <Route
+            exact path="/landing"
+            component={LandingPage}
           />
-          <AuthenticatedRoute 
+          <AuthenticatedRoute
             exact path="/dashboard_host"
-            component={DashboardHost} 
+            component={DashboardHost}
             authenticated={this.props.authenticated}
           />
-          <Route 
+          <Route
             exact path="/login"
-            component={LoginForm} 
+            component={LoginForm}
           />
-          <Route 
-            exact path="/signup" 
-            component={SignupPage} 
+          <Route
+            exact path="/signup"
+            component={SignupPage}
           />
-          <AuthenticatedRoute 
+          <AuthenticatedRoute
             exact path="/edit_about_me"
-            component={EditAboutMe} 
-            authenticated={this.props.authenticated} 
+            component={EditAboutMe}
+            authenticated={this.props.authenticated}
           />
-          <AuthenticatedRoute 
+          <AuthenticatedRoute
             exact path="/edit"
-            component={EditProfile} 
-            authenticated={this.props.authenticated} 
+            component={EditProfile}
+            authenticated={this.props.authenticated}
           />
-          <AuthenticatedRoute 
+          <AuthenticatedRoute
             exact path="/usr/:id"
-            component={Profile} 
-            authenticated={this.props.authenticated} 
+            component={Profile}
+            authenticated={this.props.authenticated}
           />
-          <AuthenticatedRoute 
+          <AuthenticatedRoute
             exact path="/inbox"
-            component={ConversationList} 
-            authenticated={this.props.authenticated} 
+            component={ConversationList}
+            authenticated={this.props.authenticated}
           />
-          <AuthenticatedRoute 
-            exact path="/dashboard_international"
-            component={ReConnect} 
-            authenticated={this.props.authenticated} 
+          <AuthenticatedRoute
+            exact path="/"
+            component={ReConnect}
+            authenticated={this.props.authenticated}
           />
           <Footer />
           <ToastContainer />
-
         </div>
       </BrowserRouter>
     );
