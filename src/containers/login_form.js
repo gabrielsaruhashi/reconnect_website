@@ -69,7 +69,7 @@ class LoginForm extends Component {
         })
     }
     render() {
-        if (this.state.redirect === true) {
+        if (this.state.redirect === true && this.props.active_user) {
             return <Redirect to={'/'} />
         }
 
