@@ -12,8 +12,10 @@ class Header extends Component {
     return(
       <nav>
         <div className='app-brand'>
-          <span className='red'>Project</span>
-          <span>ReConnect</span>
+          <Link to="/">
+            <span className='red'>Project</span>
+            <span>ReConnect</span>
+          </Link>
         </div>
         <ul className='links'>
           <li>
