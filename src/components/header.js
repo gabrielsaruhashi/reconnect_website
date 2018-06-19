@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { setCurrentUser } from '../actions/index'
 class Header extends Component {
- 
+
   render() {
     return(
       <nav>
@@ -17,10 +17,10 @@ class Header extends Component {
         </div>
         <ul className='links'>
           <li>
-            <Link to="/">Conversations</Link>
+            <Link to="/inbox">Conversations</Link>
           </li>
           <li>
-            <Link to="/">Opportunities</Link>
+            <Link to="/dashboard_host">Invitations</Link>
           </li>
           <li>
             <Link to="/">Explore</Link>
