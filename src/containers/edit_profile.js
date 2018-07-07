@@ -57,6 +57,7 @@ class EditProfile extends Component {
   filterContainer(container) {
     return container ? container : {};
   }
+
   componentWillMount() {
     const { active_user } = this.props;
     const { name, age, school, prof_pic, interests } = active_user;
