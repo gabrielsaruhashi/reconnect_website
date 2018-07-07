@@ -50,42 +50,76 @@ class EditProfile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  filterVal(val) {
+    return val ? val : "";
+  }
+
+  filterContainer(container) {
+    return container ? container : {};
+  }
+  componentWillMount() {
+    const { active_user } = this.props;
+    const { name, age, school, prof_pic, interests } = active_user;
+    this.setState({
+      name: this.filterVal(name),
+      school: this.filterVal(school),
+      age: this.filterVal(age),
+      selected_picture: this.filterVal(prof_pic),
+      interests: this.filterContainer(interests)
+    });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     const usr = firebase.auth().currentUser;
     const uid = usr.uid;
     const storage = firebase.storage();
     // convert array of intesrests to object
-    const { interests } = this.state;
+    var interests = this.state.interests ? this.state.interests : [];
     var interests_dict = {};
-    console.log(interests);
-    for (let i = 0; i < interests.name.length; i++) {
-      interests_dict[interests.name[i]] = true;
+    for (let i = 0; i < interests.length; i++) {
+      interests_dict[interests[i]] = true;
     }
-    // get uploaded profile picture and upload it to
+    // if user uploaded picture, store it in our server
     const file = event.target.image.files[0];
-    const path = uid + "/profilePicture/" + file.name;
-    var task = storage
-      .ref(path)
-      .put(file)
-      .then(() => {
-        // get URl reference to stored picture
-        const picRef = storage.ref(path);
-        picRef.getDownloadURL().then(url => {
-          // update user entry in firebase
-          const newInfo = {
-            interests: interests_dict,
-            prof_pic: url,
-            name: this.state.name,
-            school: this.state.school.name
-          };
 
-          firebase
-            .database()
-            .ref("users/" + uid)
-            .update(newInfo);
+    if (file) {
+      const path = uid + "/profilePicture/" + file.name;
+      var task = storage
+        .ref(path)
+        .put(file)
+        .then(() => {
+          // get URL reference to stored picture
+          const picRef = storage.ref(path);
+          picRef.getDownloadURL().then(url => {
+            // update user entry in firebase
+            const newInfo = {
+              interests: interests_dict,
+              prof_pic: url,
+              name: this.state.name,
+              school: this.state.school,
+              age: this.state.age
+            };
+            // store
+            firebase
+              .database()
+              .ref("users/" + uid)
+              .update(newInfo);
+          });
         });
-      });
+    } else {
+      // no picture, but we still want to store  the info
+      const newInfo = {
+        interests: interests_dict,
+        name: this.state.name,
+        school: this.state.school,
+        age: this.state.age
+      };
+      firebase
+        .database()
+        .ref("users/" + uid)
+        .update(newInfo);
+    }
 
     // redirect to next page
     this.setState({ redirect: true });
@@ -166,6 +200,7 @@ class EditProfile extends Component {
                   <MultipleSelect
                     OnSelectEvent={interests => this.setState({ interests })}
                     fields={INTERESTS}
+                    currentSelections={this.state.interests}
                   />
 
                   <h2>Select your picture</h2>
@@ -192,4 +227,8 @@ class EditProfile extends Component {
   }
 }
 
-export default connect(null)(EditProfile);
+function mapStateToProps({ active_user }) {
+  return { active_user: active_user };
+}
+
+export default connect(mapStateToProps)(EditProfile);
