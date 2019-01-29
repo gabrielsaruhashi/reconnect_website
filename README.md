@@ -1,25 +1,20 @@
-# ReduxSimpleStarter
+# Project Reconnect
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+ReConnect (Refugee•Connect) aims to bridge a critical knowledge gap between refugees and their host communities by providing an app-based two- way learning platform that connects a local with a newcomer prior to their arrival in the country of relocation.
 
-### Getting Started
+ReConnect addresses the lack of pre-departure education and information of the two communities whilst also enabling refugees to create and develop genuine networks within countries of relocation. The ReConnect application helps reduce social stigmas and negative stereotypes associated with refugees and promote better understanding of global forced migration challenges.
 
-There are two methods for getting started with this repo.
+# Tech Stack
+- React
+- Redux
+- Firebase
 
-#### Familiar with Git?
-Checkout this repo, install dependencies, then start the gulp process with the following:
+# Features
 
-```
-> git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
-> cd ReduxSimpleStarter
-> npm install
-> npm start
-```
+⋅⋅* Live chat
+⋅⋅* Explore different hosts to connect to
+⋅⋅* Profile
 
-#### Not Familiar with Git?
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
 
-```
-> npm install
-> npm start
-```
+# Next features
+⋅⋅* Explore new places
