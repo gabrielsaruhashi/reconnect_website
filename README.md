@@ -11,10 +11,10 @@ ReConnect addresses the lack of pre-departure education and information of the t
 
 # Features
 
-⋅⋅* Live chat
-⋅⋅* Explore different hosts to connect to
-⋅⋅* Profile
+- Live chat
+- Explore different hosts to connect to
+- Profile
 
 
 # Next features
-⋅⋅* Explore new places
+- Explore new places
